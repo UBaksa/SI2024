@@ -35,13 +35,3 @@
   .login h3{
     margin: 5%;
   }
-  .login button{
-    color: #1976d2;
-    font-family: dosis;
-    cursor: pointer;
-    border: none;
-    width: 50%;
-    padding: 5%;
-    margin: auto;
-    border-radius: 0.4rem;
-  }

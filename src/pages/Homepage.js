@@ -10,9 +10,8 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import Footer from "../components/Footer/Footer";
 import logoBakiTrans from "../assets/1.jpg"
-
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function Homepage(){
     return(
@@ -79,7 +78,10 @@ export default function Homepage(){
                     </div>
             </div>
         </div>
-        <Footer/>
+        <footer>
+            <h2>©CarGoo 2024 </h2>
+            <a href="https://github.com/UBaksa" target="blank"><GitHubIcon/></a>
+        </footer>
         </>
 )
 }

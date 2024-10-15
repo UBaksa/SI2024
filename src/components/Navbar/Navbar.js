@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css";
+import { Button } from "@mui/material";
 
 export default function Navbar(){
 
@@ -14,7 +15,7 @@ export default function Navbar(){
             </div>
             <div className="login">
                 <h3>Srpski</h3>
-                <button>Prijava</button>
+                <Button variant="contained">Contained</Button>
             </div>
         </header>
     )
