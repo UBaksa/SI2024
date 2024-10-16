@@ -3,12 +3,13 @@
     padding: 0 2% 0 2%;
     background-color: #1976d2;
     display: flex;
-    color: gainsboro;
+    color: white;
     align-items: center;
     font-size: 80%;
     justify-content: space-between;
     font-family: roboto;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    font-size: 1rem;
   }
 
   @font-face {
@@ -23,6 +24,8 @@
     width: 18%;
     display: flex;
     justify-content: space-around;
+    list-style: none;
+    gap: 1rem;
   }
   .links h3{
     margin: 5%;
@@ -31,7 +34,8 @@
     width: 10%;
     display: flex;
     justify-content: space-around;
-  }
-  .login h3{
-    margin: 5%;
+    align-items: center;
+    list-style: none;
+    gap: 1rem;
+
   }

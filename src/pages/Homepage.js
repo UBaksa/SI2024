@@ -1,6 +1,5 @@
 import React from "react";
 import "./Homepage.css";
-import Navbar from "../components/Navbar/Navbar";
 import videoBG from "../assets/Logistic.mp4"
 import trucksPhoto from "../assets/trucksPhoto.png"
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
@@ -12,11 +11,11 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import logoBakiTrans from "../assets/1.jpg"
 import GitHubIcon from '@mui/icons-material/GitHub';
+import Login from "./Login/Login";
 
 export default function Homepage(){
     return(
         <>
-        <Navbar></Navbar>
         <div className="video-background">
             <div className="video-background-overlay"></div>
             <video src={videoBG} autoPlay loop muted/>
