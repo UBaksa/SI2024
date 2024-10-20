@@ -1,7 +1,7 @@
 import React from "react";
 import "./Login.css"
 import { Button } from "@mui/material";
-
+import { Link } from "react-router-dom";
 export default function Login(){
     return (
     <>
@@ -19,7 +19,7 @@ export default function Login(){
                         <p id="error-password">da li je tacno</p>
                         <Button variant="contained">Prijava</Button>
                     </form>
-                    <p>Zelite da postanete novi korisnik?Kliknite za registraciju</p>
+                    <Link to={"/register"}><p>Zelite da postanete novi korisnik? Kliknite za registraciju</p></Link>
         </div>
     </>
     )
