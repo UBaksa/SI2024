@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useState } from "react";
-
+import axios from "axios";
 
 export default function Register(){
 
@@ -35,6 +35,23 @@ export default function Register(){
     }
 
 
+    function handleRegister(){
+        const data = {
+            ImePreduzeca : ime,
+            Adresa : adresa,
+            Drzava : drzava,
+            Pib : pib,
+            OLice : oLice,
+            Mail : mail,
+            Sifra : sifra
+        }
+        const url = "http://localhost:44332/api/test/Registration";
+        axios.post(url,data).then((result) => {
+            alert(result.data)
+        }).catch((err) =>
+        alert(err))
+    }
+    
     return (
         <Fragment>
             <div>
@@ -52,6 +69,7 @@ export default function Register(){
                 <input type="text" placeholder="Company Mail" id="mail" onChange={(e) => handleMailChange(e.target.value)}></input><br></br>
                 <label>Sifra</label>
                 <input type="password" placeholder="Company password" id="password" onChange={(e) => handleSifraChange(e.target.value)}></input><br></br>
+                <button onClick={()=> handleRegister}>Register</button>
             </div>
         </Fragment>   
 
