@@ -1,5 +1,5 @@
 import React from "react";
-import "./Card.css"
+import "./OfferCard.css"
 
 export default function Card(){
     return(

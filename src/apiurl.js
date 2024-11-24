@@ -1,0 +1,1 @@
+export const Api_url = "https://localhost:7083"

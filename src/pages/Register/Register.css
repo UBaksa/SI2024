@@ -1,0 +1,42 @@
+.registerForm{
+    width: 40%;
+    padding: 2%;
+    background-color: white;
+    margin: auto;
+    margin-top: 5%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+@font-face {
+    font-family: roboto;
+    src: url(../../../public/fonts/Roboto-Medium.ttf);
+}
+.registerForm h2{
+    font-size: 1.5rem;
+    margin-top: 10%;
+    color: rgb(50, 50, 50);
+}
+.registerForm label{
+    font-size: 1.3rem;
+    margin-bottom: 10%;
+}
+.registerForm input{
+    width: 50%;
+    font-family: roboto;
+    margin-top: 3%;
+    padding: 1%;
+}
+.registerForm p{
+    font-weight: 200;
+    font-size: 1.2rem;
+    color: #1976d2;
+    margin-top: 1%;
+}
+#error-email{
+    visibility: hidden;
+}
+#error-password{
+    visibility: hidden;
+}

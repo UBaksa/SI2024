@@ -1,77 +1,104 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useState } from "react";
+import "./Register.css"
+import { useNavigate } from "react-router-dom";
+import { Api_url } from "../../apiurl";
 import axios from "axios";
+import { Button } from "@mui/material";
+
+
 
 export default function Register(){
+    const [firstname,setFirstname] = useState("");
+    const [lastname,setLastname] = useState("");
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+    const [number,setNumber] = useState("");
+    const navigate = useNavigate();
 
-    const [ime,setIme] = useState("");
-    const [adresa,setAdresa] = useState("");
-    const [drzava,setDrzava] = useState("");
-    const [pib,setPib] = useState("");
-    const [oLice,setOLice] = useState("");
-    const [mail,setMail] = useState("");
-    const [sifra,setSifra] = useState("");
-
-    function handleImeChange(value){
-        setIme(value);
+    const handleFirstname= (e) => {
+        setFirstname(e.target.value)
     }
-    function handleAdresaChange(value){
-        setAdresa(value);
-    }
-    function handleDrzavaChange(value){
-        setDrzava(value);
-    }
-    function handlePibChange(value){
-        setPib(value);
-    }
-    function handleOLiceChange(value){
-        setOLice(value);
-    }
-    function handleMailChange(value){
-        setMail(value);
-    }
-    function handleSifraChange(value){
-        setSifra(value);
+    const handleLastname = (e) => {
+        setLastname(e.target.value)
     }
 
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+    }
 
-    function handleRegister(){
-        const data = {
-            ImePreduzeca : ime,
-            Adresa : adresa,
-            Drzava : drzava,
-            Pib : pib,
-            OLice : oLice,
-            Mail : mail,
-            Sifra : sifra
+    const handlePassword = (e) => {
+        setPassword(e.target.value)
+    }
+
+    const handleNumber = (e) => {
+        setNumber(e.target.value)
+    }
+
+    const handleRegister = () => {
+        if (firstname !== "" && lastname !== "" && email !== "" && password !== "" && number !== "") {
+            const emailtemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const numbertemplate = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+            // Validacija emaila.
+            if (!emailtemplate.test(email)) {
+                console.log("Ukucajte pravilno mail adresu!");
+                return; 
+            }
+            else if(!numbertemplate.test(number)){
+                console.log("Ukucajte pravilno broj telefona!");
+                return; 
+            }
+            
+            const data = {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                password: password,
+                number: number,
+            };
+            console.log(data);
+            navigate("/login");
+            axios
+                .post(Api_url + "/api/Auth/Register", data)
+                .then((result) => {
+                    console.log(result.data);
+                    navigate("/login");
+                })
+                .catch((error) => console.log(error));
+        } else {
+            console.log("Sva polja moraju biti popunjena!"); 
         }
-        const url = "http://localhost:44332/api/test/Registration";
-        axios.post(url,data).then((result) => {
-            alert(result.data)
-        }).catch((err) =>
-        alert(err))
-    }
+    };
     
-    return (
-        <Fragment>
-            <div>
-                <label>Ime Preduzeca</label>
-                <input type="text" placeholder="Company name" id="imePreduzeca" onChange={(e) => handleImeChange(e.target.value)}></input><br></br>
-                <label>Adresa</label>
-                <input type="text" placeholder="Company Address" id="adresa" onChange={(e) => handleAdresaChange(e.target.value)}></input><br></br>
-                <label>Drzava</label>
-                <input type="text" placeholder="Company State" id="drzava" onChange={(e) => handleDrzavaChange(e.target.value)}></input><br></br>
-                <label>Pib</label>
-                <input type="numbers" placeholder="Company PIB" id="pib" onChange={(e) => handlePibChange(e.target.value)}></input><br></br>
-                <label>Odgovorno lice</label>
-                <input type="text" placeholder="Company Guy" id="oLice" onChange={(e) => handleOLiceChange(e.target.value)}></input><br></br>
-                <label>Mail</label>
-                <input type="text" placeholder="Company Mail" id="mail" onChange={(e) => handleMailChange(e.target.value)}></input><br></br>
-                <label>Sifra</label>
-                <input type="password" placeholder="Company password" id="password" onChange={(e) => handleSifraChange(e.target.value)}></input><br></br>
-                <button onClick={()=> handleRegister}>Register</button>
-            </div>
-        </Fragment>   
 
+
+    return (
+        <>
+            <div className="registerForm">
+                    <h1>Logo</h1>
+                    <h2>Registracija</h2>
+                <label for>Unesite Vase ime</label>
+                <br></br>
+                <input type="text" onChange={handleFirstname}></input>
+                <br></br>
+                <label for>Unesite Vase prezime</label>
+                <br></br>
+                <input type="text" onChange={handleLastname}></input>
+                <br></br>
+                <label for>Unesite Vasu email adresu</label>
+                <br></br>
+                <input type="email" onChange={handleEmail}></input>
+                <br></br>
+                <label for>Unesite Vasu lozinku</label>
+                <br></br>
+                <input type="password" onChange={handlePassword}></input>
+                <br></br>
+                <label for>Unesite Vas broj telefona</label>
+                <br></br>
+                <input type="tel" onChange={handleNumber} ></input>
+                <br></br>
+                <Button variant="contained" onClick={handleRegister}>Registrujte se</Button>
+            </div>
+        </>
     )
 }

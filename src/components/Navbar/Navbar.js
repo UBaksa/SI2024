@@ -1,19 +1,20 @@
 import React from "react";
 import "./Navbar.css";
 import { Button } from "@mui/material";
-import Login from "../../pages/Login/Login";
 import { Link } from "react-router-dom";
-import Homepage from "../../pages/Homepage"
 export default function Navbar(){
 
     return (
         <header className="navbar">
             <ul className="links">
-                <li><Link to={"/"}>CarGoo</Link></li>
+                <li><Link 
+                style={{ textDecoration: 'none', color: 'white' }}
+                to={"/"}
+                >CarGoo</Link></li>
                 <li>Usluge</li>
-                <li>Vesti</li>
                 <li>Obavestenja</li>
                 <li>Podrska</li>
+                <li id="ponude">Ponude</li>
             </ul>
             <ul className="login">
                 <li>Srpski</li>

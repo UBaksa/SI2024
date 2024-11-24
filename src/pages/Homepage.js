@@ -10,8 +10,7 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import logoBakiTrans from "../assets/1.jpg"
-import GitHubIcon from '@mui/icons-material/GitHub';
-import Login from "./Login/Login";
+import { Link } from "react-router-dom";
 
 export default function Homepage(){
     return(
@@ -22,7 +21,7 @@ export default function Homepage(){
             <div className="video-background-content">
                 <h1>CarGoo platforma</h1>
                 <p>Revolucionarno trziste tereta i usluga za Evropu</p>
-                <Button variant="contained">Registrujte se <GroupAddIcon/></Button>
+                <Link to={"/register"}><Button variant="contained">Registrujte se <GroupAddIcon/></Button></Link>
             </div>
         </div>
         <div className="cards">
@@ -77,10 +76,6 @@ export default function Homepage(){
                     </div>
             </div>
         </div>
-        <footer>
-            <h2>©CarGoo 2024 </h2>
-            <a href="https://github.com/UBaksa" target="blank"><GitHubIcon/></a>
-        </footer>
         </>
 )
 }

@@ -1,7 +1,8 @@
 .navbar {
     height: 7vh;
     padding: 0 2% 0 2%;
-    background-color: #1976d2;
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgba(25,118,210,1) 51%, rgba(124,189,255,1) 95%);
     display: flex;
     color: white;
     align-items: center;
