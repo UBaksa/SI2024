@@ -50,14 +50,15 @@ export default function Register(){
             }
             
             const data = {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
+                firstName: firstname,
+                lastName: lastname,
+                mail: email,
                 password: password,
-                number: number,
+                phoneNumber: number,
+                preduzeceId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                roles:["Dispecer"],
             };
             console.log(data);
-            navigate("/login");
             axios
                 .post(Api_url + "/api/Auth/Register", data)
                 .then((result) => {

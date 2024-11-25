@@ -6,6 +6,7 @@ import Register from './pages/Register/Register';
 import {Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import './App.css';
+import Ponude from './pages/Ponude/Ponude';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Homepage/>}/>
           <Route path='/login' element={<Login/>}/>
+          <Route path='/ponude' element={<Ponude/>}></Route>
           <Route path='/register' element={<Register/>}/>
         </Routes>
         <Footer/>
