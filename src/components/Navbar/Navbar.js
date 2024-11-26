@@ -14,7 +14,9 @@ export default function Navbar(){
                 <li>Usluge</li>
                 <li>Obavestenja</li>
                 <li>Podrska</li>
-                <li id="ponude">Ponude</li>
+                <li id="ponude"><Link 
+                style={{ textDecoration: 'none', color: 'white' }}
+                to={"/ponude"}>Ponude</Link></li>
             </ul>
             <ul className="login">
                 <li>Srpski</li>

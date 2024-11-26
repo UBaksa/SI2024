@@ -1,0 +1,26 @@
+@font-face {
+    font-family: dosis;
+    src: url(../../../public/fonts/Dosis-Bold.ttf);
+  }
+  @font-face {
+    font-family: roboto;
+    src: url(../../../public/fonts/Roboto-Medium.ttf);
+  }
+.offer-card{
+    width: 50%;
+    margin: auto;
+    width: 60%;
+    height: 80%;
+    background-color: white;
+    font-family: roboto;
+    font-size: 1rem;
+}
+.offer-card-route-tittle{
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
+    width: 100%;
+    color: white;
+}
+.leaflet-container{
+    height: 30%;
+}
