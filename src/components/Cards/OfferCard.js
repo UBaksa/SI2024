@@ -54,7 +54,34 @@ export default function OfferCard(){
                         <p>Mail:ujkanovicbakir@gmail.com</p>
                     </div>
                 </div>
-                <div className="offer-card-route-user-contact"></div>
+            </div>
+            <div className="offer-card-route-load">
+                <h3>Podaci o ponudi</h3>
+                <div className="offer-card-route-load-text">
+                    <div className="offer-card-route-load-text">
+                        <div className="load-dimensions" style={{marginLeft:"1%"}}>
+                        <h4>Duzina tereta</h4>
+                        <p>13.6m</p>
+                        <h4>Tezina tereta</h4>
+                        <p>24t</p>
+                        <h4>Vrsta robe</h4>
+                        <p>Normal</p>
+                        </div>
+                        <div className="load-route">
+                            <h4>SI Ljubljana --- RS Pristina</h4>
+                            <p>Utovar:06.12.2024-08.12.2024.</p>
+                            <p>Istovar:08.12.2024-10.12.2024.</p>
+                        </div>
+                        <div className="load-type" style={{marginRight:"1%"}}>
+                            <h4>Tip vozila</h4>
+                            <p>Sleper</p>
+                            <h4>Vrsta nadogradnje</h4>
+                            <p>Cerada</p>
+                            <h4>Zamena paleta</h4>
+                            <p>Ne</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="offer-card-route-info">
             </div>

@@ -18,8 +18,7 @@ export default function Navbar(){
                 style={{ textDecoration: 'none', color: 'white' }}
                 to={"/ponude"}>Ponude</Link></li>
             </ul>
-            <ul className="login">
-                <li>Srpski</li>
+            <ul className="login"> 
                 <li><Link to={"/login"}><Button variant="contained">Prijava</Button></Link></li>
             </ul>
         </header>

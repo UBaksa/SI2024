@@ -55,7 +55,7 @@ export default function Register(){
                 mail: email,
                 password: password,
                 phoneNumber: number,
-                preduzeceId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                preduzeceId: "3fa85f64-5717-4562-b3fc-2c963f66afa4",
                 roles:["Dispecer"],
             };
             console.log(data);
