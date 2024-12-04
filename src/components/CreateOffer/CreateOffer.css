@@ -1,0 +1,59 @@
+@font-face {
+    font-family: dosis;
+    src: url(../../../public/fonts/Dosis-Bold.ttf);
+  }
+  @font-face {
+    font-family: roboto;
+    src: url(../../../public/fonts/Roboto-Medium.ttf);
+  }
+.createoffer{
+    width: 60%;
+    height: 35rem;
+    margin: auto;
+    margin-top: 2%;
+    background-color: white;
+    padding: 0.5%;
+    font-family: roboto;
+}
+.createoffer-loading-info{
+    width: 45%;
+    height: 20rem;
+    padding-top: 2%;
+    background-color: gainsboro;
+    float: left;
+}
+.createoffer .title{
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
+    width: 100%;
+    height: 2.5rem;
+    padding: 1%;
+    color: white;
+    margin-bottom: 1%;
+    text-align: left;
+}
+.createoffer-loading-info select{
+    height: 2rem;
+    font-family: roboto;
+}
+.createoffer-loading-date{
+    width: 45%;
+    height: 20rem;
+    padding-top: 2%;
+    background-color: gainsboro;
+    float: right;
+}
+.createoffer-loading-date label{
+    color: rgb(25,118,210);
+    display: block;
+    margin-bottom: 1%;
+    font-size: 1.3rem;
+}
+.datepicker{
+    font-family: roboto;
+    margin-bottom: 50%;
+    height: 2rem;
+    width: 10rem;
+    font-size: 1rem;
+    padding: 5%;
+}
