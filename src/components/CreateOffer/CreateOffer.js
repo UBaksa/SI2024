@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./CreateOffer.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { Button } from "@mui/material";
 
 export default function CreateOffer() {
   const [loadingCities, setLoadingCities] = useState([]); // Gradovi za utovar
@@ -15,6 +15,23 @@ export default function CreateOffer() {
   const [selectedUnloadingCity, setSelectedUnloadingCity] = useState(""); // Odabrani grad za istovar
   const [loadingDate, setLoadingDate] = useState(null); // Datum utovara
   const [unloadingDate, setUnloadingDate] = useState(null); 
+
+
+  const [weight,setWeight] = useState("")
+  const [lenght,setLenght] = useState("")
+  const [cargoType,setCargoType] = useState("")
+  const [pallets,setPallets] = useState("")
+  const [selectedTruck,setSelectedTruck] = useState("")
+  const [selectedTruckType,setSelectedTruckType] = useState("")
+  const [price,setPrice] = useState("")
+
+  const handleWeightChange = (event) => setWeight(event.target.value);
+  const handleLengthChange = (event) => setLenght(event.target.value);
+  const handleCargoTypeChange = (event) => setCargoType(event.target.value);
+  const handlePalletsChange = (event) => setPallets(event.target.value);
+  const handleSelectedTruckChange = (event) => setSelectedTruck(event.target.value);
+  const handleSelectedTruckTypeChange = (event) => setSelectedTruckType(event.target.value);
+  const handlePriceChange = (event) => setPrice(event.target.value);
 
 
   const today = new Date();//tr vreme
@@ -232,8 +249,43 @@ export default function CreateOffer() {
       </div>
       <h3 className="title" style={{display:"inline-block",marginTop:"1%"}}>Podaci o teretu i vrsti vozila</h3>
       <div className="createoffer-cargo-info">
-        
+        <div className="createoffer-cargo-info-load">
+          <h3>Tezina tereta:</h3>
+          <input onChange={handleWeightChange} type="text"></input>
+          <h3>Duzina tereta:</h3>
+          <input onChange={handleLengthChange} type="text"></input>
+          <h3>Vrsta tereta:</h3>
+          <input onChange={handleCargoTypeChange} type="text"></input>
+          <h3>Razmena paleta</h3>
+            <input onChange={handlePalletsChange} type="text"></input>
+          </div>
+          <div className="createoffer-cargo-info-truck">
+            <h3>Tip nadogradnje</h3>
+            <select value={selectedTruckType} onChange={handleSelectedTruckTypeChange}>
+              <option value="">---</option>
+              <option value="Cerada">Cerada</option>
+              <option value="Mega">Mega</option>
+              <option value="Cisterna">Cisterna</option>
+              <option value="Platforma">Platforma</option>
+              <option value="Schuboden">Schuboden</option>
+              <option value="Kiper">Kipper</option>
+              <option value="Autovoz">Autovoz</option>
+              <option value="Hladnjaca">Hladnjaca</option>
+            </select>
+            <h3>Tip vozila</h3>
+            <select value={selectedTruck} onChange={handleSelectedTruckChange}>
+              <option value="">---</option>
+              <option value="kombi">Kombi do 3.5t</option>
+              <option value="truck7-5">Vozilo do 7.5t</option>
+              <option value="truck12-5">Vozilo do 12.5t</option>
+              <option value="sleper">Sleper</option>
+              <option value="prikolicar">Prikolicar</option>
+            </select>
+            <h3>Cena prevoza</h3>
+            <input type="number" onChange={handlePriceChange}></input>
+          </div>
       </div>
+        <Button variant="contained" style={{marginTop:"0.5%"}}>Postavite ponudu</Button>
     </div>
   );
 }

@@ -8,11 +8,15 @@
   }
 .createoffer{
     width: 60%;
-    height: 35rem;
+    height: 50rem;
     margin: auto;
     margin-top: 2%;
     background-color: white;
     padding: 0.5%;
+    font-family: roboto;
+}
+.createoffer input{
+    color: rgb(25,118,210);
     font-family: roboto;
 }
 .createoffer-loading-info{
@@ -56,4 +60,47 @@
     width: 10rem;
     font-size: 1rem;
     padding: 5%;
+}
+.createoffer-cargo-info{
+    width: 100%;
+    background-color: gainsboro;
+    height: 20rem;
+    display: flex;
+    justify-content: space-between;
+}
+.createoffer-cargo-info-load{
+    width: 50%;
+    padding-top: 3%;
+}
+.createoffer-cargo-info-load h3{
+    color: rgb(25,118,210);
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+.createoffer-cargo-info-load input{
+    height: 2rem;
+    padding: 1%;
+    color: rgb(25,118,210);
+    font-family: roboto;
+}
+.createoffer-cargo-info-truck{
+    width: 50%;
+    padding-top: 5%;
+}
+.createoffer-cargo-info-truck h3{
+    color: rgb(25,118,210);
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+.createoffer-cargo-info-truck select{
+    height: 2rem;
+    padding: 1%;
+    color: rgb(25,118,210);
+    font-family: roboto;
+}
+.createoffer-cargo-info-truck input{
+    height: 2rem;
+    padding: 1%;
+    color: rgb(25,118,210);
+    font-family: roboto;
 }
