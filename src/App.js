@@ -7,19 +7,24 @@ import {Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import './App.css';
 import Ponude from './pages/Ponude/Ponude';
+import RegisterPreduzece from './pages/RegisterPreduzece/RegisterPreduzece'
+import { AppProvider } from "./context/AppContext";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar/>
-        <Routes>
-          <Route path='/' element={<Homepage/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/ponude/*' element={<Ponude/>}/>
-          <Route path='/register' element={<Register/>}/>
-        </Routes>
-        <Footer/>
-    </div>
+      <div className="App">
+        <AppProvider>
+          <Navbar/>
+            <Routes>
+              <Route path='/' element={<Homepage/>}/>
+              <Route path='/login' element={<Login/>}/>
+              <Route path='/ponude/*' element={<Ponude/>}/>
+              <Route path='/register' element={<Register/>}/>
+              <Route path='/registerPreduzece' element={<RegisterPreduzece/>}/>
+            </Routes>
+          <Footer/>
+        </AppProvider>
+      </div>
   );
 }
 

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Api_url } from "../../apiurl";
 import axios from "axios";
 import { Button } from "@mui/material";
+import { useAppContext } from "../../context/AppContext"; 
 
 
 
@@ -14,7 +15,10 @@ export default function Register(){
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [number,setNumber] = useState("");
+    const [role,setRole] = useState("");
+
     const navigate = useNavigate();
+    const { setUserId } = useAppContext();
 
     const handleFirstname= (e) => {
         setFirstname(e.target.value)
@@ -33,6 +37,9 @@ export default function Register(){
 
     const handleNumber = (e) => {
         setNumber(e.target.value)
+    }
+    const handleRole = (e) => {
+        setRole(e.target.value)
     }
 
     const handleRegister = () => {
@@ -55,14 +62,15 @@ export default function Register(){
                 mail: email,
                 password: password,
                 phoneNumber: number,
-                preduzeceId: "3fa85f64-5717-4562-b3fc-2c963f66afa4",
-                roles:["Dispecer"],
+                preduzeceId: "c2bb1d8b-490f-49ca-b2b4-0ade03f48919",
+                roles:[role],
             };
             console.log(data);
             axios
                 .post(Api_url + "/api/Auth/Register", data)
                 .then((result) => {
                     console.log(result.data);
+                    setUserId(result.data.id);
                     navigate("/login");
                 })
                 .catch((error) => console.log(error));
@@ -97,6 +105,14 @@ export default function Register(){
                 <label for>Unesite Vas broj telefona</label>
                 <br></br>
                 <input type="tel" onChange={handleNumber} ></input>
+                <br></br>
+                <label for>Odaberite koji tip korisnika ste</label>
+                <br></br>
+                <select value={role} onChange={handleRole}>
+                    <option selected value="">---</option>
+                    <option value="Prevoznik">Prevoznik</option>
+                    <option value="Dispecer">Dispecer</option>
+                </select>
                 <br></br>
                 <Button variant="contained" onClick={handleRegister}>Registrujte se</Button>
             </div>

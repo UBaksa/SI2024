@@ -40,3 +40,10 @@
 #error-password{
     visibility: hidden;
 }
+.registerForm select {
+    width: 50%;
+    height: 2rem;
+    margin-top: 3%;
+    font-family: roboto;
+
+}
