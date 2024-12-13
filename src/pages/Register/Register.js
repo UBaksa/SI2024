@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Api_url } from "../../apiurl";
 import axios from "axios";
 import { Button } from "@mui/material";
-import { useAppContext } from "../../context/AppContext"; 
+import { useAppContext } from "../../context/AppContext";
 
 
 
@@ -46,7 +46,6 @@ export default function Register(){
         if (firstname !== "" && lastname !== "" && email !== "" && password !== "" && number !== "") {
             const emailtemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const numbertemplate = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-            // Validacija emaila.
             if (!emailtemplate.test(email)) {
                 console.log("Ukucajte pravilno mail adresu!");
                 return; 
@@ -70,8 +69,13 @@ export default function Register(){
                 .post(Api_url + "/api/Auth/Register", data)
                 .then((result) => {
                     console.log(result.data);
-                    setUserId(result.data.id);
-                    navigate("/login");
+                    const userId = result.data.id;
+                if (userId) {
+                    localStorage.setItem("id", userId);
+                }
+
+                setUserId(userId)
+                    navigate("/registerPreduzece");
                 })
                 .catch((error) => console.log(error));
         } else {

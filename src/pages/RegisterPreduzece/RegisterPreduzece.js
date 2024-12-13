@@ -65,12 +65,14 @@ export default function RegisterPreduzece(){
             CompanyCity:companyCity,
             CompanyPIB:companyPIB,
             CompanyPhone:companyPhone,
+            KorisnikIds:[localStorage.getItem("id")]
         };
         console.log(data);
         axios
                 .post(Api_url + "/api/Preduzeces", data)
                 .then((result) => {
                     console.log(result.data);
+                    console.log("Kreirano preduzece,i korisnik je uspesno dodat preduzecu.");
                     navigate("/login");
                 })
                 .catch((error) => console.log(error));
