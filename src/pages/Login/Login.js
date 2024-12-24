@@ -1,79 +1,94 @@
-import React from "react";
-import { useState } from "react";
-import "./Login.css"
+import React, { useState } from "react";
+import "./Login.css";
 import { Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { Api_url } from "../../apiurl";
+import { useAppContext } from "../../context/AppContext";
 
-export default function Login(){
-    const [email,setEmail] = useState("");
-    const [password,setPassword] = useState("");
-    const [emailMistake,setEmailMistake] = useState("")
-    const [passwordMistake,setPasswordMistake] = useState("")
+export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [emailMistake, setEmailMistake] = useState("");
+    const [passwordMistake, setPasswordMistake] = useState("");
+    const { setUserId } = useAppContext();
+    const { setUserCompanyID } = useAppContext();
     const navigate = useNavigate();
-    
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
         setEmailMistake("");
-    }
+    };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
         setPasswordMistake("");
-    }
+    };
 
-    const handleLogin = () =>{
+    const handleLogin = () => {
         setPasswordMistake("");
         setEmailMistake("");
 
         const emailTemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if(email === ""){
-            setEmailMistake("Unesite email adresu")
+        if (email === "") {
+            setEmailMistake("Unesite email adresu");
+            return;
         }
-        if(!emailTemplate.test(email)){
-            setEmailMistake("Email nije validan.")
+        if (!emailTemplate.test(email)) {
+            setEmailMistake("Email nije validan.");
+            return;
         }
-        if(password === ""){
-            setPasswordMistake("Unesite lozinku!")
+        if (password === "") {
+            setPasswordMistake("Unesite lozinku!");
+            return;
         }
 
         const loginData = {
-            emailAddress : email,
-            password : password
-        }
+            emailAddress: email,
+            password: password,
+        };
 
         axios
             .post(Api_url + "/api/Auth/Login", loginData)
             .then((result) => {
-                console.log(result.loginData);
-                navigate("/");
+                const { userId, companyId } = result.data; 
+                if (userId) {
+                    localStorage.setItem("id", userId); 
+                    localStorage.setItem("companyID", companyId);
+                    setUserId(userId); 
+                    setUserCompanyID(companyId);
+                    navigate("/"); 
+                }
             })
-            .catch((error) =>console.log(error))
-    }
-
-
+            .catch((error) => {
+                console.error(error);
+                if (error.response && error.response.data && error.response.data.Message) {
+                    alert(error.response.data.Message); 
+                } else {
+                    alert("Došlo je do greške. Pokušajte ponovo.");
+                }
+            });
+    };
 
     return (
-    <>
-        <div className="login-form">
-                    <h1>Logo</h1>
-                    <h2>Prijava</h2>
-                    <form>
-                        <label>Unesite Vasu email adresu</label>
-                        <br></br>
-                        <input onChange={handleEmailChange} type="email" id="email-input"></input>
-                        <p id="error-email">da li je tacno</p>
-                        <label>Unesive Vasu lozinku</label>
-                        <br></br>
-                        <input onChange={handlePasswordChange} type="password" id="password-input" ></input>
-                        <p id="error-password">da li je tacno</p>
-                        <Button onClick={handleLogin} variant="contained">Prijava</Button>
-                    </form>
-                    <Link to={"/register"}><p>Zelite da postanete novi korisnik? Kliknite za registraciju</p></Link>
-        </div>
-    </>
-    )
+        <>
+            <div className="login-form">
+                <h1>Logo</h1>
+                <h2>Prijava</h2>
+                <form>
+                    <label>Unesite Vašu email adresu</label>
+                    <br />
+                    <input onChange={handleEmailChange} type="email" id="email-input" /><br></br>
+                    <label>Unesite Vašu lozinku</label>
+                    <br />
+                    <input onChange={handlePasswordChange} type="password" id="password-input" />
+                    <Button onClick={handleLogin} variant="contained">Prijava</Button>
+                </form>
+                <Link to={"/register"}>
+                    <p>Želite da postanete novi korisnik? Kliknite za registraciju</p>
+                </Link>
+            </div>
+        </>
+    );
 }

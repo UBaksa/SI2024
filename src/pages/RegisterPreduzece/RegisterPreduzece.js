@@ -48,7 +48,6 @@ export default function RegisterPreduzece(){
         if (companyName !== "" && companyCity !== "" && companyMail !== "" && companyPhone !== "" && companyState !== "" && companyPIB !== "") {
             const emailtemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const numbertemplate = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-            // Validacija emaila.
             if (!emailtemplate.test(companyMail)) {
                 console.log("Ukucajte pravilno mail adresu!");
                 return; 

@@ -3,19 +3,23 @@ import "./CreateOffer.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button } from "@mui/material";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Api_url } from "../../apiurl";
 
 export default function CreateOffer() {
-  const [loadingCities, setLoadingCities] = useState([]); // Gradovi za utovar
-  const [unloadingCities, setUnloadingCities] = useState([]); // Gradovi za istovar
-  const [selectedLoadingCountry, setSelectedLoadingCountry] = useState(""); // Odabrana zemlja za utovar
-  const [selectedUnloadingCountry, setSelectedUnloadingCountry] = useState(""); // Odabrana zemlja za istovar
-  const [searchLoadingCity, setSearchLoadingCity] = useState(""); // Pretraga za gradove utovara
-  const [searchUnloadingCity, setSearchUnloadingCity] = useState(""); // Pretraga za gradove istovara
-  const [selectedLoadingCity, setSelectedLoadingCity] = useState(""); // Odabrani grad za utovar
-  const [selectedUnloadingCity, setSelectedUnloadingCity] = useState(""); // Odabrani grad za istovar
-  const [loadingDate, setLoadingDate] = useState(null); // Datum utovara
+  const [loadingCities, setLoadingCities] = useState([]); 
+  const [unloadingCities, setUnloadingCities] = useState([]); 
+  const [selectedLoadingCountry, setSelectedLoadingCountry] = useState(""); 
+  const [selectedUnloadingCountry, setSelectedUnloadingCountry] = useState(""); 
+  const [searchLoadingCity, setSearchLoadingCity] = useState(""); 
+  const [searchUnloadingCity, setSearchUnloadingCity] = useState(""); 
+  const [selectedLoadingCity, setSelectedLoadingCity] = useState(""); 
+  const [selectedUnloadingCity, setSelectedUnloadingCity] = useState("");
+  const [loadingDate, setLoadingDate] = useState(null); 
   const [unloadingDate, setUnloadingDate] = useState(null); 
 
+  const navigate = useNavigate();
 
   const [weight,setWeight] = useState("")
   const [lenght,setLenght] = useState("")
@@ -75,7 +79,6 @@ export default function CreateOffer() {
     { code: "GB", name: "Velika Britanija" },
   ];
 
-  // Funkcija za učitavanje gradova prema pretrazi
   const loadCities = async (city, country) => {
     try {
       const response = await fetch(
@@ -134,6 +137,36 @@ export default function CreateOffer() {
     }
   };
 
+  const handleSubmit = () =>{
+    const data = {
+      DrzavaU:selectedLoadingCountry,
+      DrzavaI:selectedUnloadingCountry,
+      MestoU:selectedLoadingCity,
+      MestoI:selectedUnloadingCity,
+      Utovar:loadingDate,
+      Istovar:unloadingDate,
+      Duzina:lenght,
+      Tezina:weight,
+      TipNadogradnje:selectedTruckType,
+      TipKamiona:selectedTruck,
+      VrstaTereta:cargoType,
+      IdPreduzeca:[localStorage.getItem("companyID")][0],
+      IdKorisnika:[localStorage.getItem("id")][0],
+      ZamenaPaleta:pallets,
+      Cena:price
+    }
+    console.log(data);
+    axios
+    .post(Api_url + "/api/Ponudas", data)
+    .then((result) => {
+        console.log(result.data);
+        console.log("Uspesno kreirana ponuda.");
+        navigate("/ponude");
+    })
+    .catch((error) => console.log(error));
+
+}
+  
   return (
     <div className="createoffer">
         <h3 className="title">Mesto, datum utovara i istovara</h3>
@@ -285,7 +318,7 @@ export default function CreateOffer() {
             <input type="number" onChange={handlePriceChange}></input>
           </div>
       </div>
-        <Button variant="contained" style={{marginTop:"0.5%"}}>Postavite ponudu</Button>
+        <Button variant="contained" onClick={handleSubmit} style={{marginTop:"0.5%"}}>Postavite ponudu</Button>
     </div>
   );
 }
