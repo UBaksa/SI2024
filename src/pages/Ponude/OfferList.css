@@ -1,0 +1,92 @@
+@font-face {
+    font-family: roboto;
+    src: url(../../../public/fonts/Roboto-Medium.ttf);
+  }
+.offer-list{
+    background-color: white;
+    width: 95%;
+    margin: auto;
+    font-family: roboto;
+    padding: 0.5%;
+    margin-top: 2%;
+}
+.offer-list h2{
+    width: 99%;
+    margin: auto;
+    text-align: left;
+    padding-left: 1%;
+    margin-bottom: 0.5%;
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
+    color: white;
+}
+.offer-list span{
+    color: rgb(0, 70, 141);
+}
+table {
+    width: 99%;
+    margin: auto;
+    border-collapse: collapse
+  }
+  table th{
+    color: white;
+  }
+  table th, table td {
+    border: 1px solid rgb(158, 158, 158);
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  table th {
+    background-color: white;
+  }
+
+  .filters {
+    width: 99%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 1%; 
+    background-color: gainsboro;
+    margin-bottom: 20px; 
+  }
+  
+  .filters label {
+    display: flex;
+    flex-direction: column; 
+    font-size: 14px; 
+    color: #333; 
+  }
+  
+  .filters select {
+    margin-top: 5px; 
+    padding: 8px; 
+    font-size: 14px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px;
+    background-color: white; 
+    color: #333; 
+    cursor: pointer; 
+  }
+  
+  .filters select:focus {
+    outline: none; 
+    border-color: #1976d2; 
+    box-shadow: 0 0 4px rgba(25, 118, 210, 0.5); 
+  }
+  
+  .filters span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1976d2; 
+    cursor: pointer;
+  }
+  
+  .filters span:hover {
+    color: #004ba0; 
+    transform: scale(1.1); 
+    transition: all 0.2s ease-in-out; 
+  }
+  

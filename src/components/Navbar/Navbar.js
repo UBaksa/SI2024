@@ -6,24 +6,30 @@ import { useAppContext } from "../../context/AppContext";
 
 export default function Navbar() {
   const { userId, setUserId } = useAppContext();
+  const { userCompanyID, setUserCompanyID } = useAppContext();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     // Proveri ako postoji "id" u localStorage pri svakom renderovanju
     const storedUserId = localStorage.getItem("id");
+    const storedCompanyId = localStorage.getItem("companyID");
     if (storedUserId) {
-      setUserId(storedUserId); // Ažuriraj Context
-      setIsLoggedIn(true); // Postavi stanje prijave
+      setUserId(storedUserId);
+      setUserCompanyID(storedCompanyId) 
+      setIsLoggedIn(true); 
     } else {
-      setUserId(null); // Osiguraj da setUserId bude resetovan
+      setUserId(null);
+      setUserCompanyID(null)
       setIsLoggedIn(false);
     }
-  }, [setUserId, userId]); // Dodaj `userId` u zavisnost da bi reagovao na promene
+  }, [setUserId, userId, userCompanyID,setUserCompanyID]); 
 
   const handleLogout = () => {
-    localStorage.removeItem("id"); // Ukloni "id" iz localStorage
-    setUserId(null); // Resetuj Context
-    setIsLoggedIn(false); // Resetuj stanje prijave
+    localStorage.removeItem("id");
+    localStorage.removeItem("companyID");
+    setUserId(null); 
+    setUserCompanyID(null); 
+    setIsLoggedIn(false); 
   };
 
   return (

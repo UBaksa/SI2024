@@ -168,6 +168,7 @@ export default function CreateOffer() {
 }
   
   return (
+    
     <div className="createoffer">
         <h3 className="title">Mesto, datum utovara i istovara</h3>
       <div className="createoffer-loading-info">
