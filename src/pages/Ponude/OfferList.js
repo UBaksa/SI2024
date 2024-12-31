@@ -3,6 +3,7 @@ import axios from "axios";
 import { Api_url } from "../../apiurl";
 import "./OfferList.css";
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import { useNavigate } from 'react-router-dom';
 
 const europeanCountries = [
   { code: "AL", name: "Albanija" },
@@ -48,6 +49,8 @@ export default function OfferList() {
   const [filterDrzavaI, setFilterDrzavaI] = useState("");
   const [sortColumn, setSortColumn] = useState(""); 
   const [sortOrder, setSortOrder] = useState("asc"); 
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -220,6 +223,7 @@ export default function OfferList() {
               style={{
                 backgroundColor: index % 2 === 0 ? "gainsboro" : "white",
               }}
+              onClick={() => navigate(`/offer/${offer.ponudaId}`)}
             >
               <td>
                 {new Date(offer.utovar).toLocaleDateString("sr-RS", {

@@ -9,6 +9,7 @@ import './App.css';
 import Ponude from './pages/Ponude/Ponude';
 import RegisterPreduzece from './pages/RegisterPreduzece/RegisterPreduzece'
 import { AppProvider } from "./context/AppContext";
+import OfferCard from "./components/Cards/OfferCard"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path='/' element={<Homepage/>}/>
               <Route path='/login' element={<Login/>}/>
               <Route path='/ponude/*' element={<Ponude/>}/>
+              <Route path="/offer/:id" element={<OfferCard />} />
               <Route path='/register' element={<Register/>}/>
               <Route path='/registerPreduzece' element={<RegisterPreduzece/>}/>
             </Routes>

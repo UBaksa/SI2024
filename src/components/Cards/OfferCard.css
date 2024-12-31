@@ -31,7 +31,7 @@
     background-color:gainsboro;
     text-align: left;
     padding: 1%;
-    height: 5rem;
+    height: 6rem;
 }
 .offer-card-route-company-img{
     margin-right: 1%;
@@ -42,7 +42,9 @@
         height: auto; 
         object-fit: contain; 
 }
-
+.offer-card-route-user-info-contact span{
+    color: black;
+}
 .offer-card-route-company-text h3{
     font-size: 1.3rem;
     color: rgb(25,118,210);

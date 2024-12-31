@@ -13,6 +13,8 @@ import logoBakiTrans from "../assets/1.jpg"
 import { Link } from "react-router-dom";
 
 export default function Homepage(){
+
+    const islogedIn = localStorage.getItem("id")
     return(
         <>
         <div className="video-background">
@@ -21,7 +23,9 @@ export default function Homepage(){
             <div className="video-background-content">
                 <h1>CarGoo platforma</h1>
                 <p>Revolucionarno trziste tereta i usluga za Evropu</p>
-                <Link to={"/register"}><Button variant="contained">Registrujte se <GroupAddIcon/></Button></Link>
+                {!islogedIn &&(
+                <Link to={"/register"}><Button variant="contained">Registrujte se <GroupAddIcon/></Button></Link>)
+}
             </div>
         </div>
         <div className="cards">

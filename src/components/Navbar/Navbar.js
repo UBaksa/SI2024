@@ -8,27 +8,33 @@ export default function Navbar() {
   const { userId, setUserId } = useAppContext();
   const { userCompanyID, setUserCompanyID } = useAppContext();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {userRoles, setUserRoles} = useAppContext();
+
 
   useEffect(() => {
-    // Proveri ako postoji "id" u localStorage pri svakom renderovanju
     const storedUserId = localStorage.getItem("id");
     const storedCompanyId = localStorage.getItem("companyID");
+    const storedUserRole = localStorage.getItem("roles");
     if (storedUserId) {
       setUserId(storedUserId);
       setUserCompanyID(storedCompanyId) 
+      setUserRoles(storedUserRole)
       setIsLoggedIn(true); 
     } else {
       setUserId(null);
       setUserCompanyID(null)
+      setUserRoles(null)
       setIsLoggedIn(false);
     }
-  }, [setUserId, userId, userCompanyID,setUserCompanyID]); 
+  }, [setUserId, userId, userCompanyID,setUserCompanyID,userRoles, setUserRoles]); 
 
   const handleLogout = () => {
     localStorage.removeItem("id");
     localStorage.removeItem("companyID");
+    localStorage.removeItem("roles");
     setUserId(null); 
     setUserCompanyID(null); 
+    setUserRoles(null)
     setIsLoggedIn(false); 
   };
 

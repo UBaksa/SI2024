@@ -52,19 +52,20 @@ export default function Login() {
         axios
             .post(Api_url + "/api/Auth/Login", loginData)
             .then((result) => {
-                const { userId, companyId } = result.data; 
+                const { userId, companyId, roles } = result.data; 
                 if (userId) {
-                    localStorage.setItem("id", userId); 
+                    localStorage.setItem("id", userId);
                     localStorage.setItem("companyID", companyId);
-                    setUserId(userId); 
+                    localStorage.setItem("roles", JSON.stringify(roles)); // Čuvamo role
+                    setUserId(userId);
                     setUserCompanyID(companyId);
-                    navigate("/"); 
+                    navigate("/");
                 }
             })
             .catch((error) => {
                 console.error(error);
                 if (error.response && error.response.data && error.response.data.Message) {
-                    alert(error.response.data.Message); 
+                    alert(error.response.data.Message);
                 } else {
                     alert("Došlo je do greške. Pokušajte ponovo.");
                 }

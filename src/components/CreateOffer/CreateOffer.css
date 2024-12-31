@@ -37,8 +37,17 @@
     text-align: left;
 }
 .createoffer-loading-info select{
-    height: 2rem;
-    font-family: roboto;
+    margin-top: 2%; 
+    padding: 1%; 
+    border: 1px solid #ccc; 
+    border-radius: 0.5rem;
+    background-color: white; 
+    cursor: pointer; 
+}
+.createoffer-loading-info select:focus{
+    outline: none; 
+    border-color: #1976d2; 
+    box-shadow: 0 0 4px rgba(25, 118, 210, 0.5); 
 }
 .createoffer-loading-date{
     width: 45%;
@@ -103,4 +112,9 @@
     padding: 1%;
     color: rgb(25,118,210);
     font-family: roboto;
+}
+.languageCheckboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
 }

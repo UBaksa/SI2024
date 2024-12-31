@@ -70,6 +70,7 @@ export default function CreateOffer() {
     { code: "PL", name: "Poljska" },
     { code: "PT", name: "Portugalija" },
     { code: "RO", name: "Rumunija" },
+    { code: "RU", name: "Rusija" },
     { code: "RS", name: "Srbija" },
     { code: "SK", name: "Slovačka" },
     { code: "SI", name: "Slovenija" },
@@ -77,6 +78,8 @@ export default function CreateOffer() {
     { code: "SE", name: "Švedska" },
     { code: "CH", name: "Švajcarska" },
     { code: "GB", name: "Velika Britanija" },
+    { code: "TR", name: "Turska" },
+    { code: "KZ", name: "Kazahstan" },
   ];
 
   const loadCities = async (city, country) => {
@@ -172,6 +175,7 @@ export default function CreateOffer() {
     <div className="createoffer">
         <h3 className="title">Mesto, datum utovara i istovara</h3>
       <div className="createoffer-loading-info">
+        <h3>Izaberite državu utovara</h3>
         <select
           className="country-select"
           value={selectedLoadingCountry}
@@ -209,12 +213,12 @@ export default function CreateOffer() {
               </ul>
             )}
             {selectedLoadingCity && (
-              <p style={{fontSize:"1.1rem", color:"rgb(25,118,210)"}}>Utovar: {selectedLoadingCity}</p>
+              <p style={{fontSize:"1rem", color:"rgb(25,118,210)"}}>Utovar: {selectedLoadingCity}</p>
             )}
           </>
         )}
         <br/>
-
+        <h3>Izaberite državu utovara</h3>
         <select
           className="country-select"
           value={selectedUnloadingCountry}
@@ -309,11 +313,11 @@ export default function CreateOffer() {
             <h3>Tip vozila</h3>
             <select value={selectedTruck} onChange={handleSelectedTruckChange}>
               <option value="">---</option>
-              <option value="kombi">Kombi do 3.5t</option>
-              <option value="truck7-5">Vozilo do 7.5t</option>
-              <option value="truck12-5">Vozilo do 12.5t</option>
-              <option value="sleper">Sleper</option>
-              <option value="prikolicar">Prikolicar</option>
+              <option value="Kombi">Kombi do 3.5t</option>
+              <option value="Truk7-5">Vozilo do 7.5t</option>
+              <option value="Truk12-5">Vozilo do 12.5t</option>
+              <option value="Sleper">Sleper</option>
+              <option value="Prikolicar">Prikolicar</option>
             </select>
             <h3>Cena prevoza</h3>
             <input type="number" onChange={handlePriceChange}></input>
