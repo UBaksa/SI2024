@@ -4,6 +4,8 @@ import { Api_url } from "../../apiurl";
 import "./OfferList.css";
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { useNavigate } from 'react-router-dom';
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const europeanCountries = [
   { code: "AL", name: "Albanija" },
@@ -97,6 +99,11 @@ export default function OfferList() {
   if (error) return <p>Error: {error}</p>;
 
   return (
+    <>
+    <div className="offer-buttons">
+    <Link to={"/ponude/preduzeceponude"}><Button variant="contained">Moje ponude</Button></Link>
+    <Link to={"/ponude/createoffer"}><Button variant="contained" color="success">Kreiraj ponudu</Button></Link>
+    </div>
     <div className="offer-list">
       <h2>Filtriranje Ponuda</h2>
       <div className="filters">
@@ -254,5 +261,6 @@ export default function OfferList() {
         </tbody>
       </table>
     </div>
+    </>
   );
 }
