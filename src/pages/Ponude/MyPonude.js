@@ -45,9 +45,8 @@ export default function MyPonude() {
   
 
   return (
-    <div className="my-ponude">
-      <h1>Moje Ponude</h1>
-      <div className="offer-buttons">
+    <>
+    <div className="offer-buttons">
         <Button
           variant="contained"
           onClick={() => navigate("/ponude/createoffer")}
@@ -55,6 +54,8 @@ export default function MyPonude() {
           Kreiraj novu ponudu
         </Button>
       </div>
+    <div className="my-ponude">
+      <h2>Moje Ponude</h2>
       {ponude.length > 0 ? (
         <table>
           <thead>
@@ -163,5 +164,6 @@ export default function MyPonude() {
         <div>Nema ponuda za prikaz.</div>
       )}
     </div>
+    </>
   );
 }
