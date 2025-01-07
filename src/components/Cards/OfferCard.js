@@ -150,7 +150,7 @@ export default function OfferCard() {
             <p>Utovar: {new Date(offer.utovar).toLocaleDateString()}</p>
             <p>Istovar: {new Date(offer.istovar).toLocaleDateString()}</p>
             <h4>Cena prevoza</h4>
-            <p>{offer.cena === 0 ? 'Na upit' : offer.cena}€</p>
+            <p>{offer.cena === 0 ? 'Na upit' : offer.cena + "€"}</p>
             <h4>Udaljenost</h4>
             <p>{distance !== null ? `${distance} km` : "Loading distance..."}</p>
           </div>

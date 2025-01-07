@@ -155,7 +155,7 @@ export default function MyPonude() {
               <td>{ponuda.tipKamiona}</td>
               <td>{ponuda.tipNadogradnje}</td>
               <td>{ponuda.vrstaTereta}</td>
-              <td>{ponuda.cena}€</td>
+              <td>{ponuda.cena === 0 ? 'Na upit' : ponuda.cena + "€"}</td>
               </tr>
             ))}
           </tbody>

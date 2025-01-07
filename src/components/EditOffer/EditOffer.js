@@ -343,7 +343,7 @@ export default function EditOffer() {
                   <input type="number" onChange={handlePriceChange} value={price} ></input>
                 </div>
             </div>
-            <Button variant="contained" onClick={handleSubmit} style={{marginTop:"0.5%"}}>Izmenite ponudu</Button>
+            <Button variant="contained"  onClick={handleSubmit} style={{marginTop:"0.5%"}}>Izmenite ponudu</Button>
     </div>
   );
 }

@@ -6,6 +6,8 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 const europeanCountries = [
   { code: "AL", name: "Albanija" },
@@ -102,7 +104,7 @@ export default function OfferList() {
     <>
     <div className="offer-buttons">
     <Link to={"/ponude/preduzeceponude"}><Button variant="contained">Moje ponude</Button></Link>
-    <Link to={"/ponude/createoffer"}><Button variant="contained" color="success">Kreiraj ponudu</Button></Link>
+    <Link to={"/ponude/createoffer"}><Button variant="contained"color="success">Kreiraj ponudu</Button></Link>
     </div>
     <div className="offer-list">
       <h2>Filtriranje Ponuda</h2>
@@ -255,7 +257,7 @@ export default function OfferList() {
               <td>{offer.tipKamiona}</td>
               <td>{offer.tipNadogradnje}</td>
               <td>{offer.vrstaTereta}</td>
-              <td>{offer.cena}€</td>
+              <td>{offer.cena === 0 ? 'Na upit' : offer.cena + "€"}</td>
             </tr>
           ))}
         </tbody>

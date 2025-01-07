@@ -1,0 +1,40 @@
+@font-face {
+    font-family: roboto;
+    src: url(../../../public/fonts/Roboto-Medium.ttf);
+  }
+.edit-profile{
+    padding: 0.5%;
+    width: 70%;
+    height: 30rem;
+    margin: auto;
+    margin-top: 2%;
+    background-color: white;
+    font-family: roboto;
+}
+.edit-profile h2{
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
+    width: 100%;
+    padding: 0.5%;
+    color: white;
+    text-align: left;
+}
+.edit-profile-info{
+    display: flex;
+    margin-top: 1%;
+    background-color:gainsboro;
+    text-align: left;
+    padding: 1%;
+    height: 90%;
+    font-size: 1.3rem;
+    justify-content:space-between;
+}
+.edit-profile-info h3{
+    color: rgb(25,118,210);
+}
+.edit-profile-info p{
+    font-size: 1.1rem;
+}
+.edit-profile-info-right{
+    text-align: right;
+}

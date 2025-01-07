@@ -3,6 +3,8 @@ import "./Navbar.css";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
+import { useNavigate } from "react-router-dom";
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 
 export default function Navbar() {
   const { userId, setUserId } = useAppContext();
@@ -10,6 +12,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const {userRoles, setUserRoles} = useAppContext();
 
+  const navigate = useNavigate()
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("id");
@@ -36,6 +39,7 @@ export default function Navbar() {
     setUserCompanyID(null); 
     setUserRoles(null)
     setIsLoggedIn(false); 
+    navigate("/")
   };
 
   return (
@@ -49,15 +53,22 @@ export default function Navbar() {
         <li>Usluge</li>
         <li>Obaveštenja</li>
         <li>Podrška</li>
-        <li id="ponude">
+        {isLoggedIn && (
+          <li id="ponude">
           <Link style={{ textDecoration: "none", color: "white" }} to={"/ponude"}>
             Ponude
           </Link>
         </li>
+        )}
       </ul>
       <ul className="login">
         {isLoggedIn ? (
           <>
+            <li>
+            <Link style={{ textDecoration: "none", color: "white" }} to={"/editprofile"}>
+              <ManageAccountsOutlinedIcon style={{fontSize:"2rem"}}></ManageAccountsOutlinedIcon>
+            </Link>
+            </li>
             <li>
               <Button
                 variant="contained"
