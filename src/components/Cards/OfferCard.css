@@ -33,6 +33,13 @@
     padding: 1%;
     height: 6rem;
 }
+.edit-button {
+    width: 25%;
+    margin: auto;
+    margin-top: 1%;
+    display: flex;
+    justify-content: space-between;
+}
 .offer-card-route-company-img{
     margin-right: 1%;
 }

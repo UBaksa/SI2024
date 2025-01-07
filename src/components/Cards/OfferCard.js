@@ -7,6 +7,11 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine";
 import RoutingMachine from "./routingmachine";
 import { Api_url } from "../../apiurl";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+
 
 const config = {
   apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X",
@@ -21,12 +26,13 @@ export default function OfferCard() {
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [distance, setDistance] = useState(null);
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     const fetchOfferData = async () => {
       try {
         const response = await axios.get(`${Api_url}/api/Ponudas/${id}`);
         setOffer(response.data);
-
         const { mestoU, mestoI } = response.data;
         const coordsU = await fetchCoordinates(mestoU);
         const coordsI = await fetchCoordinates(mestoI);
@@ -54,8 +60,7 @@ export default function OfferCard() {
         headers: { "X-Api-Key": config.apiKey },
         params: { city: location },
       });
-      console.log(`Coordinates for ${location}:`, response.data);
-      return response.data?.[0];
+      return response.data?.[0]; 
     } catch (err) {
       console.error(`Error fetching coordinates for ${location}:`, err);
       return null;
@@ -64,27 +69,9 @@ export default function OfferCard() {
 
   const updateDistance = (e) => {
     const routes = e.routes;
-    console.log("Routes found:", routes);
     if (routes?.[0]?.summary) {
       const summary = routes[0].summary;
-      console.log("Route summary:", summary);
-      setDistance(Math.round(summary.totalDistance / 1000));
-    }
-  };
-
-  const handleUpdate = async () => {
-    try {
-      const updatedData = {
-        ...offer,
-        cena: offer.cena + 10, // Primer izmene (možete ovo prilagoditi)
-      };
-
-      const response = await axios.put(`${Api_url}/api/Ponudas/${id}`, updatedData);
-      alert("Ponuda uspešno ažurirana!");
-      setOffer(response.data); // Ažuriramo lokalno stanje
-    } catch (err) {
-      console.error("Greška prilikom ažuriranja ponude:", err);
-      alert("Greška prilikom ažuriranja ponude.");
+      setDistance(Math.round(summary.totalDistance / 1000)); 
     }
   };
 
@@ -92,7 +79,30 @@ export default function OfferCard() {
   if (error) return <div>Error: {error}</div>;
   if (!offer) return <div>No offer found</div>;
 
+  const companyId = localStorage.getItem("companyID");
+  const mineOffer = offer?.idPreduzeca?.toLowerCase() === companyId?.toLowerCase();
+
+  const handleEdit = () => {
+    navigate(`/ponude/editoffer/${offer.ponudaId}`);
+  };
+  
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`${Api_url}/api/Ponudas/${offer.ponudaId}`);
+      navigate('/ponude'); 
+    } catch (err) {
+      console.error("Error deleting offer:", err);
+    }
+  };
+  
   return (
+    <>
+    {mineOffer && (
+      <div className="edit-button">
+        <Button size="medium" variant="contained" startIcon={<EditNoteIcon/>}  onClick={handleEdit}>Izmenite ponudu</Button>
+        <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleDelete}>Izbrisite ponudu</Button>
+      </div>
+  )}
     <div className="offer-card">
       <div className="offer-card-route-tittle">
         <h3>{offer.drzavaU} {offer.mestoU} --- {offer.drzavaI} {offer.mestoI}</h3>
@@ -108,11 +118,6 @@ export default function OfferCard() {
           <h5>PIB:{offer.preduzece?.companyPhone}</h5>
         </div>
       </div>
-      {offer.preduzece?.companyID === id && (
-        <div className="offer-card-update">
-          <button onClick={handleUpdate} className="update-btn">Ažuriraj ponudu</button>
-        </div>
-      )}
       <div className="offer-card-route-user">
         <h3>Kontakt osoba</h3>
         <div className="offer-card-route-user-info">
@@ -174,9 +179,10 @@ export default function OfferCard() {
             <RoutingMachine waypoints={routeCoordinates} onRouteFound={updateDistance} />
           </MapContainer>
         ) : (
-          <div>Loading map...</div>
+          <div>Loading map...</div>//ovo izmeniti ubaciti neki loader!!!!!
         )}
       </div>
     </div>
+    </>
   );
 }
