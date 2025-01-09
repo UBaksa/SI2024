@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
-import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import PermIdentityTwoToneIcon from '@mui/icons-material/PermIdentityTwoTone';
 
 export default function Navbar() {
   const { userId, setUserId } = useAppContext();
@@ -65,8 +65,8 @@ export default function Navbar() {
         {isLoggedIn ? (
           <>
             <li>
-            <Link style={{ textDecoration: "none", color: "white" }} to={"/editprofile"}>
-              <ManageAccountsOutlinedIcon style={{fontSize:"2rem"}}></ManageAccountsOutlinedIcon>
+            <Link style={{ textDecoration: "none", color: "white" }} to={"/profil"}>
+              <PermIdentityTwoToneIcon style={{fontSize:"2rem"}}></PermIdentityTwoToneIcon>
             </Link>
             </li>
             <li>

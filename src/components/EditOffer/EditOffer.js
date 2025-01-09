@@ -185,8 +185,7 @@ export default function EditOffer() {
       setSearchUnloadingCity("");
     }
   };
-  // ... Rest of the component code (same as CreateOffer, but with the state values pre-filled)
-  // Include all the same UI elements and handlers as CreateOffer
+  
 
   console.log("API URL:", `${Api_url}/api/Ponudas/${id}`);
 

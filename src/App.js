@@ -11,6 +11,7 @@ import RegisterPreduzece from './pages/RegisterPreduzece/RegisterPreduzece'
 import { AppProvider } from "./context/AppContext";
 import OfferCard from "./components/Cards/OfferCard"
 import EditProfile from "./pages/EditProfile/EditProfile"
+import EditProfil from "./pages/EditProfile/EditProfil"
 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Homepage/>}/>
               <Route path='/login' element={<Login/>}/>
-              <Route path='/editprofile' element={<EditProfile/>}/>
+              <Route path='/profil' element={<EditProfile/>}/>
+              <Route path='/editprofil/:id' element={<EditProfil/>}/>
               <Route path='/ponude/*' element={<Ponude/>}/>
               <Route path="/offer/:id" element={<OfferCard />} />
               <Route path='/register' element={<Register/>}/>

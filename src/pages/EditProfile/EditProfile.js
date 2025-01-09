@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./EditProfile.css"
 import { Api_url } from "../../apiurl";
+import { Button } from "@mui/material";
+import ManageAccountsTwoToneIcon from '@mui/icons-material/ManageAccountsTwoTone';
+import { Link } from "react-router-dom";
+
 
 export default function EditProfile() {
     const [userData, setUserData] = useState(null);
@@ -11,7 +15,7 @@ export default function EditProfile() {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`${Api_url}/api/auth/user/${userId}`);
+                const response = await axios.get(`${Api_url}/api/Auth/user/${userId}`);
                 setUserData(response.data);
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -25,6 +29,9 @@ export default function EditProfile() {
 
     return(
         <>
+        <div className="edit-button">
+            <Link to={`/editprofil/${userId}`}><Button variant="contained" color="success" startIcon={<ManageAccountsTwoToneIcon />}>Uredite profil</Button></Link>
+        </div>
         <div className="edit-profile">
             <h2>Vas profil</h2>
             <div className="edit-profile-info">

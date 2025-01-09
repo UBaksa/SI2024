@@ -39,7 +39,7 @@ export default function MyPonude() {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div><h1>Trenutno nemate Vasih ponuda!</h1></div>;
   }
 
   
