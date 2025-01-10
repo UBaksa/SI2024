@@ -12,7 +12,7 @@ import { AppProvider } from "./context/AppContext";
 import OfferCard from "./components/Cards/OfferCard"
 import EditProfile from "./pages/EditProfile/EditProfile"
 import EditProfil from "./pages/EditProfile/EditProfil"
-
+import NewKorisnik from "./pages/NewKorisnik/NewKorisnik"
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
               <Route path='/ponude/*' element={<Ponude/>}/>
               <Route path="/offer/:id" element={<OfferCard />} />
               <Route path='/register' element={<Register/>}/>
+              <Route path='/novikorisnik' element={<NewKorisnik/>}/>
               <Route path='/registerPreduzece' element={<RegisterPreduzece/>}/>
             </Routes>
           <Footer/>

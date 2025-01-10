@@ -63,7 +63,7 @@ export default function Navbar() {
         </li>
         )}
         {(userRoles && userRoles.includes("Kontroler")) && (
-          <li style={{display:"flex",gap:"5%"}}><PersonAddAltTwoToneIcon/> Korisnik</li>
+          <Link to={"/novikorisnik"}><li style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}}><PersonAddAltTwoToneIcon/> Korisnik</li></Link>
         )}
       </ul>
       <ul className="login">

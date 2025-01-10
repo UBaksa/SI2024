@@ -1,0 +1,55 @@
+@font-face {
+    font-family: roboto;
+    src: url(../../../public/fonts/Roboto-Medium.ttf);
+}
+.new-korisnik{
+    padding: 0.5%;
+    width: 50%;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    background-color: white;
+    font-family: roboto;
+}
+.new-korisnik h3 {
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
+    width: 100%;
+    padding: 0.5%;
+    color: white;
+    text-align: left;
+    font-family: roboto;
+}
+.new-korisnik label{
+    margin: auto;
+    margin-top: 5%;
+    font-size: 1.2rem;
+    color: rgb(25,118,210);
+}
+.new-korisnik input{
+    width: 30%;
+    height: 2rem;
+    padding: 1%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: roboto;
+    background-color: gainsboro;
+    margin-top: 1%;
+}
+.new-korisnik p{
+    font-weight: 200;
+    font-size: 1.2rem;
+    color: #1976d2;
+    margin-top: 1%;
+}
+.new-korisnik select {
+    width: 30%;
+    height: 2rem;
+    padding: 1%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: roboto;
+    background-color: gainsboro;
+}
