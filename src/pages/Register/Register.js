@@ -5,6 +5,7 @@ import { Api_url } from "../../apiurl";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { useAppContext } from "../../context/AppContext";
+import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 
 const languages = [
     "Albanski", "Baskijski", "Beloruski", "Bosanski", "Bugarski", "Češki", 
@@ -84,62 +85,70 @@ export default function Register() {
 
     return (
         <div className="registerForm">
-            <h1>Logo</h1>
             <h2>Registracija</h2>
-            <label>Unesite Vase ime</label>
-            <br />
-            <input type="text" onChange={(e) => setFirstname(e.target.value)} />
-            <br />
-            <label>Unesite Vase prezime</label>
-            <br />
-            <input type="text" onChange={(e) => setLastname(e.target.value)} />
-            <br />
-            <label>Unesite Vasu email adresu</label>
-            <br />
-            <input type="email" onChange={(e) => setEmail(e.target.value)} />
-            <br />
-            <label>Unesite Vasu lozinku</label>
-            <br />
-            <input type="password" onChange={(e) => setPassword(e.target.value)} />
-            <br />
-            <label>Unesite Vas broj telefona</label>
-            <br />
-            <input type="tel" onChange={(e) => setNumber(e.target.value)} />
-            <br />
-            <label>Odaberite koji tip korisnika ste</label>
-            <br />
-            <select value={role} onChange={(e) => setRole(e.target.value)}>
-                <option value="">---</option>
-                <option value="Prevoznik">Prevoznik</option>
-                <option value="Dispecer">Dispecer</option>
-            </select>
-            <br />
-            <label>Odaberite jezike koje govorite</label>
-            <br />
-            <div className="dropdown" style={{ position: "relative" }}>
-                <button type="button" onClick={toggleDropdown}>
-                    {selectedLanguages.length > 0
-                        ? `Govorite ${selectedLanguages.length} jezika`
-                        : "Odaberite jezike"}
-                </button>
-                {dropdownOpen && (
-                    <div className="dropdown-menu" style={{ position: "absolute", background: "#fff", border: "1px solid #ccc", padding: "10px", zIndex: 1 }}>
-                        {languages.map((language) => (
-                            <label key={language} style={{ display: "block", marginBottom: "5px" }}>
-                                <input
-                                    type="checkbox"
-                                    value={language}
-                                    checked={selectedLanguages.includes(language)}
-                                    onChange={handleCheckboxChange}
-                                />
-                                {language}
-                            </label>
-                        ))}
-                    </div>
-                )}
+            <div className="registerForm-info">
+                <br />
+                <label>Unesite Vase ime</label>
+                <br />
+                <input type="text" onChange={(e) => setFirstname(e.target.value)} />
+                <br />
+                <br />
+                <label>Unesite Vase prezime</label>
+                <br />
+                <input type="text" onChange={(e) => setLastname(e.target.value)} />
+                <br />
+                <br />
+                <label>Unesite Vasu email adresu</label>
+                <br />
+                <input type="email" onChange={(e) => setEmail(e.target.value)} />
+                <br />
+                <br />
+                <label>Unesite Vasu lozinku</label>
+                <br />
+                <input type="password" onChange={(e) => setPassword(e.target.value)} />
+                <br />
+                <br />
+                <label>Unesite Vas broj telefona</label>
+                <br />
+                <input type="tel" onChange={(e) => setNumber(e.target.value)} />
+                <br />
+                <br />
+                <label>Odaberite koji tip korisnika ste</label>
+                <br />
+                <select value={role} onChange={(e) => setRole(e.target.value)}>
+                    <option value="">---</option>
+                    <option value="Prevoznik">Prevoznik</option>
+                    <option value="Dispecer">Dispecer</option>
+                </select>
+                <br />
+                <br />
+                <label>Odaberite jezike koje govorite</label>
+                <br />
+                <div className="dropdown" style={{ position: "relative" }}>
+                    <button type="button" onClick={toggleDropdown}>
+                        {selectedLanguages.length > 0
+                            ? `Govorite ${selectedLanguages.length} jezika`
+                            : "Odaberite jezike"}
+                    </button>
+                    {dropdownOpen && (
+                        <div className="dropdown-menu" style={{ position: "absolute", background: "#fff", border: "1px solid #ccc", padding: "10px", zIndex: 1 }}>
+                            {languages.map((language) => (
+                                <label key={language} style={{ display: "block", marginBottom: "5px" }}>
+                                    <input
+                                        type="checkbox"
+                                        value={language}
+                                        checked={selectedLanguages.includes(language)}
+                                        onChange={handleCheckboxChange}
+                                    />
+                                    {language}
+                                </label>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
             <br />
-            <Button variant="contained" onClick={handleRegister}>
+            <Button endIcon={<PersonAddAltTwoToneIcon/>} size="small" variant="contained" onClick={handleRegister}>
                 Registrujte se
             </Button>
         </div>

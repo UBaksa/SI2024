@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import PermIdentityTwoToneIcon from '@mui/icons-material/PermIdentityTwoTone';
+import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 
 export default function Navbar() {
   const { userId, setUserId } = useAppContext();
@@ -18,6 +19,7 @@ export default function Navbar() {
     const storedUserId = localStorage.getItem("id");
     const storedCompanyId = localStorage.getItem("companyID");
     const storedUserRole = localStorage.getItem("roles");
+    
     if (storedUserId) {
       setUserId(storedUserId);
       setUserCompanyID(storedCompanyId) 
@@ -60,10 +62,13 @@ export default function Navbar() {
           </Link>
         </li>
         )}
+        {(userRoles && userRoles.includes("Kontroler")) && (
+          <li style={{display:"flex",gap:"5%"}}><PersonAddAltTwoToneIcon/> Korisnik</li>
+        )}
       </ul>
       <ul className="login">
         {isLoggedIn ? (
-          <>
+          <> 
             <li>
             <Link style={{ textDecoration: "none", color: "white" }} to={"/profil"}>
               <PermIdentityTwoToneIcon style={{fontSize:"2rem"}}></PermIdentityTwoToneIcon>

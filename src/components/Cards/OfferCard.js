@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-
+import { useAppContext } from "../../context/AppContext";
 
 const config = {
   apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X",
@@ -25,7 +25,7 @@ export default function OfferCard() {
   const [error, setError] = useState(null);
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [distance, setDistance] = useState(null);
-
+  const {userRoles, setUserRoles} = useAppContext();
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -95,14 +95,16 @@ export default function OfferCard() {
     }
   };
   
+  const isController = userRoles.includes("Kontroler"); 
+
   return (
-    <>
-    {mineOffer && (
+    <div style={{marginBottom:"2%"}}>
+     {(mineOffer || isController) && (
       <div className="edit-button">
         <Button size="medium" variant="contained" startIcon={<EditNoteIcon/>}  onClick={handleEdit}>Izmenite ponudu</Button>
         <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleDelete}>Izbrisite ponudu</Button>
       </div>
-  )}
+    )}
     <div className="offer-card">
       <div className="offer-card-route-tittle">
         <h3>{offer.drzavaU} {offer.mestoU} --- {offer.drzavaI} {offer.mestoI}</h3>
@@ -183,6 +185,6 @@ export default function OfferCard() {
         )}
       </div>
     </div>
-    </>
+    </div>
   );
 }

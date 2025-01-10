@@ -4,8 +4,9 @@
 }
 
 .offer-buttons {
-  width: 20%;
-  margin: 1% auto 0;
+  width: 40%;
+  margin: auto;
+  gap: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

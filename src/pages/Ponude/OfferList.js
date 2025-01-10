@@ -101,7 +101,7 @@ export default function OfferList() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <>
+    <div>
     <div className="offer-buttons">
     <Link to={"/ponude/preduzeceponude"}><Button variant="contained">Moje ponude</Button></Link>
     <Link to={"/ponude/createoffer"}><Button variant="contained"color="success">Kreiraj ponudu</Button></Link>
@@ -263,6 +263,6 @@ export default function OfferList() {
         </tbody>
       </table>
     </div>
-    </>
+    </div>
   );
 }

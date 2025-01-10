@@ -75,7 +75,6 @@ export default function Login() {
     return (
         <>
             <div className="login-form">
-                <h1>Logo</h1>
                 <h2>Prijava</h2>
                 <form>
                     <label>Unesite Vašu email adresu</label>
@@ -84,7 +83,8 @@ export default function Login() {
                     <label>Unesite Vašu lozinku</label>
                     <br />
                     <input onChange={handlePasswordChange} type="password" id="password-input" />
-                    <Button onClick={handleLogin} variant="contained">Prijava</Button>
+                    <br/>
+                    <Button size="large" onClick={handleLogin} variant="contained">Prijava</Button>
                 </form>
                 <Link to={"/register"}>
                     <p>Želite da postanete novi korisnik? Kliknite za registraciju</p>

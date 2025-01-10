@@ -1,22 +1,25 @@
-.login-form{
-    width: 40%;
-    padding: 2%;
-    background-color: white;
-    margin: auto;
-    margin-top: 5%;
-    align-items: center;
-    justify-content: center;
-    border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-}
 @font-face {
     font-family: roboto;
     src: url(../../../public/fonts/Roboto-Medium.ttf);
 }
+.login-form{
+    padding: 0.5%;
+    width: 50%;
+    height: 30rem;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    background-color: white;
+    font-family: roboto;
+}
 .login-form h2{
-    font-size: 1.5rem;
-    margin-top: 10%;
-    color: rgb(50, 50, 50);
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
+    width: 100%;
+    padding: 0.5%;
+    color: white;
+    text-align: left;
+    font-family: roboto;
 }
 .login-form form{
     width: 100%;
@@ -25,24 +28,26 @@
     color: rgb(50, 50, 50);
 }
 .login-form label{
-    font-size: 1.3rem;
-    margin-bottom: 10%;
+    margin: auto;
+    margin-top: 5%;
+    font-size: 1.2rem;
+    color: rgb(25,118,210);
 }
 .login-form input{
-    width: 50%;
-    font-family: roboto;
-    margin-top: 3%;
+    width: 30%;
+    height: 2rem;
     padding: 1%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: roboto;
+    background-color: gainsboro;
+    margin-bottom: 5%;
+    margin-top: 1%;
 }
 .login-form p{
     font-weight: 200;
     font-size: 1.2rem;
     color: #1976d2;
     margin-top: 1%;
-}
-#error-email{
-    visibility: hidden;
-}
-#error-password{
-    visibility: hidden;
 }
