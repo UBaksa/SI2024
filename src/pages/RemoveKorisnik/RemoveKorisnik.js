@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Api_url } from "../../apiurl";  // Ovaj fajl treba da sadrži osnovni URL servera.
+import { Api_url } from "../../apiurl";  
 import { Button } from "@mui/material";
 import "./RemoveKorisnik.css";
 import { useNavigate } from "react-router-dom";
+
+
+
 export default function RemoveKorisnik() {
-  const [users, setUsers] = useState([]);  // Držimo listu korisnika u stanju
+  const [users, setUsers] = useState([]); 
   const navigate = useNavigate();
 
-  // Učitaj sve korisnike sa servera
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -35,16 +37,16 @@ export default function RemoveKorisnik() {
   };
 
   return (
-    <div className="remove-korisnik-container">
+    <div className="remove-korisnik">
       <h2>Lista korisnika</h2>
-      <table className="user-table">
+      <table className="remove-korisnik-table">
         <thead>
           <tr>
             <th>Ime</th>
             <th>Prezime</th>
             <th>Email</th>
             <th>Telefon</th>
-            <th>Preduzeće ID</th>
+            <th>ID Preduzeća</th>
             <th>Uloge</th>
             <th>Brisanje</th>
           </tr>

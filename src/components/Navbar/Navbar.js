@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import PermIdentityTwoToneIcon from '@mui/icons-material/PermIdentityTwoTone';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 import PersonRemoveTwoToneIcon from '@mui/icons-material/PersonRemoveTwoTone';
+import TravelExploreTwoToneIcon from '@mui/icons-material/TravelExploreTwoTone';
+
 
 export default function Navbar() {
   const { userId, setUserId } = useAppContext();
@@ -56,16 +58,23 @@ export default function Navbar() {
         <li>Obaveštenja</li>
         <li>Podrška</li>
         {isLoggedIn && (
+          <div style={{display:"flex",gap:"10%",marginRight:"5%"}}>
           <li id="ponude">
           <Link style={{ textDecoration: "none", color: "white" }} to={"/ponude"}>
             Ponude
           </Link>
-        </li>
+          </li>
+          <li id="ponude">
+          <Link style={{ textDecoration: "none", color: "white", display:"flex",gap:"5%" }} to={"/pretragapreduzeca"}>
+            <TravelExploreTwoToneIcon />Preduzeca
+          </Link>
+          </li>
+          </div>
         )}
         {(userRoles && userRoles.includes("Kontroler")) && (
           <div style={{display:"flex",gap:"10%"}}>
-          <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/novikorisnik"}><li style={{display:"flex",gap:"5%"}}><PersonAddAltTwoToneIcon/> Korisnik</li></Link>
-          <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/izbrisikorisnika"}><li style={{display:"flex",gap:"5%"}}><PersonRemoveTwoToneIcon /> Korisnik</li></Link>
+            <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/novikorisnik"}><li style={{display:"flex",gap:"5%"}}><PersonAddAltTwoToneIcon/> Korisnik</li></Link>
+            <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/izbrisikorisnika"}><li style={{display:"flex",gap:"5%"}}><PersonRemoveTwoToneIcon /> Korisnik</li></Link>
           </div>
         )}
       </ul>

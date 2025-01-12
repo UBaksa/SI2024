@@ -5,6 +5,7 @@
 
 .offer-buttons {
   width: 40%;
+  height: 20%;
   margin: auto;
   gap: 1rem;
   display: flex;

@@ -14,7 +14,7 @@ export default function NewKorisnik() {
         lastName: "",
         mail: "",
         phoneNumber: "",
-        password: "pass12345", 
+        password: "Pass12345", 
         roles: "",
         languages: ["Engleski"], 
     });

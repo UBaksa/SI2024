@@ -1,0 +1,36 @@
+.search-preduzece{
+    background-color: white;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 15%;
+    padding: 0.5%;
+    width: 80%;
+    font-family: roboto;
+}
+.search-preduzece h2{
+    width: 99%;
+    margin: auto;
+    text-align: left;
+    padding-left: 1%;
+    margin-bottom: 0.5%;
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124, 189, 255, 1) 95%);
+    color: white;
+    font-size: 1.8rem;
+}
+.search-preduzece-inputs{
+    margin: auto;
+    width: 50%;
+    margin-bottom: 1%;
+}
+.search-preduzece-inputs input{
+    width: 30%;
+    height: 2rem;
+    padding: 1%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: roboto;
+    background-color: gainsboro;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
