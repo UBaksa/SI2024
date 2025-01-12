@@ -108,7 +108,7 @@ export default function OfferList() {
     wrapperClass="blocks-wrapper"
     visible={true}
     /></div>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>Greska: {error}</p>;
 
   return (
     <div>

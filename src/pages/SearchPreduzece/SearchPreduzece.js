@@ -4,6 +4,7 @@ import { Api_url } from "../../apiurl";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./SearchPreduzece.css";
+import DomainDisabledTwoToneIcon from '@mui/icons-material/DomainDisabledTwoTone';
 
 export default function SearchPreduzece() {
   const [preduzeca, setPreduzeca] = useState([]);
@@ -13,6 +14,7 @@ export default function SearchPreduzece() {
     companyState: "",
     companyCity: "",
     companyId: "",  
+    companyPIB: "",
   });
   const [isKontroler, setIsKontroler] = useState(false); 
   const navigate = useNavigate();
@@ -38,7 +40,8 @@ export default function SearchPreduzece() {
           (filter.companyId === "" || preduzece.id.toLowerCase().includes(filter.companyId.toLowerCase())) &&
           preduzece.companyName.toLowerCase().includes(filter.companyName.toLowerCase()) &&
           preduzece.companyState.toLowerCase().includes(filter.companyState.toLowerCase()) &&
-          preduzece.companyCity.toLowerCase().includes(filter.companyCity.toLowerCase())
+          preduzece.companyCity.toLowerCase().includes(filter.companyCity.toLowerCase()) &&
+          (filter.companyPIB === "" || preduzece.companyPIB.toLowerCase().includes(filter.companyPIB.toLowerCase()))
         );
       });
       setFilteredPreduzeca(filtered);
@@ -114,6 +117,14 @@ export default function SearchPreduzece() {
           value={filter.companyId}
           onChange={handleInputChange}
         />
+        <br />
+        <input
+          type="text"
+          placeholder="PIB"
+          name="companyPIB"
+          value={filter.companyPIB}
+          onChange={handleInputChange}
+        />
       </div>
       <table>
         <thead>
@@ -129,7 +140,10 @@ export default function SearchPreduzece() {
         <tbody>
           {filteredPreduzeca.length === 0 ? (
             <tr>
-              <td colSpan="5">Nema preduzeća koja odgovaraju pretrazi.</td>
+              <td colSpan="6"><div>
+                <DomainDisabledTwoToneIcon style={{fontSize:"5rem",color:"red"}}/>
+                <h3>Nema preduzeca po Vasoj pretrazi</h3>
+              </div></td>
             </tr>
           ) : (
             filteredPreduzeca.map((preduzece) => (

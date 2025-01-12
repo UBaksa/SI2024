@@ -5,42 +5,35 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Api_url } from "../../apiurl";
 import { useAppContext } from "../../context/AppContext";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [emailMistake, setEmailMistake] = useState("");
-    const [passwordMistake, setPasswordMistake] = useState("");
-    const { setUserId } = useAppContext();
-    const { setUserCompanyID } = useAppContext();
+    const { setUserId, setUserCompanyID } = useAppContext();
     const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
-        setEmailMistake("");
     };
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-        setPasswordMistake("");
     };
 
     const handleLogin = () => {
-        setPasswordMistake("");
-        setEmailMistake("");
-
         const emailTemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (email === "") {
-            setEmailMistake("Unesite email adresu");
+        if (!email) {
+            toast.error("Unesite email adresu!");
             return;
         }
         if (!emailTemplate.test(email)) {
-            setEmailMistake("Email nije validan.");
+            toast.error("Email adresa nije validna.");
             return;
         }
-        if (password === "") {
-            setPasswordMistake("Unesite lozinku!");
+        if (!password) {
+            toast.error("Unesite lozinku!");
             return;
         }
 
@@ -56,35 +49,44 @@ export default function Login() {
                 if (userId) {
                     localStorage.setItem("id", userId);
                     localStorage.setItem("companyID", companyId);
-                    localStorage.setItem("roles", JSON.stringify(roles)); // Čuvamo role
+                    localStorage.setItem("roles", JSON.stringify(roles)); 
                     setUserId(userId);
                     setUserCompanyID(companyId);
-                    navigate("/");
+
+                    toast.success("Uspešno ste prijavljeni!");
+
+                    
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 2000); 
                 }
             })
             .catch((error) => {
-                console.error(error);
                 if (error.response && error.response.data && error.response.data.Message) {
-                    alert(error.response.data.Message);
+                    toast.error(error.response.data.Message);
                 } else {
-                    alert("Došlo je do greške. Pokušajte ponovo.");
+                    toast.error("Došlo je do greške. Pokušajte ponovo.");
                 }
             });
     };
 
     return (
         <>
+            <Toaster position="top-right" reverseOrder={false} />
             <div className="login-form">
                 <h2>Prijava</h2>
                 <form>
                     <label>Unesite Vašu email adresu</label>
                     <br />
-                    <input onChange={handleEmailChange} type="email" id="email-input" /><br></br>
+                    <input onChange={handleEmailChange} type="email" id="email-input" />
+                    <br />
                     <label>Unesite Vašu lozinku</label>
                     <br />
                     <input onChange={handlePasswordChange} type="password" id="password-input" />
-                    <br/>
-                    <Button size="large" onClick={handleLogin} variant="contained">Prijava</Button>
+                    <br />
+                    <Button size="large" onClick={handleLogin} variant="contained">
+                        Prijava
+                    </Button>
                 </form>
                 <Link to={"/register"}>
                     <p>Želite da postanete novi korisnik? Kliknite za registraciju</p>

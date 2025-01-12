@@ -5,17 +5,18 @@ import { Api_url } from "../../apiurl";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { useAppContext } from "../../context/AppContext";
-import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
+import { Toaster, toast } from "react-hot-toast";
+import PersonAddAltTwoToneIcon from "@mui/icons-material/PersonAddAltTwoTone";
 
 const languages = [
-    "Albanski", "Baskijski", "Beloruski", "Bosanski", "Bugarski", "Češki", 
-    "Danski", "Engleski", "Estonski", "Farski", "Finski", "Flamanski", 
-    "Francuski", "Frizijski", "Galicijski", "Grčki", "Holandski", "Hrvatski", 
-    "Irski", "Islandaski", "Italijanski", "Katalonski", "Ladin", "Letonski", 
-    "Litvanski", "Mađarski", "Makedonski", "Malteški", "Nemački", "Norveški", 
-    "Poljski", "Portugalski", "Romi", "Rumunski", "Ruski", "Sardinski", 
-    "Škotski galski", "Slovenački", "Slovački", "Srpski", "Španski", 
-    "Švedski", "Turski", "Ukrajinski", "Velški"
+    "Albanski", "Baskijski", "Beloruski", "Bosanski", "Bugarski", "Češki",
+    "Danski", "Engleski", "Estonski", "Farski", "Finski", "Flamanski",
+    "Francuski", "Frizijski", "Galicijski", "Grčki", "Holandski", "Hrvatski",
+    "Irski", "Islandaski", "Italijanski", "Katalonski", "Ladin", "Letonski",
+    "Litvanski", "Mađarski", "Makedonski", "Malteški", "Nemački", "Norveški",
+    "Poljski", "Portugalski", "Romi", "Rumunski", "Ruski", "Sardinski",
+    "Škotski galski", "Slovenački", "Slovački", "Srpski", "Španski",
+    "Švedski", "Turski", "Ukrajinski", "Velški",
 ];
 
 export default function Register() {
@@ -43,44 +44,58 @@ export default function Register() {
     };
 
     const handleRegister = () => {
-        if (firstname !== "" && lastname !== "" && email !== "" && password !== "" && number !== "") {
-            const emailtemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const numbertemplate = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-
-            if (!emailtemplate.test(email)) {
-                console.log("Ukucajte pravilno mail adresu!");
-                return;
-            }
-            if (!numbertemplate.test(number)) {
-                console.log("Ukucajte pravilno broj telefona!");
-                return;
-            }
-
-            const data = {
-                firstName: firstname,
-                lastName: lastname,
-                mail: email,
-                password: password,
-                phoneNumber: number,
-                preduzeceId: "c2bb1d8b-490f-49ca-b2b4-0ade03f48919",
-                roles: [role],
-                languages: selectedLanguages,
-            };
-
-            axios
-                .post(Api_url + "/api/Auth/Register", data)
-                .then((result) => {
-                    const userId = result.data.id;
-                    if (userId) {
-                        localStorage.setItem("id", userId);
-                        setUserId(userId);
-                        navigate("/registerPreduzece");
-                    }
-                })
-                .catch((error) => console.log(error));
-        } else {
-            console.log("Sva polja moraju biti popunjena!");
+        if (firstname === "" || lastname === "" || email === "" || password === "" || number === "") {
+            toast.error("Sva polja moraju biti popunjena!");
+            return;
         }
+
+        const emailtemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const numbertemplate = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+        const isPasswordCapitalized = /^[A-Z]/.test(password);
+
+        if (!emailtemplate.test(email)) {
+            toast.error("Ukucajte pravilno email adresu!");
+            return;
+        }
+
+        if (!numbertemplate.test(number)) {
+            toast.error("Ukucajte pravilno broj telefona!");
+            return;
+        }
+
+        if (!isPasswordCapitalized) {
+            toast.error("Lozinka mora počinjati velikim slovom!");
+            return;
+        }
+
+        const data = {
+            firstName: firstname,
+            lastName: lastname,
+            mail: email,
+            password: password,
+            phoneNumber: number,
+            preduzeceId: "c2bb1d8b-490f-49ca-b2b4-0ade03f48919",
+            roles: [role],
+            languages: selectedLanguages,
+        };
+
+        axios
+            .post(Api_url + "/api/Auth/Register", data)
+            .then((result) => {
+                const userId = result.data.id;
+                if (userId) {
+                    localStorage.setItem("id", userId);
+                    setUserId(userId);
+                    toast.success("Uspešno ste registrovani!");
+                    setTimeout(() => {
+                          navigate("/registerPreduzece");
+                    }, 2000);
+                }
+            })
+            .catch((error) => {
+                toast.error("Greška prilikom registracije!");
+                console.error(error);
+            });
     };
 
     return (
@@ -148,9 +163,10 @@ export default function Register() {
                 </div>
             </div>
             <br />
-            <Button endIcon={<PersonAddAltTwoToneIcon/>} size="small" variant="contained" onClick={handleRegister}>
+            <Button endIcon={<PersonAddAltTwoToneIcon />} size="small" variant="contained" onClick={handleRegister}>
                 Registrujte se
             </Button>
+            <Toaster position="top-right" reverseOrder={false} />
         </div>
     );
 }

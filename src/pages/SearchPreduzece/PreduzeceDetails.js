@@ -3,6 +3,8 @@ import axios from "axios";
 import { Api_url } from "../../apiurl";
 import { useParams } from "react-router-dom";
 import "./PreduzeceDetails.css";
+import { Blocks } from 'react-loader-spinner'
+import PersonOffTwoToneIcon from '@mui/icons-material/PersonOffTwoTone';
 
 export default function PreduzeceDetails() {
   const [preduzece, setPreduzece] = useState(null);
@@ -28,13 +30,20 @@ export default function PreduzeceDetails() {
   }, [id]);
 
   if (!preduzece) {
-    return <div>Učitavanje detalja...</div>;
+    return <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+        height="300"
+        width="300"
+        color="#4fa94d"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+        visible={true}
+        /></div>;;
   }
 
   return (
     <div className="preduzece-details">
       <h2>Detalji Preduzeća</h2>
-
       <table>
         <tbody>
           <tr>
@@ -59,7 +68,6 @@ export default function PreduzeceDetails() {
           </tr>
         </tbody>
       </table>
-
       <h3>Korisnici preduzeća</h3>
       {korisnici.length > 0 ? (
         <table>
@@ -67,6 +75,8 @@ export default function PreduzeceDetails() {
             <tr>
               <th>Ime</th>
               <th>Prezime</th>
+              <th>Mail</th>
+              <th>Telefon</th>
             </tr>
           </thead>
           <tbody>
@@ -74,12 +84,17 @@ export default function PreduzeceDetails() {
               <tr key={korisnik.preduzeceId}>
                 <td>{korisnik.firstName}</td>
                 <td>{korisnik.lastName}</td>
+                <td>{korisnik.phoneNumber}</td>
+                <td>{korisnik.mail}</td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p>Trenutno nema korisnika za ovo preduzeće.</p>
+        <div>
+        <p><PersonOffTwoToneIcon style={{fontSize:"5rem",color:"red"}}/></p>
+        <p style={{fontWeight:"bolder"}}>Ovo preduzece nema korisnika!</p>
+        </div>
       )}
     </div>
   );
