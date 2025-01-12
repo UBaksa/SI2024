@@ -5,8 +5,9 @@ import "./EditProfil.css";
 import { Api_url } from "../../apiurl";
 import { Button } from "@mui/material";
 import HowToRegTwoToneIcon from '@mui/icons-material/HowToRegTwoTone';
+import VisibilityIcon from '@mui/icons-material/Visibility'; 
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'; 
 import { useNavigate } from "react-router-dom";
-
 
 export default function EditProfil() {
   const { id } = useParams(); 
@@ -14,13 +15,14 @@ export default function EditProfil() {
     firstname: "",
     lastname: "",
     email: "",
-    password: "",
+    password: "", 
     number: "",
     role: "",
     languages: []
   });
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); 
 
   const languages = [
     "Albanski", "Baskijski", "Beloruski", "Bosanski", "Bugarski", "Češki",
@@ -44,14 +46,12 @@ export default function EditProfil() {
     }
   };
 
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
- 
   useEffect(() => {
     axios
       .get(`${Api_url}/api/Auth/user/${id}`)
       .then((response) => {
-        console.log("Fetched user data:", response.data);
         const data = response.data;
         setUserData({
           firstname: data.firstName || "", 
@@ -59,32 +59,22 @@ export default function EditProfil() {
           email: data.email || "",
           number: data.phoneNumber || "",
           role: (data.roles && data.roles[0]) || "", 
-          languages: data.languages || []
+          languages: data.languages || [],
+          password: "" 
         });
         setSelectedLanguages(data.languages || []);
-        console.log("Updated userData:", {
-          firstname: data.firstName,
-          lastname: data.lastName,
-          email: data.email,
-          number: data.phoneNumber,
-          role: (data.roles && data.roles[0]),
-          languages: data.languages
-        });
       })
       .catch((error) => console.error("Error fetching user data:", error));
   }, [id]);
-  
-  
 
- 
   const handleUpdate = () => {
-
     const updatedUser = {
       FirstName: userData.firstname,
       LastName: userData.lastname,
       Email: userData.email,
       PhoneNumber: userData.number,
-      Languages: selectedLanguages.join(",") 
+      Languages: selectedLanguages.join(","),
+      Password: userData.password 
     };
 
     axios
@@ -93,14 +83,16 @@ export default function EditProfil() {
         alert("Profil je uspešno izmenjen!");
       })
       .catch((error) => console.error("Error updating user data:", error));
-      navigate("/profil")
+      navigate("/profil");
   };
 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+
+  
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
   return (
     <div className="edit-profil">
@@ -134,6 +126,27 @@ export default function EditProfil() {
           value={userData.number}
           onChange={handleChange}
         />
+        <h3>Lozinka</h3> 
+        <div style={{ position: "relative" }}>
+          <input
+            type={passwordVisible ? "text" : "password"}
+            name="password"
+            value={userData.password}
+            onChange={handleChange}
+          />
+          <div
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer"
+            }}
+            onClick={togglePasswordVisibility}
+          >
+            {passwordVisible ? <VisibilityOffIcon/> : <VisibilityIcon />}
+          </div>
+        </div>
         <h3>Jezici</h3>
         <div className="dropdown" style={{ position: "relative" }}>
           <button type="button" onClick={toggleDropdown}>
@@ -147,7 +160,7 @@ export default function EditProfil() {
               style={{
                 position: "absolute",
                 background: "#fff",
-                border: "1px solid #ccc",
+                border: "none",
                 padding: "10px",
                 zIndex: 1
               }}

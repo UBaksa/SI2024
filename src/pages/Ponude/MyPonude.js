@@ -4,6 +4,8 @@ import { Api_url } from "../../apiurl";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import "./MyPonude.css";
+import { Blocks } from 'react-loader-spinner'
+import { Comment } from 'react-loader-spinner'
 
 export default function MyPonude() {
   const [ponude, setPonude] = useState([]);
@@ -35,11 +37,28 @@ export default function MyPonude() {
   }, []);
 
   if (loading) {
-    return <div>Učitavanje ponuda...</div>;
+    return <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+      height="300"
+      width="300"
+      color="#4fa94d"
+      ariaLabel="blocks-loading"
+      wrapperStyle={{}}
+      wrapperClass="blocks-wrapper"
+      visible={true}
+      /></div>;
   }
 
   if (error) {
-    return <div><h1>Trenutno nemate Vasih ponuda!</h1></div>;
+    return <div style={{margin:"auto",marginBottom:"18%"}}><Comment
+    height="300"
+    width="300"
+    color="#1976d2"
+    ariaLabel="blocks-loading"
+    wrapperStyle={{}}
+    wrapperClass="blocks-wrapper"
+     backgroundColor="white"
+    visible={true}
+    /><h3 style={{}}>Nemate Vasih ponuda!</h3></div>;
   }
 
   

@@ -6,6 +6,7 @@ import { useAppContext } from "../../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import PermIdentityTwoToneIcon from '@mui/icons-material/PermIdentityTwoTone';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
+import PersonRemoveTwoToneIcon from '@mui/icons-material/PersonRemoveTwoTone';
 
 export default function Navbar() {
   const { userId, setUserId } = useAppContext();
@@ -52,7 +53,6 @@ export default function Navbar() {
             CarGoo
           </Link>
         </li>
-        <li>Usluge</li>
         <li>Obaveštenja</li>
         <li>Podrška</li>
         {isLoggedIn && (
@@ -63,7 +63,10 @@ export default function Navbar() {
         </li>
         )}
         {(userRoles && userRoles.includes("Kontroler")) && (
-          <Link to={"/novikorisnik"}><li style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}}><PersonAddAltTwoToneIcon/> Korisnik</li></Link>
+          <div style={{display:"flex",gap:"10%"}}>
+          <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/novikorisnik"}><li style={{display:"flex",gap:"5%"}}><PersonAddAltTwoToneIcon/> Korisnik</li></Link>
+          <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/izbrisikorisnika"}><li style={{display:"flex",gap:"5%"}}><PersonRemoveTwoToneIcon /> Korisnik</li></Link>
+          </div>
         )}
       </ul>
       <ul className="login">

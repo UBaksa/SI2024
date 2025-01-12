@@ -12,6 +12,7 @@ import { Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { useAppContext } from "../../context/AppContext";
+import { Blocks } from 'react-loader-spinner'
 
 const config = {
   apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X",
@@ -75,9 +76,17 @@ export default function OfferCard() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+  height="300"
+  width="300"
+  color="#1976d2"
+  ariaLabel="blocks-loading"
+  wrapperStyle={{}}
+  wrapperClass="blocks-wrapper"
+  visible={true}
+  /></div>;
   if (error) return <div>Error: {error}</div>;
-  if (!offer) return <div>No offer found</div>;
+  if (!offer) return <div>Nismo uspeli pronaci odabranu ponudu !</div>;
 
   const companyId = localStorage.getItem("companyID");
   const mineOffer = offer?.idPreduzeca?.toLowerCase() === companyId?.toLowerCase();
@@ -154,7 +163,7 @@ export default function OfferCard() {
             <h4>Cena prevoza</h4>
             <p>{offer.cena === 0 ? 'Na upit' : offer.cena + "€"}</p>
             <h4>Udaljenost</h4>
-            <p>{distance !== null ? `${distance} km` : "Loading distance..."}</p>
+            <p>{distance !== null ? `${distance} km` : "Ucitavanje razdaljine..."}</p>
           </div>
           <div className="load-type" style={{ marginRight: "1%" }}>
             <h4>Tip vozila</h4>
@@ -181,7 +190,16 @@ export default function OfferCard() {
             <RoutingMachine waypoints={routeCoordinates} onRouteFound={updateDistance} />
           </MapContainer>
         ) : (
-          <div>Loading map...</div>//ovo izmeniti ubaciti neki loader!!!!!
+          <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+          height="300"
+          width="300"
+          color="#4fa94d"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          visible={true}
+          />
+          </div>
         )}
       </div>
     </div>

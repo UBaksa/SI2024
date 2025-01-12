@@ -8,6 +8,8 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import { Blocks } from 'react-loader-spinner'
+
 
 const europeanCountries = [
   { code: "AL", name: "Albanija" },
@@ -97,7 +99,15 @@ export default function OfferList() {
     setSortColumn(column);
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+    height="300"
+    width="300"
+    color="#4fa94d"
+    ariaLabel="blocks-loading"
+    wrapperStyle={{}}
+    wrapperClass="blocks-wrapper"
+    visible={true}
+    /></div>;
   if (error) return <p>Error: {error}</p>;
 
   return (

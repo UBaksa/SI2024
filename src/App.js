@@ -13,6 +13,7 @@ import OfferCard from "./components/Cards/OfferCard"
 import EditProfile from "./pages/EditProfile/EditProfile"
 import EditProfil from "./pages/EditProfile/EditProfil"
 import NewKorisnik from "./pages/NewKorisnik/NewKorisnik"
+import RemoveKorisnik from "./pages/RemoveKorisnik/RemoveKorisnik"
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/offer/:id" element={<OfferCard />} />
               <Route path='/register' element={<Register/>}/>
               <Route path='/novikorisnik' element={<NewKorisnik/>}/>
+              <Route path='/izbrisikorisnika' element={<RemoveKorisnik/>}/>
               <Route path='/registerPreduzece' element={<RegisterPreduzece/>}/>
             </Routes>
           <Footer/>
