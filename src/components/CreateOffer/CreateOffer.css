@@ -8,7 +8,6 @@
   }
 .createoffer{
     width: 60%;
-    height: 50rem;
     margin: auto;
     margin-top: 2%;
     margin-bottom: 2%;
@@ -22,7 +21,7 @@
 }
 .createoffer-loading-info{
     width: 45%;
-    height: 20rem;
+    height: 22rem;
     padding-top: 2%;
     background-color: gainsboro;
     float: left;
@@ -52,7 +51,7 @@
 }
 .createoffer-loading-date{
     width: 45%;
-    height: 20rem;
+    height: 22rem;
     padding-top: 2%;
     background-color: gainsboro;
     float: right;

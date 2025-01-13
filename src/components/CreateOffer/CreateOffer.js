@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Api_url } from "../../apiurl";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function CreateOffer() {
   const [loadingCities, setLoadingCities] = useState([]); 
@@ -140,39 +141,43 @@ export default function CreateOffer() {
     }
   };
 
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     const data = {
-      DrzavaU:selectedLoadingCountry,
-      DrzavaI:selectedUnloadingCountry,
-      MestoU:selectedLoadingCity,
-      MestoI:selectedUnloadingCity,
-      Utovar:loadingDate,
-      Istovar:unloadingDate,
-      Duzina:lenght,
-      Tezina:weight,
-      TipNadogradnje:selectedTruckType,
-      TipKamiona:selectedTruck,
-      VrstaTereta:cargoType,
-      IdPreduzeca:[localStorage.getItem("companyID")][0],
-      IdKorisnika:[localStorage.getItem("id")][0],
-      ZamenaPaleta:pallets,
-      Cena:price
-    }
-    console.log(data);
+      DrzavaU: selectedLoadingCountry,
+      DrzavaI: selectedUnloadingCountry,
+      MestoU: selectedLoadingCity,
+      MestoI: selectedUnloadingCity,
+      Utovar: loadingDate,
+      Istovar: unloadingDate,
+      Duzina: lenght,
+      Tezina: weight,
+      TipNadogradnje: selectedTruckType,
+      TipKamiona: selectedTruck,
+      VrstaTereta: cargoType,
+      IdPreduzeca: [localStorage.getItem("companyID")][0],
+      IdKorisnika: [localStorage.getItem("id")][0],
+      ZamenaPaleta: pallets,
+      Cena: price,
+    };
+  
     axios
-    .post(Api_url + "/api/Ponudas", data)
-    .then((result) => {
-        console.log(result.data);
-        console.log("Uspesno kreirana ponuda.");
+      .post(Api_url + "/api/Ponudas", data)
+      .then((result) => {
+        console.log("Uspesno kreirana ponuda:", result.data);
+        toast.success("Ponuda uspešno kreirana!");
         navigate("/ponude");
-    })
-    .catch((error) => console.log(error));
-
-}
+      })
+      .catch((error) => {
+        console.error("Greška pri kreiranju ponude:", error);
+        toast.error("Došlo je do greške. Pokušajte ponovo.");
+      });
+  };
+  
   
   return (
     
     <div className="createoffer">
+        <Toaster position="top-right" reverseOrder={false} />
         <h3 className="title">Mesto, datum utovara i istovara</h3>
       <div className="createoffer-loading-info">
         <h3>Izaberite državu utovara</h3>
