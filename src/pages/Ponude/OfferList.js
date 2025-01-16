@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { Blocks } from 'react-loader-spinner'
-
+import WorkOffTwoToneIcon from '@mui/icons-material/WorkOffTwoTone';
 
 const europeanCountries = [
   { code: "AL", name: "Albanija" },
@@ -117,162 +117,170 @@ export default function OfferList() {
     <Link to={"/ponude/createoffer"}><Button variant="contained"color="success">Kreiraj ponudu</Button></Link>
     </div>
     <div className="offer-list">
-      <h2>Filtriranje Ponuda</h2>
-      <div className="filters">
-        <label>
-          Država Utovara:
-          <select
-            value={filterDrzavaU}
-            onChange={(e) => setFilterDrzavaU(e.target.value)}
-          >
-            <option value="">Sve države</option>
-            {europeanCountries.map((country) => (
-              <option key={country.code} value={country.code}>
-                {country.code} - {country.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <span
-          onClick={() => {
-            const temp = filterDrzavaU;
-            setFilterDrzavaU(filterDrzavaI);
-            setFilterDrzavaI(temp);
-          }}
-        >
-          <CompareArrowsIcon style={{ fontSize: 70 }} />
-        </span>
-        <label>
-          Država Istovara:
-          <select
-            value={filterDrzavaI}
-            onChange={(e) => setFilterDrzavaI(e.target.value)}
-          >
-            <option value="">Sve države</option>
-            {europeanCountries.map((country) => (
-              <option key={country.code} value={country.code}>
-                {country.code} - {country.name}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <h2>Lista Ponuda</h2>
-      <table>
-        <thead>
-          <tr>
-            <th
-              style={{ backgroundColor: "green" }}
-              onClick={() => handleSort("utovar")}
-            >
-              Datum Utovara
-            </th>
-            <th
-              style={{ backgroundColor: "green" }}
-              onClick={() => handleSort("drzavaU")}
-            >
-              Država Utovara
-            </th>
-            <th
-              style={{ backgroundColor: "green" }}
-              onClick={() => handleSort("mestoU")}
-            >
-              Mesto Utovara
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(25,118,210)" }}
-              onClick={() => handleSort("istovar")}
-            >
-              Datum Istovara
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(25,118,210)" }}
-              onClick={() => handleSort("drzavaI")}
-            >
-              Država Istovara
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(25,118,210)" }}
-              onClick={() => handleSort("mestoI")}
-            >
-              Mesto Istovara
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(0, 70, 141)" }}
-              onClick={() => handleSort("duzina")}
-            >
-              Dužina
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(0, 70, 141)" }}
-              onClick={() => handleSort("tezina")}
-            >
-              Težina
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(0, 70, 141)" }}
-              onClick={() => handleSort("tipKamiona")}
-            >
-              Tip Kamiona
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(0, 70, 141)" }}
-              onClick={() => handleSort("tipNadogradnje")}
-            >
-              Vrsta nadogradnje
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(0, 70, 141)" }}
-              onClick={() => handleSort("vrstaTereta")}
-            >
-              Vrsta Tereta
-            </th>
-            <th
-              style={{ backgroundColor: "rgb(0, 70, 141)" }}
-              onClick={() => handleSort("cena")}
-            >
-              Cena
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredOffers.map((offer, index) => (
-            <tr
-              key={offer.ponudaId}
-              style={{
-                backgroundColor: index % 2 === 0 ? "gainsboro" : "white",
-              }}
-              onClick={() => navigate(`/offer/${offer.ponudaId}`)}
-            >
-              <td>
-                {new Date(offer.utovar).toLocaleDateString("sr-RS", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                })}
-              </td>
-              <td>{offer.drzavaU}</td>
-              <td>{offer.mestoU}</td>
-              <td>
-                {new Date(offer.istovar).toLocaleDateString("sr-RS", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                })}
-              </td>
-              <td>{offer.drzavaI}</td>
-              <td>{offer.mestoI}</td>
-              <td>{offer.duzina}m</td>
-              <td>{offer.tezina}t</td>
-              <td>{offer.tipKamiona}</td>
-              <td>{offer.tipNadogradnje}</td>
-              <td>{offer.vrstaTereta}</td>
-              <td>{offer.cena === 0 ? 'Na upit' : offer.cena + "€"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  <h2>Filtriranje Ponuda</h2>
+  <div className="filters">
+    <label>
+      Država Utovara:
+      <select
+        value={filterDrzavaU}
+        onChange={(e) => setFilterDrzavaU(e.target.value)}
+      >
+        <option value="">Sve države</option>
+        {europeanCountries.map((country) => (
+          <option key={country.code} value={country.code}>
+            {country.code} - {country.name}
+          </option>
+        ))}
+      </select>
+    </label>
+    <span
+      onClick={() => {
+        const temp = filterDrzavaU;
+        setFilterDrzavaU(filterDrzavaI);
+        setFilterDrzavaI(temp);
+      }}
+    >
+      <CompareArrowsIcon style={{ fontSize: 70 }} />
+    </span>
+    <label>
+      Država Istovara:
+      <select
+        value={filterDrzavaI}
+        onChange={(e) => setFilterDrzavaI(e.target.value)}
+      >
+        <option value="">Sve države</option>
+        {europeanCountries.map((country) => (
+          <option key={country.code} value={country.code}>
+            {country.code} - {country.name}
+          </option>
+        ))}
+      </select>
+    </label>
+  </div>
+  <h2>Lista Ponuda</h2>
+  {filteredOffers.length === 0 ? (
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <p><WorkOffTwoToneIcon sx={{fontSize:"5rem",color:"red"}}/></p>
+      <p>Nema dostupnih utovara!</p>
     </div>
+  ) : (
+    <table>
+      <thead>
+        <tr>
+          <th
+            style={{ backgroundColor: "green" }}
+            onClick={() => handleSort("utovar")}
+          >
+            Datum Utovara
+          </th>
+          <th
+            style={{ backgroundColor: "green" }}
+            onClick={() => handleSort("drzavaU")}
+          >
+            Država Utovara
+          </th>
+          <th
+            style={{ backgroundColor: "green" }}
+            onClick={() => handleSort("mestoU")}
+          >
+            Mesto Utovara
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(25,118,210)" }}
+            onClick={() => handleSort("istovar")}
+          >
+            Datum Istovara
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(25,118,210)" }}
+            onClick={() => handleSort("drzavaI")}
+          >
+            Država Istovara
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(25,118,210)" }}
+            onClick={() => handleSort("mestoI")}
+          >
+            Mesto Istovara
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(0, 70, 141)" }}
+            onClick={() => handleSort("duzina")}
+          >
+            Dužina
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(0, 70, 141)" }}
+            onClick={() => handleSort("tezina")}
+          >
+            Težina
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(0, 70, 141)" }}
+            onClick={() => handleSort("tipKamiona")}
+          >
+            Tip Kamiona
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(0, 70, 141)" }}
+            onClick={() => handleSort("tipNadogradnje")}
+          >
+            Vrsta nadogradnje
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(0, 70, 141)" }}
+            onClick={() => handleSort("vrstaTereta")}
+          >
+            Vrsta Tereta
+          </th>
+          <th
+            style={{ backgroundColor: "rgb(0, 70, 141)" }}
+            onClick={() => handleSort("cena")}
+          >
+            Cena
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredOffers.map((offer, index) => (
+          <tr
+            key={offer.ponudaId}
+            style={{
+              backgroundColor: index % 2 === 0 ? "gainsboro" : "white",
+            }}
+            onClick={() => navigate(`/offer/${offer.ponudaId}`)}
+          >
+            <td>
+              {new Date(offer.utovar).toLocaleDateString("sr-RS", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </td>
+            <td>{offer.drzavaU}</td>
+            <td>{offer.mestoU}</td>
+            <td>
+              {new Date(offer.istovar).toLocaleDateString("sr-RS", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+            </td>
+            <td>{offer.drzavaI}</td>
+            <td>{offer.mestoI}</td>
+            <td>{offer.duzina}m</td>
+            <td>{offer.tezina}t</td>
+            <td>{offer.tipKamiona}</td>
+            <td>{offer.tipNadogradnje}</td>
+            <td>{offer.vrstaTereta}</td>
+            <td>{offer.cena === 0 ? 'Na upit' : offer.cena + "€"}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</div>
+
     </div>
   );
 }

@@ -137,7 +137,7 @@ export default function EditProfil() {
           <div
             style={{
               position: "absolute",
-              right: "10px",
+              left:"66%",
               top: "50%",
               transform: "translateY(-50%)",
               cursor: "pointer"

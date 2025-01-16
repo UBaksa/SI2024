@@ -17,20 +17,74 @@ export default function RegisterPreduzece() {
     const navigate = useNavigate();
     const { userId } = useAppContext();
 
+    const europeanCountries = [
+        { code: "AL", name: "Albanija" },
+        { code: "AD", name: "Andora" },
+        { code: "AT", name: "Austrija" },
+        { code: "BA", name: "Bosna i Hercegovina" },
+        { code: "BG", name: "Bugarska" },
+        { code: "HR", name: "Hrvatska" },
+        { code: "CZ", name: "Češka" },
+        { code: "DK", name: "Danska" },
+        { code: "EE", name: "Estonija" },
+        { code: "FI", name: "Finska" },
+        { code: "FR", name: "Francuska" },
+        { code: "DE", name: "Nemačka" },
+        { code: "GR", name: "Grčka" },
+        { code: "HU", name: "Mađarska" },
+        { code: "IE", name: "Irska" },
+        { code: "IT", name: "Italija" },
+        { code: "LV", name: "Letonija" },
+        { code: "LT", name: "Litvanija" },
+        { code: "LU", name: "Luksemburg" },
+        { code: "NL", name: "Holandija" },
+        { code: "NO", name: "Norveška" },
+        { code: "PL", name: "Poljska" },
+        { code: "PT", name: "Portugalija" },
+        { code: "RO", name: "Rumunija" },
+        { code: "RS", name: "Srbija" },
+        { code: "SK", name: "Slovačka" },
+        { code: "SI", name: "Slovenija" },
+        { code: "ES", name: "Španija" },
+        { code: "SE", name: "Švedska" },
+        { code: "CH", name: "Švajcarska" },
+        { code: "GB", name: "Velika Britanija" },
+    ];
+
+    const validateInputs = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
+        const pibRegex = /^\d{8,10}$/;
+
+        if (!companyName) {
+            toast.error("Ime preduzeća je obavezno!");
+            return false;
+        }
+        if (!companyState) {
+            toast.error("Molimo odaberite državu!");
+            return false;
+        }
+        if (!companyCity) {
+            toast.error("Grad preduzeća je obavezan!");
+            return false;
+        }
+        if (!emailRegex.test(companyMail)) {
+            toast.error("Molimo unesite ispravnu email adresu!");
+            return false;
+        }
+        if (!phoneRegex.test(companyPhone)) {
+            toast.error("Molimo unesite ispravan broj telefona!");
+            return false;
+        }
+        if (!pibRegex.test(companyPIB)) {
+            toast.error("PIB mora sadržati između 8 i 10 cifara!");
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = () => {
-        if (companyName && companyCity && companyMail && companyPhone && companyState && companyPIB) {
-            const emailtemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const numbertemplate = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-
-            if (!emailtemplate.test(companyMail)) {
-                toast.error("Ukucajte pravilno mail adresu!");
-                return;
-            }
-            if (!numbertemplate.test(companyPhone)) {
-                toast.error("Ukucajte pravilno broj telefona!");
-                return;
-            }
-
+        if (validateInputs()) {
             const data = {
                 CompanyName: companyName,
                 CompanyState: companyState,
@@ -46,15 +100,13 @@ export default function RegisterPreduzece() {
                 .then((result) => {
                     toast.success("Kreirano preduzeće! Korisnik je uspešno dodat preduzeću.");
                     setTimeout(() => {
-                    navigate("/login");
+                        navigate("/login");
                     }, 2000);
                 })
                 .catch((error) => {
                     toast.error("Došlo je do greške prilikom registracije preduzeća.");
-                    console.log(error);
+                    console.error(error);
                 });
-        } else {
-            toast.error("Sva polja moraju biti popunjena!");
         }
     };
 
@@ -68,9 +120,16 @@ export default function RegisterPreduzece() {
                 <br />
                 <input type="text" onChange={(e) => setCompanyName(e.target.value)} />
                 <br />
-                <label>Unesite državu u kojoj se nalazi preduzeće</label>
+                <label>Odaberite državu u kojoj se nalazi preduzeće</label>
                 <br />
-                <input type="text" onChange={(e) => setCompanyState(e.target.value)} />
+                <select value={companyState} onChange={(e) => setCompanyState(e.target.value)}>
+                    <option value="">Odaberite državu</option>
+                    {europeanCountries.map((country) => (
+                        <option key={country.code} value={country.name}>
+                            {country.name}
+                        </option>
+                    ))}
+                </select>
                 <br />
                 <label>Unesite grad u kojem se nalazi preduzeće</label>
                 <br />
