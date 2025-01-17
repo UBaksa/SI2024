@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import { useAppContext } from "../../context/AppContext";
 import { Toaster, toast } from "react-hot-toast";
 import PersonAddAltTwoToneIcon from "@mui/icons-material/PersonAddAltTwoTone";
+import EmailIcon from '@mui/icons-material/Email';
 
 const languages = [
     "Albanski", "Baskijski", "Beloruski", "Bosanski", "Bugarski", "Češki",
@@ -28,6 +29,8 @@ export default function Register() {
     const [role, setRole] = useState("");
     const [selectedLanguages, setSelectedLanguages] = useState([]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [registrationComplete, setRegistrationComplete] = useState(false);
+    const [userId, setLocalUserId] = useState(null);
 
     const navigate = useNavigate();
     const { setUserId } = useAppContext();
@@ -41,6 +44,19 @@ export default function Register() {
         } else {
             setSelectedLanguages((prev) => prev.filter((lang) => lang !== value));
         }
+    };
+
+    const handleResendVerification = () => {
+        if (!userId) return;
+        
+        axios.post(Api_url + "/api/Auth/ResendVerificationEmail", { userId })
+            .then(() => {
+                toast.success("Verifikacioni email je ponovo poslat!");
+            })
+            .catch((error) => {
+                toast.error("Greška prilikom slanja verifikacionog emaila!");
+                console.error(error);
+            });
     };
 
     const handleRegister = () => {
@@ -82,14 +98,13 @@ export default function Register() {
         axios
             .post(Api_url + "/api/Auth/Register", data)
             .then((result) => {
-                const userId = result.data.id;
-                if (userId) {
-                    localStorage.setItem("id", userId);
-                    setUserId(userId);
-                    toast.success("Uspešno ste registrovani!");
-                    setTimeout(() => {
-                          navigate("/registerPreduzece");
-                    }, 2000);
+                const newUserId = result.data.id;
+                if (newUserId) {
+                    localStorage.setItem("id", newUserId);
+                    setUserId(newUserId);
+                    setLocalUserId(newUserId);
+                    setRegistrationComplete(true);
+                    toast.success("Registracija uspešna! Proverite svoj email za verifikaciju.");
                 }
             })
             .catch((error) => {
@@ -97,6 +112,30 @@ export default function Register() {
                 console.error(error);
             });
     };
+
+    if (registrationComplete) {
+        setTimeout(() => navigate("/registerPreduzece"), 5000); 
+
+        return (
+            <div className="registerForm">
+                <h2>Verifikacija Email Adrese</h2>
+                <div className="verification-message">
+                    <EmailIcon sx={{ fontSize: 60, color: 'primary.main', marginBottom: 2 }} />
+                    <p>Poslali smo verifikacioni email na adresu: <strong>{email}</strong></p>
+                    <p>Molimo vas da proverite svoj email i kliknete na link za verifikaciju.</p>
+                    <p>Nakon verifikacije, možete se prijaviti na sistem.</p>
+                    <Button
+                        variant="outlined"
+                        onClick={handleResendVerification}
+                        startIcon={<EmailIcon />}
+                        style={{ marginTop: '20px' }}
+                    >
+                        Pošalji ponovo verifikacioni email
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="registerForm">
