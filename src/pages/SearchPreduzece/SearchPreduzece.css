@@ -18,12 +18,19 @@
     font-size: 1.8rem;
 }
 .search-preduzece-inputs{
-    margin: auto;
-    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     margin-bottom: 1%;
 }
-.search-preduzece-inputs input{
+.search-preduzece-right{
     width: 30%;
+}
+.search-preduzece-left{
+    width: 30%;
+}
+.search-preduzece-inputs input{
+    width: 15rem;
     height: 2rem;
     padding: 1%;
     border: none;

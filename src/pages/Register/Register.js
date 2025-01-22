@@ -30,8 +30,6 @@ export default function Register() {
     const [selectedLanguages, setSelectedLanguages] = useState([]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [registrationComplete, setRegistrationComplete] = useState(false);
-    const [userId, setLocalUserId] = useState(null);
-
     const navigate = useNavigate();
     const { setUserId } = useAppContext();
 
@@ -46,44 +44,31 @@ export default function Register() {
         }
     };
 
-    const handleResendVerification = () => {
-        if (!userId) return;
-        
-        axios.post(Api_url + "/api/Auth/ResendVerificationEmail", { userId })
-            .then(() => {
-                toast.success("Verifikacioni email je ponovo poslat!");
-            })
-            .catch((error) => {
-                toast.error("Greška prilikom slanja verifikacionog emaila!");
-                console.error(error);
-            });
-    };
-
     const handleRegister = () => {
         if (firstname === "" || lastname === "" || email === "" || password === "" || number === "") {
             toast.error("Sva polja moraju biti popunjena!");
             return;
         }
-
+    
         const emailtemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const numbertemplate = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
         const isPasswordCapitalized = /^[A-Z]/.test(password);
-
+    
         if (!emailtemplate.test(email)) {
             toast.error("Ukucajte pravilno email adresu!");
             return;
         }
-
+    
         if (!numbertemplate.test(number)) {
             toast.error("Ukucajte pravilno broj telefona!");
             return;
         }
-
+    
         if (!isPasswordCapitalized) {
             toast.error("Lozinka mora počinjati velikim slovom!");
             return;
         }
-
+    
         const data = {
             firstName: firstname,
             lastName: lastname,
@@ -94,18 +79,15 @@ export default function Register() {
             roles: [role],
             languages: selectedLanguages,
         };
-
+    
         axios
             .post(Api_url + "/api/Auth/Register", data)
             .then((result) => {
-                const newUserId = result.data.id;
-                if (newUserId) {
-                    localStorage.setItem("id", newUserId);
-                    setUserId(newUserId);
-                    setLocalUserId(newUserId);
-                    setRegistrationComplete(true);
-                    toast.success("Registracija uspešna! Proverite svoj email za verifikaciju.");
-                }
+                // Don't store any user data until email is verified
+                setRegistrationComplete(true);
+                // Clear any existing auth data
+                localStorage.clear();
+                setUserId(null);
             })
             .catch((error) => {
                 toast.error("Greška prilikom registracije!");
@@ -114,23 +96,20 @@ export default function Register() {
     };
 
     if (registrationComplete) {
-        setTimeout(() => navigate("/registerPreduzece"), 5000); 
-
         return (
-            <div className="registerForm">
+            <div className="registerForm" style={{marginBottom:"15%"}}>
                 <h2>Verifikacija Email Adrese</h2>
                 <div className="verification-message">
                     <EmailIcon sx={{ fontSize: 60, color: 'primary.main', marginBottom: 2 }} />
                     <p>Poslali smo verifikacioni email na adresu: <strong>{email}</strong></p>
                     <p>Molimo vas da proverite svoj email i kliknete na link za verifikaciju.</p>
                     <p>Nakon verifikacije, možete se prijaviti na sistem.</p>
-                    <Button
-                        variant="outlined"
-                        onClick={handleResendVerification}
-                        startIcon={<EmailIcon />}
+                    <Button 
+                        variant="contained" 
+                        onClick={() => navigate('/login')}
                         style={{ marginTop: '20px' }}
                     >
-                        Pošalji ponovo verifikacioni email
+                        Idi na prijavu
                     </Button>
                 </div>
             </div>

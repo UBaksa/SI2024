@@ -86,6 +86,23 @@ export default function SearchPreduzece() {
     <div className="search-preduzece">
       <h2>Pretraga Preduzeća</h2>
       <div className="search-preduzece-inputs">
+        <div className="search-preduzece-left">
+        <input
+          type="text"
+          placeholder="Država"
+          name="companyState"
+          value={filter.companyState}
+          onChange={handleInputChange}
+        />
+        <input
+          type="text"
+          placeholder="Grad"
+          name="companyCity"
+          value={filter.companyCity}
+          onChange={handleInputChange}
+        />
+        </div>
+        <br />
         <input
           type="text"
           placeholder="Naziv Preduzeća"
@@ -94,22 +111,8 @@ export default function SearchPreduzece() {
           onChange={handleInputChange}
         />
         <br />
-        <input
-          type="text"
-          placeholder="Država"
-          name="companyState"
-          value={filter.companyState}
-          onChange={handleInputChange}
-        />
         <br />
-        <input
-          type="text"
-          placeholder="Grad"
-          name="companyCity"
-          value={filter.companyCity}
-          onChange={handleInputChange}
-        />
-        <br />
+        <div className="search-preduzece-right">
         <input
           type="text"
           placeholder="ID Preduzeća"
@@ -125,6 +128,7 @@ export default function SearchPreduzece() {
           value={filter.companyPIB}
           onChange={handleInputChange}
         />
+        </div>
       </div>
       <table>
         <thead>

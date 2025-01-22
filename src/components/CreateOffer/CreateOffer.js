@@ -293,14 +293,14 @@ export default function CreateOffer() {
       <h3 className="title" style={{display:"inline-block",marginTop:"1%"}}>Podaci o teretu i vrsti vozila</h3>
       <div className="createoffer-cargo-info">
         <div className="createoffer-cargo-info-load">
-          <h3>Tezina tereta:</h3>
-          <input onChange={handleWeightChange} type="text"></input>
-          <h3>Duzina tereta:</h3>
-          <input onChange={handleLengthChange} type="text"></input>
-          <h3>Vrsta tereta:</h3>
-          <input onChange={handleCargoTypeChange} type="text"></input>
+          <h3>Tezina tereta(t)</h3>
+          <input placeholder="pr. 24.5" onChange={handleWeightChange} type="text"></input>
+          <h3>Duzina tereta(m)</h3>
+          <input placeholder="pr. 13m" onChange={handleLengthChange} type="text"></input>
+          <h3>Vrsta tereta</h3>
+          <input placeholder="iverica" onChange={handleCargoTypeChange} type="text"></input>
           <h3>Razmena paleta</h3>
-            <input onChange={handlePalletsChange} type="text"></input>
+            <input placeholder="pr. da/ 33palete" onChange={handlePalletsChange} type="text"></input>
           </div>
           <div className="createoffer-cargo-info-truck">
             <h3>Tip nadogradnje</h3>
@@ -324,8 +324,8 @@ export default function CreateOffer() {
               <option value="Sleper">Sleper</option>
               <option value="Prikolicar">Prikolicar</option>
             </select>
-            <h3>Cena prevoza</h3>
-            <input type="number" onChange={handlePriceChange}></input>
+            <h3>Cena prevoza(€)</h3>
+            <input placeholder="pr. 2300€" type="number" onChange={handlePriceChange}></input>
           </div>
       </div>
         <Button variant="contained" onClick={handleSubmit} style={{marginTop:"0.5%"}}>Postavite ponudu</Button>

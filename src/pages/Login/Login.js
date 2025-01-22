@@ -46,15 +46,17 @@ export default function Login() {
             .post(Api_url + "/api/Auth/Login", loginData)
             .then((result) => {
                 const { userId, companyId, roles } = result.data; 
+                localStorage.clear();
+                
                 if (userId) {
                     localStorage.setItem("id", userId);
                     localStorage.setItem("companyID", companyId);
                     localStorage.setItem("roles", JSON.stringify(roles)); 
+                    localStorage.setItem("token", result.data.jwtToken); 
                     setUserId(userId);
                     setUserCompanyID(companyId);
 
                     toast.success("Uspešno ste prijavljeni!");
-
                     
                     setTimeout(() => {
                         navigate("/");
@@ -62,11 +64,21 @@ export default function Login() {
                 }
             })
             .catch((error) => {
-                if (error.response && error.response.data && error.response.data.Message) {
-                    toast.error(error.response.data.Message);
+                if (error.response?.status === 401 && error.response.data?.requiresEmailConfirmation) {
+                    toast.error("Email nije potvrđen. Proverite svoj email za link za potvrdu.");
+                    return;
+                }
+                
+                if (error.response?.data?.message) {
+                    toast.error(error.response.data.message);
                 } else {
                     toast.error("Došlo je do greške. Pokušajte ponovo.");
                 }
+                
+                // Clear any stored auth data on error
+                localStorage.clear();
+                setUserId(null);
+                setUserCompanyID(null);
             });
     };
 
