@@ -8,7 +8,8 @@ import PermIdentityTwoToneIcon from '@mui/icons-material/PermIdentityTwoTone';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
 import PersonRemoveTwoToneIcon from '@mui/icons-material/PersonRemoveTwoTone';
 import TravelExploreTwoToneIcon from '@mui/icons-material/TravelExploreTwoTone';
-
+import LocalShippingTwoToneIcon from '@mui/icons-material/LocalShippingTwoTone';
+import AnchorTwoToneIcon from '@mui/icons-material/AnchorTwoTone';
 
 export default function Navbar() {
   const { userId, setUserId } = useAppContext();
@@ -40,6 +41,7 @@ export default function Navbar() {
     localStorage.removeItem("id");
     localStorage.removeItem("companyID");
     localStorage.removeItem("roles");
+    localStorage.removeItem("token");
     setUserId(null); 
     setUserCompanyID(null); 
     setUserRoles(null)
@@ -60,10 +62,17 @@ export default function Navbar() {
         {isLoggedIn && (
           <div style={{display:"flex",gap:"10%",marginRight:"5%"}}>
           <li id="ponude">
-          <Link style={{ textDecoration: "none", color: "white" }} to={"/ponude"}>
-            Ponude
+          <Link style={{ textDecoration: "none", color: "white",display:"flex",gap:"5%" }} to={"/ponude"}>
+            <AnchorTwoToneIcon/> Ponude
           </Link>
           </li>
+          {userRoles && (userRoles.includes("Prevoznik") || userRoles.includes("Kontroler")) && (
+          <li>
+            <Link style={{ textDecoration: "none", color: "white",display:"flex",gap:"5%" }} to={"/ponudeee"}>
+              <LocalShippingTwoToneIcon/>Ponude
+            </Link>
+          </li>
+        )}
           <li id="ponude">
           <Link style={{ textDecoration: "none", color: "white", display:"flex",gap:"5%" }} to={"/pretragapreduzeca"}>
             <TravelExploreTwoToneIcon />Preduzeca
@@ -72,7 +81,7 @@ export default function Navbar() {
           </div>
         )}
         {(userRoles && userRoles.includes("Kontroler")) && (
-          <div style={{display:"flex",gap:"10%"}}>
+          <div style={{display:"flex",gap:"10%",marginLeft:"15%"}}>
             <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/novikorisnik"}><li style={{display:"flex",gap:"5%"}}><PersonAddAltTwoToneIcon/> Korisnik</li></Link>
             <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/izbrisikorisnika"}><li style={{display:"flex",gap:"5%"}}><PersonRemoveTwoToneIcon /> Korisnik</li></Link>
           </div>

@@ -79,12 +79,11 @@
 }
 .createoffer-cargo-info-load{
     width: 50%;
-    padding-top: 3%;
 }
 .createoffer-cargo-info-load h3{
     color: rgb(25,118,210);
     margin-bottom: 1%;
-    margin-top: 1%;
+    margin-top: 5%;
 }
 .createoffer-cargo-info-load input{
     height: 2rem;

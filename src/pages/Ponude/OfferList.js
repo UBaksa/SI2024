@@ -99,6 +99,13 @@ export default function OfferList() {
     setSortColumn(column);
   };
 
+  const renderSortArrow = (column) => {
+    if (sortColumn === column) {
+      return sortOrder === "asc" ? <span style={{fontSize:"1.2rem", color:"white"}}> ↑</span> : <span style={{fontSize:"1.2rem", color:"white"}}> ↓</span>;
+    }
+    return null;
+  };
+
   if (loading) return <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
     height="300"
     width="300"
@@ -171,73 +178,73 @@ export default function OfferList() {
             style={{ backgroundColor: "green" }}
             onClick={() => handleSort("utovar")}
           >
-            Datum Utovara
+            Datum Utovara{renderSortArrow("utovar")}
           </th>
           <th
             style={{ backgroundColor: "green" }}
             onClick={() => handleSort("drzavaU")}
           >
-            Država Utovara
+            Država Utovara{renderSortArrow("drzavaU")}
           </th>
           <th
             style={{ backgroundColor: "green" }}
             onClick={() => handleSort("mestoU")}
           >
-            Mesto Utovara
+            Mesto Utovara{renderSortArrow("mestoU")}
           </th>
           <th
             style={{ backgroundColor: "rgb(25,118,210)" }}
             onClick={() => handleSort("istovar")}
           >
-            Datum Istovara
+            Datum Istovara{renderSortArrow("istovar")}
           </th>
           <th
             style={{ backgroundColor: "rgb(25,118,210)" }}
             onClick={() => handleSort("drzavaI")}
           >
-            Država Istovara
+            Država Istovara{renderSortArrow("drzavaI")}
           </th>
           <th
             style={{ backgroundColor: "rgb(25,118,210)" }}
             onClick={() => handleSort("mestoI")}
           >
-            Mesto Istovara
+            Mesto Istovara{renderSortArrow("mestoI")}
           </th>
           <th
             style={{ backgroundColor: "rgb(0, 70, 141)" }}
             onClick={() => handleSort("duzina")}
           >
-            Dužina
+            Dužina{renderSortArrow("duzina")}
           </th>
           <th
             style={{ backgroundColor: "rgb(0, 70, 141)" }}
             onClick={() => handleSort("tezina")}
           >
-            Težina
+            Težina{renderSortArrow("tezina")}
           </th>
           <th
             style={{ backgroundColor: "rgb(0, 70, 141)" }}
             onClick={() => handleSort("tipKamiona")}
           >
-            Tip Kamiona
+            Tip Kamiona{renderSortArrow("tipKamiona")}
           </th>
           <th
             style={{ backgroundColor: "rgb(0, 70, 141)" }}
             onClick={() => handleSort("tipNadogradnje")}
           >
-            Vrsta nadogradnje
+            Vrsta nadogradnje{renderSortArrow("tipNadogradnje")}
           </th>
           <th
             style={{ backgroundColor: "rgb(0, 70, 141)" }}
             onClick={() => handleSort("vrstaTereta")}
           >
-            Vrsta Tereta
+            Vrsta Tereta{renderSortArrow("vrstaTereta")}
           </th>
           <th
             style={{ backgroundColor: "rgb(0, 70, 141)" }}
             onClick={() => handleSort("cena")}
           >
-            Cena
+            Cena{renderSortArrow("cena")}
           </th>
         </tr>
       </thead>

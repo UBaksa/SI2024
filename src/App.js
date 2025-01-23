@@ -16,6 +16,8 @@ import NewKorisnik from "./pages/NewKorisnik/NewKorisnik"
 import RemoveKorisnik from "./pages/RemoveKorisnik/RemoveKorisnik"
 import SearchPreduzece from "./pages/SearchPreduzece/SearchPreduzece"
 import PreduzeceDetails from "./pages/SearchPreduzece/PreduzeceDetails"
+import PonudeVozila from './pages/PonudeVozila/PonudeVozila';
+
 function App() {
   return (
       <div className="App">
@@ -27,6 +29,7 @@ function App() {
               <Route path='/profil' element={<EditProfile/>}/>
               <Route path='/editprofil/:id' element={<EditProfil/>}/>
               <Route path='/ponude/*' element={<Ponude/>}/>
+              <Route path='/ponudevozila/*' element={<PonudeVozila/>}/>
               <Route path="/offer/:id" element={<OfferCard />} />
               <Route path='/register' element={<Register/>}/>
               <Route path='/novikorisnik' element={<NewKorisnik/>}/>
