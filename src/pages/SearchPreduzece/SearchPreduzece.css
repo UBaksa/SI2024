@@ -6,6 +6,7 @@
     padding: 0.5%;
     width: 80%;
     font-family: roboto;
+    min-height: 50vh;
 }
 .search-preduzece h2{
     width: 99%;

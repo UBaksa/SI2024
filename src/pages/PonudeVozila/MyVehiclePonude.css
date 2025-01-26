@@ -1,0 +1,28 @@
+.offer-buttons{
+    width: 20%;
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+.my-ponudaVozila{
+    background-color: white;
+  width: 95%;
+  margin: auto;
+  font-family: roboto;
+  padding: 0.5%;
+  margin-top: 2%;
+  margin-bottom: 20%;
+}
+.my-ponudaVozila h2{
+    width: 99%;
+    margin: auto;
+    text-align: left;
+    padding-left: 1%;
+    margin-bottom: 0.5%;
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
+    color: white;
+  }

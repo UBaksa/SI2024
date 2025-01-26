@@ -68,7 +68,7 @@ export default function Navbar() {
           </li>
           {userRoles && (userRoles.includes("Prevoznik") || userRoles.includes("Kontroler")) && (
           <li>
-            <Link style={{ textDecoration: "none", color: "white",display:"flex",gap:"5%" }} to={"/ponudeee"}>
+            <Link style={{ textDecoration: "none", color: "white",display:"flex",gap:"5%" }} to={"/ponudevozila"}>
               <LocalShippingTwoToneIcon/>Ponude
             </Link>
           </li>
@@ -81,7 +81,7 @@ export default function Navbar() {
           </div>
         )}
         {(userRoles && userRoles.includes("Kontroler")) && (
-          <div style={{display:"flex",gap:"10%",marginLeft:"15%"}}>
+          <div style={{display:"flex",gap:"10%",marginLeft:"%"}}>
             <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/novikorisnik"}><li style={{display:"flex",gap:"5%"}}><PersonAddAltTwoToneIcon/> Korisnik</li></Link>
             <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/izbrisikorisnika"}><li style={{display:"flex",gap:"5%"}}><PersonRemoveTwoToneIcon /> Korisnik</li></Link>
           </div>

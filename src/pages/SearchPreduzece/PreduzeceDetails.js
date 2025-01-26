@@ -47,15 +47,15 @@ export default function PreduzeceDetails() {
       <table>
         <tbody>
           <tr>
-            <th>Ime preduzeća</th>
+            <th style={{ backgroundColor: "green" }}>Ime preduzeća</th>
             <td>{preduzece.companyName}</td>
           </tr>
           <tr>
-            <th>Država</th>
+            <th style={{ backgroundColor: "rgb(25,118,210)" }}>Država</th>
             <td>{preduzece.companyState}</td>
           </tr>
           <tr>
-            <th>Grad</th>
+            <th style={{ backgroundColor: "rgb(25,118,210)" }}>Grad</th>
             <td>{preduzece.companyCity}</td>
           </tr>
           <tr>
@@ -73,9 +73,9 @@ export default function PreduzeceDetails() {
         <table>
           <thead>
             <tr>
-              <th>Ime</th>
-              <th>Prezime</th>
-              <th>Mail</th>
+              <th style={{ backgroundColor: "green" }}>Ime</th>
+              <th style={{ backgroundColor: "green" }}>Prezime</th>
+              <th style={{ backgroundColor: "rgb(25,118,210)" }}>Mail</th>
               <th>Telefon</th>
             </tr>
           </thead>

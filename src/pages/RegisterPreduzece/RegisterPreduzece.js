@@ -100,7 +100,7 @@ export default function RegisterPreduzece() {
                 .then((result) => {
                     toast.success("Kreirano preduzeće! Korisnik je uspešno dodat preduzeću.");
                     setTimeout(() => {
-                        navigate("/login");
+                        navigate("/");
                     }, 2000);
                 })
                 .catch((error) => {
@@ -115,7 +115,7 @@ export default function RegisterPreduzece() {
             <Toaster position="top-right" reverseOrder={false} />
             <div className="registerForm">
                 <h2>Registracija preduzeća</h2>
-                <p>Poštovani, potrebno je nakon ulogovanja dopuniti podatke o preduzeću.</p>
+                <p>Poštovani, potrebno je nakon registracije dopuniti podatke o preduzeću.</p>
                 <label>Unesite ime preduzeća</label>
                 <br />
                 <input type="text" onChange={(e) => setCompanyName(e.target.value)} />
@@ -148,7 +148,7 @@ export default function RegisterPreduzece() {
                 <input type="number" onChange={(e) => setCompanyPIB(e.target.value)} />
                 <br />
                 <Button sx={{ marginTop: "1%" }} variant="contained" onClick={handleSubmit}>
-                    Registrujte se
+                    Registrujte preduzece
                 </Button>
             </div>
         </>

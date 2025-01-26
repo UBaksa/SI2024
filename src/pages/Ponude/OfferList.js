@@ -124,7 +124,7 @@ export default function OfferList() {
     <Link to={"/ponude/createoffer"}><Button variant="contained"color="success">Kreiraj ponudu</Button></Link>
     </div>
     <div className="offer-list">
-  <h2>Filtriranje Ponuda</h2>
+  <h2>Filtriranje ponuda tereta </h2>
   <div className="filters">
     <label>
       Država Utovara:
@@ -164,7 +164,7 @@ export default function OfferList() {
       </select>
     </label>
   </div>
-  <h2>Lista Ponuda</h2>
+  <h2>Lista ponuda tereta</h2>
   {filteredOffers.length === 0 ? (
     <div style={{ textAlign: "center", padding: "20px" }}>
       <p><WorkOffTwoToneIcon sx={{fontSize:"5rem",color:"red"}}/></p>

@@ -59,7 +59,11 @@ export default function Login() {
                     toast.success("Uspešno ste prijavljeni!");
                     
                     setTimeout(() => {
-                        navigate("/");
+                        if (companyId === "3fa85f64-5717-4562-b3fc-2c963f66afa6") {
+                            navigate("/registerPreduzece");
+                        } else {
+                            navigate("/");
+                        }
                     }, 2000); 
                 }
             })
@@ -75,7 +79,7 @@ export default function Login() {
                     toast.error("Došlo je do greške. Pokušajte ponovo.");
                 }
                 
-                // Clear any stored auth data on error
+                
                 localStorage.clear();
                 setUserId(null);
                 setUserCompanyID(null);

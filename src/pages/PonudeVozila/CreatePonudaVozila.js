@@ -180,7 +180,7 @@ export default function CreatePonudaVozila() {
       .then((result) => {
         console.log("Uspesno kreirana ponuda:", result.data);
         toast.success("Ponuda uspešno kreirana!");
-        navigate("/ponude");
+        navigate("/ponudevozila");
       })
       .catch((error) => {
         if (error.response?.status === 401) {
@@ -198,7 +198,7 @@ export default function CreatePonudaVozila() {
       <Toaster position="top-right" reverseOrder={false} />
       <h3 className="title">Mesto, datum utovara i istovara</h3>
       <div className="createoffer-loading-info">
-        <h3>Izaberite državu utovara</h3>
+        <h3 style={{color: "rgb(25,118,210)"}}>Izaberite državu utovara</h3>
         <select
           className="country-select"
           value={selectedLoadingCountry}
@@ -229,6 +229,7 @@ export default function CreatePonudaVozila() {
                   <li
                     key={city.name}
                     onClick={() => handleCitySelect(city.name, "loading")}
+                    style={{listStyleType:"none", cursor:"pointer",fontSize:"1rem",backgroundColor:"white",width:"80%",margin:"auto"}}
                   >
                     {city.name}
                   </li>
@@ -236,12 +237,12 @@ export default function CreatePonudaVozila() {
               </ul>
             )}
             {selectedLoadingCity && (
-              <p className="selected-city">Utovar: {selectedLoadingCity}</p>
+              <p style={{fontSize:"1rem",color: "rgb(25,118,210)"}} className="selected-city">Utovar: {selectedLoadingCity}</p>
             )}
           </>
         )}
 
-        <h3>Izaberite državu istovara</h3>
+        <h3 style={{color: "rgb(25,118,210)"}}>Izaberite državu istovara</h3>
         <select
           className="country-select"
           value={selectedUnloadingCountry}
@@ -272,6 +273,7 @@ export default function CreatePonudaVozila() {
                   <li
                     key={city.name}
                     onClick={() => handleCitySelect(city.name, "unloading")}
+                    style={{listStyleType:"none", cursor:"pointer",fontSize:"1rem",backgroundColor:"white",width:"80%",margin:"auto"}}
                   >
                     {city.name}
                   </li>
@@ -279,13 +281,13 @@ export default function CreatePonudaVozila() {
               </ul>
             )}
             {selectedUnloadingCity && (
-              <p className="selected-city">Istovar: {selectedUnloadingCity}</p>
+              <p style={{fontSize:"1rem",color: "rgb(25,118,210)"}}  className="selected-city">Istovar: {selectedUnloadingCity}</p>
             )}
           </>
         )}
 
         <div className="radius-input">
-          <h3>Radius isporuke (km)</h3>
+          <h3 style={{color: "rgb(25,118,210)"}}>Radius isporuke (km)</h3>
           <input
             type="number"
             value={radius}

@@ -133,9 +133,9 @@ export default function SearchPreduzece() {
       <table>
         <thead>
           <tr>
-            <th>Ime preduzeća </th>
-            <th>Država</th>
-            <th>Grad</th>
+            <th style={{ backgroundColor: "green" }}>Ime preduzeća </th>
+            <th style={{ backgroundColor: "rgb(25,118,210)" }}>Država</th>
+            <th style={{ backgroundColor: "rgb(25,118,210)" }}>Grad</th>
             <th>PIB</th>
             <th>Detalji</th>
             {isKontroler && <th>Brisanje</th>}
