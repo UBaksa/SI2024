@@ -229,6 +229,7 @@ export default function OfferVehicleList() {
                   style={{
                     backgroundColor: index % 2 === 0 ? "gainsboro" : "white",
                   }}
+                  onClick={() => navigate(`/vehicleoffer/${offer.id}`)}
                 >
                   <td>{new Date(offer.utovar).toLocaleDateString("sr-RS", {
                 day: "2-digit",

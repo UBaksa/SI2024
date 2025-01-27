@@ -104,10 +104,18 @@ export default function MyVehiclePonude() {
                     backgroundColor: index % 2 === 0 ? "gainsboro" : "white",
                   }}
                 >
-                  <td>{new Date(ponuda.utovar).toLocaleDateString()}</td>
+                  <td>{new Date(ponuda.utovar).toLocaleDateString("sr-RS", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}</td>
                   <td>{ponuda.drzavaU}</td>
                   <td>{ponuda.mestoU}</td>
-                  <td>{new Date(ponuda.istovar).toLocaleDateString()}</td>
+                  <td>{new Date(ponuda.istovar).toLocaleDateString("sr-RS", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}</td>
                   <td>{ponuda.drzavaI}</td>
                   <td>{ponuda.mestoI}</td>
                   <td>{ponuda.radiusI}km</td>

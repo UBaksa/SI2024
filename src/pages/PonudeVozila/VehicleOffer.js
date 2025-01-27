@@ -12,7 +12,7 @@ import { Button } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { useAppContext } from "../../context/AppContext";
-import { Blocks } from 'react-loader-spinner';
+import { Blocks } from 'react-loader-spinner'
 
 const config = {
   apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X",
@@ -26,17 +26,17 @@ export default function VehicleOffer() {
   const [error, setError] = useState(null);
   const [routeCoordinates, setRouteCoordinates] = useState([]);
   const [distance, setDistance] = useState(null);
-  const { userRoles, setUserRoles } = useAppContext();
-  const navigate = useNavigate();
+  const {userRoles, setUserRoles} = useAppContext();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchOfferData = async () => {
       try {
         const response = await axios.get(`${Api_url}/api/PonudaVozilas/${id}`);
         setOffer(response.data);
-        const { MestoU, MestoI } = response.data;
-        const coordsU = await fetchCoordinates(MestoU);
-        const coordsI = await fetchCoordinates(MestoI);
+        const { mestoU, mestoI } = response.data;
+        const coordsU = await fetchCoordinates(mestoU);
+        const coordsI = await fetchCoordinates(mestoI);
 
         if (coordsU && coordsI) {
           setRouteCoordinates([
@@ -76,113 +76,129 @@ export default function VehicleOffer() {
     }
   };
 
-  if (loading) return <div style={{ margin: "auto", marginBottom: "18%" }}><Blocks height="300" width="300" color="#1976d2" ariaLabel="blocks-loading" visible={true} /></div>;
+  if (loading) return <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+  height="300"
+  width="300"
+  color="#1976d2"
+  ariaLabel="blocks-loading"
+  wrapperStyle={{}}
+  wrapperClass="blocks-wrapper"
+  visible={true}
+  /></div>;
   if (error) return <div>Error: {error}</div>;
-  if (!offer) return <div>Offer not found!</div>;
+  if (!offer) return <div>Nismo uspeli pronaci odabranu ponudu vozila !</div>;
 
   const companyId = localStorage.getItem("companyID");
-  const mineOffer = offer?.IdPreduzeca?.toLowerCase() === companyId?.toLowerCase();
+  const mineOffer = offer?.idPreduzeca?.toLowerCase() === companyId?.toLowerCase();
 
   const handleEdit = () => {
-    navigate(`/offers/edit/${offer.Id}`);
+    navigate(`/ponudevozila/editvehicleoffer/${offer.ponudaId}`);
   };
-
+  
   const handleDelete = async () => {
     try {
-      await axios.delete(`${Api_url}/api/PonudaVozilas/${offer.Id}`);
-      navigate('/offers'); 
+      await axios.delete(`${Api_url}/api/PonudaVozilas/${offer.id}`);
+      navigate('/ponudevozila'); 
     } catch (err) {
       console.error("Error deleting offer:", err);
     }
   };
-
+  
   const isController = userRoles.includes("Kontroler"); 
 
   return (
-    <div style={{ marginBottom: "2%" }}>
-      {(mineOffer || isController) && (
-        <div className="edit-button">
-          <Button size="medium" variant="contained" startIcon={<EditNoteIcon />} onClick={handleEdit}>Edit Offer</Button>
-          <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleDelete}>Delete Offer</Button>
+    <div style={{marginBottom:"2%"}}>
+     {(mineOffer || isController) && (
+      <div className="edit-button">
+        <Button size="medium" variant="contained" startIcon={<EditNoteIcon/>}  onClick={handleEdit}>Izmenite ponudu</Button>
+        <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleDelete}>Izbrisite ponudu</Button>
+      </div>
+    )}
+    <div className="offer-card">
+      <div className="offer-card-route-tittle">
+        <h3>{offer.drzavaU} {offer.mestoU} --- {offer.drzavaI} {offer.mestoI}</h3>
+      </div>
+      <div className="offer-card-route-company">
+        <div className="offer-card-route-company-img">
+          <img alt="Company" src="https://64.media.tumblr.com/c81b84c9d9b7f972ed0d26b30e9c8809/tumblr_inline_n6tbzefUoM1qapiqu.gif" />
         </div>
-      )}
-      <div className="offer-card">
-        <div className="offer-card-route-tittle">
-          <h3>{offer.DrzavaU} {offer.MestoU} --- {offer.DrzavaI} {offer.MestoI}</h3>
-        </div>
-        <div className="offer-card-route-company">
-          <div className="offer-card-route-company-img">
-            <img alt="Company" src="https://64.media.tumblr.com/c81b84c9d9b7f972ed0d26b30e9c8809/tumblr_inline_n6tbzefUoM1qapiqu.gif" />
-          </div>
-          <div className="offer-card-route-company-text">
-            <h3>{offer.Preduzece?.companyName}</h3>
-            <h5>{offer.Preduzece?.companyState}, {offer.Preduzece?.companyCity}</h5>
-            <h5>Fax: {offer.Preduzece?.companyPhone}, Mail: {offer.Preduzece?.companyMail}</h5>
-            <h5>PIB: {offer.Preduzece?.companyPhone}</h5>
-          </div>
-        </div>
-        <div className="offer-card-route-user">
-          <h3>Contact Person</h3>
-          <div className="offer-card-route-user-info">
-            <div className="offer-card-route-user-info-img">
-              <img alt="User" src="https://64.media.tumblr.com/c81b84c9d9b7f972ed0d26b30e9c8809/tumblr_inline_n6tbzefUoM1qapiqu.gif" />
-            </div>
-            <div className="offer-card-route-user-info-text">
-              <h2>{offer.Korisnik?.firstName} {offer.Korisnik?.lastName}</h2>
-              <p>Speaks: <span>{offer.Korisnik?.languages?.length > 0 ? offer.Korisnik.languages.join(', ') : ''}</span></p>
-            </div>
-            <div className="offer-card-route-user-info-contact">
-              <p>Tel: <span>{offer.Korisnik?.phoneNumber}</span></p>
-              <p>Email: <span>{offer.Korisnik?.email}</span></p>
-            </div>
-          </div>
-        </div>
-        <div className="offer-card-route-load">
-          <h3>Offer Details</h3>
-          <div className="offer-card-route-load-text">
-            <div className="load-dimensions" style={{ marginLeft: "1%" }}>
-              <h4>Length of Cargo</h4>
-              <p>{offer.Duzina}m</p>
-              <h4>Weight of Cargo</h4>
-              <p>{offer.Tezina}t</p>
-              <h4>Cargo Type</h4>
-              <p>{offer.TipNadogradnje}</p>
-            </div>
-            <div className="load-route">
-              <h4>{offer.DrzavaU} {offer.MestoU} --- {offer.DrzavaI} {offer.MestoI}</h4>
-              <p>Loading: {new Date(offer.Utovar).toLocaleDateString()}</p>
-              <p>Unloading: {new Date(offer.Istovar).toLocaleDateString()}</p>
-              <h4>Price</h4>
-              <p>{offer.Cena === 0 ? 'On Request' : offer.Cena + "€"}</p>
-              <h4>Distance</h4>
-              <p>{distance !== null ? `${distance} km` : "Loading distance..."}</p>
-            </div>
-            <div className="load-type" style={{ marginRight: "1%" }}>
-              <h4>Vehicle Type</h4>
-              <p>{offer.TipKamiona}</p>
-            </div>
-          </div>
-        </div>
-        <div className="offer-card-route-map">
-          {routeCoordinates.length === 2 ? (
-            <MapContainer
-              key={routeCoordinates.toString()}
-              center={routeCoordinates[0]}
-              zoom={5}
-              style={{ height: "30vh", width: "100%", marginTop: "1%" }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <RoutingMachine waypoints={routeCoordinates} onRouteFound={updateDistance} />
-            </MapContainer>
-          ) : (
-            <div style={{ margin: "auto", marginBottom: "18%" }}><Blocks height="300" width="300" color="#4fa94d" ariaLabel="blocks-loading" visible={true} /></div>
-          )}
+        <div className="offer-card-route-company-text">
+          <h3>{offer.preduzece?.companyName}</h3>
+          <h5>{offer.preduzece?.companyState}, {offer.preduzece?.companyCity}</h5>
+          <h5>Fax:{offer.preduzece?.companyPhone}, Mail:{offer.preduzece?.companyMail}</h5>
+          <h5>PIB:{offer.preduzece?.companyPhone}</h5>
         </div>
       </div>
+      <div className="offer-card-route-user">
+        <h3>Kontakt osoba</h3>
+        <div className="offer-card-route-user-info">
+          <div className="offer-card-route-user-info-img">
+            <img alt="User" src="https://64.media.tumblr.com/c81b84c9d9b7f972ed0d26b30e9c8809/tumblr_inline_n6tbzefUoM1qapiqu.gif" />
+          </div>
+          <div className="offer-card-route-user-info-text">
+            <h2>{offer.korisnik?.firstName} {offer.korisnik?.lastName}</h2>
+            <p>Govori: <span>{offer.korisnik?.languages?.length > 0 ? offer.korisnik.languages.join(', ') : ''}</span></p>
+          </div>
+          <div className="offer-card-route-user-info-contact">
+            <p>Tel: <span>{offer.korisnik?.phoneNumber}</span></p>
+            <p>Mail: <span>{offer.korisnik?.email}</span></p>
+          </div>
+        </div>
+      </div>
+      <div className="offer-card-route-load">
+        <h3>Podaci o ponudi</h3>
+        <div className="offer-card-route-load-text">
+          <div className="load-dimensions" style={{ marginLeft: "1%" }}>
+            <h4>Duzina tereta</h4>
+            <p>{offer.duzina}m</p>
+            <h4>Tezina tereta</h4>
+            <p>{offer.tezina}t</p>
+          </div>
+          <div className="load-route">
+            <h4>{offer.drzavaU} {offer.mestoU} --- {offer.drzavaI} {offer.mestoI}</h4>
+            <p>Utovar: {new Date(offer.utovar).toLocaleDateString()}</p>
+            <p>Istovar: {new Date(offer.istovar).toLocaleDateString()}</p>
+            <h4>Udaljenost</h4>
+            <p>{distance !== null ? `${distance} km` : "Ucitavanje razdaljine..."}</p>
+            <h4>Radius istovara</h4>
+            <p>{offer.radiusI} km</p>
+          </div>
+          <div className="load-type" style={{ marginRight: "1%" }}>
+            <h4>Tip vozila</h4>
+            <p>{offer.tipKamiona}</p>
+            <h4>Vrsta nadogradnje</h4>
+            <p>{offer.tipNadogradnje}</p>
+          </div>
+        </div>
+      </div>
+      <div className="offer-card-route-map">
+        {routeCoordinates.length === 2 ? (
+          <MapContainer
+            key={routeCoordinates.toString()}
+            center={routeCoordinates[0]}
+            zoom={5}
+            style={{ height: "30vh", width: "100%", marginTop: "1%" }}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <RoutingMachine waypoints={routeCoordinates} onRouteFound={updateDistance} />
+          </MapContainer>
+        ) : (
+          <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+          height="300"
+          width="300"
+          color="#4fa94d"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          visible={true}
+          />
+          </div>
+        )}
+      </div>
+    </div>
     </div>
   );
 }
-
