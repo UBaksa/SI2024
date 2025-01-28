@@ -30,6 +30,7 @@ export default function Register() {
     const [selectedLanguages, setSelectedLanguages] = useState([]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [registrationComplete, setRegistrationComplete] = useState(false);
+    const [image, setImage] = useState(null);
     const navigate = useNavigate();
     const { setUserId } = useAppContext();
 
@@ -44,48 +45,51 @@ export default function Register() {
         }
     };
 
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+    };
+
     const handleRegister = () => {
-        if (firstname === "" || lastname === "" || email === "" || password === "" || number === "") {
-            toast.error("Sva polja moraju biti popunjena!");
+        if (firstname === "" || lastname === "" || email === "" || password === "" || number === "" || !image) {
+            toast.error("Sva polja, uključujući sliku, moraju biti popunjena!");
             return;
         }
-    
+
         const emailtemplate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const numbertemplate = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
         const isPasswordCapitalized = /^[A-Z]/.test(password);
-    
+
         if (!emailtemplate.test(email)) {
             toast.error("Ukucajte pravilno email adresu!");
             return;
         }
-    
+
         if (!numbertemplate.test(number)) {
             toast.error("Ukucajte pravilno broj telefona!");
             return;
         }
-    
+
         if (!isPasswordCapitalized) {
             toast.error("Lozinka mora počinjati velikim slovom!");
             return;
         }
-    
-        const data = {
-            firstName: firstname,
-            lastName: lastname,
-            mail: email,
-            password: password,
-            phoneNumber: number,
-            preduzeceId: "c2bb1d8b-490f-49ca-b2b4-0ade03f48919",
-            roles: [role],
-            languages: selectedLanguages,
-        };
-    
+
+        const formData = new FormData();
+        formData.append("FirstName", firstname);
+        formData.append("LastName", lastname);
+        formData.append("Mail", email);
+        formData.append("Password", password);
+        formData.append("PhoneNumber", number);
+        formData.append("PreduzeceId", "c2bb1d8b-490f-49ca-b2b4-0ade03f48919");
+        formData.append("Roles", role);
+        formData.append("Languages", JSON.stringify(selectedLanguages));
+        formData.append("Image", image);
+
         axios
-            .post(Api_url + "/api/Auth/Register", data)
+            .post(Api_url + "/api/Auth/Register", formData)
             .then((result) => {
-                // Don't store any user data until email is verified
                 setRegistrationComplete(true);
-                // Clear any existing auth data
                 localStorage.clear();
                 setUserId(null);
             })
@@ -97,7 +101,7 @@ export default function Register() {
 
     if (registrationComplete) {
         return (
-            <div className="registerForm" style={{marginBottom:"15%"}}>
+            <div className="registerForm" style={{ marginBottom: "15%" }}>
                 <h2>Verifikacija Email Adrese</h2>
                 <div className="verification-message">
                     <EmailIcon sx={{ fontSize: 60, color: 'primary.main', marginBottom: 2 }} />
@@ -179,11 +183,16 @@ export default function Register() {
                         </div>
                     )}
                 </div>
+                <br />
+                <label>Dodajte sliku profila</label>
+                <br />
+                <input type="file" accept="image/*" onChange={handleImageUpload} />
+                <br />
+                <br />
+                <Button variant="contained" onClick={handleRegister} startIcon={<PersonAddAltTwoToneIcon />}>
+                    Registrujte se
+                </Button>
             </div>
-            <br />
-            <Button endIcon={<PersonAddAltTwoToneIcon />} size="small" variant="contained" onClick={handleRegister}>
-                Registrujte se
-            </Button>
             <Toaster position="top-right" reverseOrder={false} />
         </div>
     );

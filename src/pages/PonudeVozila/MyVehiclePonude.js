@@ -98,7 +98,7 @@ export default function MyVehiclePonude() {
               {ponudaVozila.map((ponuda, index) => (
                 <tr
                   key={ponuda.id}
-                  onClick={() => navigate(`/ponudaVozila/${ponuda.id}`)}
+                  onClick={() => navigate(`/vehicleoffer/${ponuda.id}`)}
                   style={{
                     cursor: "pointer",
                     backgroundColor: index % 2 === 0 ? "gainsboro" : "white",

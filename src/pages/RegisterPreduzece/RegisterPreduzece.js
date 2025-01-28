@@ -13,6 +13,7 @@ export default function RegisterPreduzece() {
     const [companyMail, setCompanyMail] = useState("");
     const [companyPhone, setCompanyPhone] = useState("");
     const [companyPIB, setCompanyPIB] = useState("");
+    const [companyPhoto, setCompanyPhoto] = useState(null);
 
     const navigate = useNavigate();
     const { userId } = useAppContext();
@@ -85,16 +86,19 @@ export default function RegisterPreduzece() {
 
     const handleSubmit = () => {
         if (validateInputs()) {
-            const data = {
-                CompanyName: companyName,
-                CompanyState: companyState,
-                CompanyMail: companyMail,
-                CompanyCity: companyCity,
-                CompanyPIB: companyPIB,
-                CompanyPhone: companyPhone,
-                KorisnikIds: [localStorage.getItem("id")],
-            };
-
+            const data = new FormData();
+            data.append("CompanyName", companyName);
+            data.append("CompanyState", companyState);
+            data.append("CompanyMail", companyMail);
+            data.append("CompanyCity", companyCity);
+            data.append("CompanyPIB", companyPIB);
+            data.append("CompanyPhone", companyPhone);
+            data.append("KorisnikIds", [localStorage.getItem("id")]);
+    
+            if (companyPhoto) {
+                data.append("companyPhoto", companyPhoto); 
+            }
+    
             axios
                 .post(Api_url + "/api/Preduzeces", data)
                 .then((result) => {
@@ -146,6 +150,14 @@ export default function RegisterPreduzece() {
                 <label>Unesite PIB (poreski broj preduzeća)</label>
                 <br />
                 <input type="number" onChange={(e) => setCompanyPIB(e.target.value)} />
+                <br />
+                <label>Odaberite sliku preduzeća</label>
+                <br />
+                <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={(e) => setCompanyPhoto(e.target.files[0])}
+                />
                 <br />
                 <Button sx={{ marginTop: "1%" }} variant="contained" onClick={handleSubmit}>
                     Registrujte preduzece
