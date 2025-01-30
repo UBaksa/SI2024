@@ -81,7 +81,7 @@ export default function Navbar() {
           </div>
         )}
         {(userRoles && userRoles.includes("Kontroler")) && (
-          <div style={{display:"flex",gap:"10%",marginLeft:"%"}}>
+          <div style={{display:"flex",gap:"10%",marginLeft:"15%"}}>
             <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/novikorisnik"}><li style={{display:"flex",gap:"5%"}}><PersonAddAltTwoToneIcon/> Korisnik</li></Link>
             <Link style={{display:"flex",gap:"5%",color:"white",listStyleType:"none",textDecoration:"none"}} to={"/izbrisikorisnika"}><li style={{display:"flex",gap:"5%"}}><PersonRemoveTwoToneIcon /> Korisnik</li></Link>
           </div>

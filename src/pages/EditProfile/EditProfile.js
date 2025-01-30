@@ -47,8 +47,9 @@ export default function EditProfile() {
                     <h3>Jezici</h3>
                     <p style={{width:"50%"}}>{userData?.languages?.join(', ') || 'Nije navedeno'}</p>
                 </div>
-                <div className="edit-profile-info-mid">
-                    <p>Slika</p>
+                <div style={{textAlign:"center"}} className="edit-profile-info-mid">
+                    <h3>Slika profila</h3>
+                    <img style={{width:"100%",height:"50%"}} src={userData?.userPicture || "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"} alt="User Profile" />
                 </div>
                 <div className="edit-profile-info-right">
                     <h3>Preduzece</h3>

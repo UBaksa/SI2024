@@ -120,7 +120,7 @@ export default function VehicleOffer() {
       </div>
       <div className="offer-card-route-company">
         <div className="offer-card-route-company-img">
-          <img alt="Company" src="https://64.media.tumblr.com/c81b84c9d9b7f972ed0d26b30e9c8809/tumblr_inline_n6tbzefUoM1qapiqu.gif" />
+          <img alt="Company" src={!offer.preduzece.companyPhoto ? "https://cdn-icons-png.freepik.com/256/15368/15368439.png?semt=ais_hybrid" : offer.preduzece.companyPhoto} />
         </div>
         <div className="offer-card-route-company-text">
           <h3>{offer.preduzece?.companyName}</h3>
@@ -133,7 +133,7 @@ export default function VehicleOffer() {
         <h3>Kontakt osoba</h3>
         <div className="offer-card-route-user-info">
           <div className="offer-card-route-user-info-img">
-            <img alt="User" src="https://64.media.tumblr.com/c81b84c9d9b7f972ed0d26b30e9c8809/tumblr_inline_n6tbzefUoM1qapiqu.gif" />
+            <img alt="User" src={!offer.korisnik.userPicture ? "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" : offer.korisnik.userPicture} />
           </div>
           <div className="offer-card-route-user-info-text">
             <h2>{offer.korisnik?.firstName} {offer.korisnik?.lastName}</h2>
