@@ -61,7 +61,7 @@ export default function RemoveKorisnik() {
   const deleteUser = async (id) => {
     try {
       const response = await axios.delete(`${Api_url}/api/Auth/DeleteUser/${id}`);  
-      alert(response.data.Message);  
+      alert("Korisnik uspesno obrisan !");  
       
       setUsers(users.filter(user => user.id !== id));
       setFilteredUsers(filteredUsers.filter(user => user.id !== id));

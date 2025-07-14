@@ -38,7 +38,6 @@ export default function EditOffer() {
 
 
   useEffect(() => {
-    // Fetch existing offer data
     axios.get(`${Api_url}/api/Ponudas/${id}`)
       .then((response) => {
         const offer = response.data;

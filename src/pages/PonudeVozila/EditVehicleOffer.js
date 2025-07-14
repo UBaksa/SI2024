@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import { Api_url } from "../../apiurl";
 
+
 export default function EditVehicleOffer() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,23 +37,31 @@ export default function EditVehicleOffer() {
 
 
   useEffect(() => {
-    axios.get(`${Api_url}/api/PonudaVozilas/${id}`)
-      .then((response) => {
+    const fetchOffer = async () => {
+      try {
+        const response = await axios.get(`${Api_url}/api/PonudaVozilas/${id}`);
         const offer = response.data;
-        setSelectedLoadingCountry(offer.drzavaU);
-        setSelectedUnloadingCountry(offer.drzavaI);
-        setSelectedLoadingCity(offer.mestoU);
-        setSelectedUnloadingCity(offer.mestoI);
-        setLoadingDate(new Date(offer.utovar));
-        setUnloadingDate(new Date(offer.istovar));
-        setWeight(offer.tezina.toString());
-        setLenght(offer.duzina.toString());
-        setSelectedTruck(offer.tipKamiona);
-        setSelectedTruckType(offer.tipNadogradnje);
-        setSelectedRadius(offer.radiusI);
-      })
-      .catch((error) => console.error("Error fetching offer:", error));
+  
+        setSelectedLoadingCountry(offer.drzavaU || "");
+        setSelectedUnloadingCountry(offer.drzavaI || "");
+        setSelectedLoadingCity(offer.mestoU || "");
+        setSelectedUnloadingCity(offer.mestoI || "");
+        setLoadingDate(offer.utovar ? new Date(offer.utovar) : null);
+        setUnloadingDate(offer.istovar ? new Date(offer.istovar) : null);
+        setWeight(offer.tezina !== null ? offer.tezina.toString() : "");
+        setLenght(offer.duzina !== null ? offer.duzina.toString() : "");
+        setSelectedTruck(offer.tipKamiona || "");
+        setSelectedTruckType(offer.tipNadogradnje || "");
+        setSelectedRadius(offer.radiusI || "");
+      } catch (error) {
+        console.error("Greška pri učitavanju ponude:", error);
+      }
+    };
+  
+    fetchOffer();
   }, [id]);
+  
+  
 
   const handleSubmit = () => {
     const data = {
@@ -72,7 +81,7 @@ export default function EditVehicleOffer() {
     axios.put(`${Api_url}/api/PonudaVozilas/${id}`, data)
       .then(() => {
         console.log("Offer updated successfully");
-        navigate(`/ponude`);
+        navigate(`/ponudevozila`);
       })
       .catch((error) => console.error("Error updating offer:", error));
   };
@@ -186,7 +195,7 @@ export default function EditVehicleOffer() {
     <div className="createoffer">
         <h3 className="title">Mesto, datum utovara i istovara</h3>
             <div className="createoffer-loading-info">
-              <h3>Izaberite državu utovara</h3>
+              <h3 style={{color:"rgb(25,118,210)"}}>Izaberite državu utovara</h3>
               <select
                 className="country-select"
                 value={selectedLoadingCountry}
@@ -229,7 +238,7 @@ export default function EditVehicleOffer() {
                 </>
               )}
               <br/>
-              <h3>Izaberite državu utovara</h3>
+              <h3 style={{color:"rgb(25,118,210)"}}>Izaberite državu utovara</h3>
               <select
                 className="country-select"
                 value={selectedUnloadingCountry}
@@ -273,9 +282,9 @@ export default function EditVehicleOffer() {
               )}
             </div>
             <div className="createoffer-loading-date">
-              <label>
+              <h3 style={{color:"rgb(25,118,210)",marginBottom:"0.5rem"}}>
                 Datum utovara:
-              </label>
+              </h3>
               <DatePicker
                 selected={loadingDate}
                 onChange={(date) => setLoadingDate(date)}
@@ -284,9 +293,9 @@ export default function EditVehicleOffer() {
                 minDate={today}
                 className="datepicker"
               />
-              <label>
+              <h3 style={{color:"rgb(25,118,210)",marginBottom:"0.5rem"}}>
                 Datum istovara:
-              </label>
+              </h3>
               <DatePicker
                 selected={unloadingDate}
                 onChange={(date) => setUnloadingDate(date)}

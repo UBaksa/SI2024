@@ -143,7 +143,7 @@ export default function OfferVehicleList() {
               value={filterDrzavaU}
               onChange={(e) => setFilterDrzavaU(e.target.value)}
             >
-              <option value="">Sva polazišta</option>
+              <option value="">Sve države</option>
               {europeanCountries.map((country) => (
                 <option key={country.code} value={country.name}>
                   {country.name}
@@ -166,7 +166,7 @@ export default function OfferVehicleList() {
               value={filterDrzavaI}
               onChange={(e) => setFilterDrzavaI(e.target.value)}
             >
-              <option value="">Sva odredišta</option>
+              <option value="">Sve države</option>
               {europeanCountries.map((country) => (
                 <option key={country.code} value={country.name}>
                   {country.name}
@@ -188,7 +188,7 @@ export default function OfferVehicleList() {
                 <th 
                 onClick={() => handleSort("utovar")}
                 style={{ backgroundColor: "green" }}>
-                  Utovar {renderSortArrow("utovar")}
+                 Datum Utovar {renderSortArrow("utovar")}
                   </th>
                 <th
                   onClick={() => handleSort("drzavaU")}
@@ -202,7 +202,8 @@ export default function OfferVehicleList() {
                 >
                   Mesto Utovara {renderSortArrow("mestoU")}
                 </th>
-                <th style={{ backgroundColor: "rgb(25,118,210)" }}>Istovar</th>
+                <th style={{ backgroundColor: "rgb(25,118,210)" }}>
+                  Datum Istovara</th>
                 <th
                   style={{ backgroundColor: "rgb(25,118,210)" }}
                   onClick={() => handleSort("drzavaI")}

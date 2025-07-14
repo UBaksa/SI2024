@@ -19,6 +19,8 @@ import PreduzeceDetails from "./pages/SearchPreduzece/PreduzeceDetails";
 import PonudeVozila from './pages/PonudeVozila/PonudeVozila';
 import ProtectedRoute from './components/ProtectedRoute'; 
 import VehicleOffer from './pages/PonudeVozila/VehicleOffer';
+import Podrska from './pages/Podrska/Podrska';
+import EditVehicleOffer from './pages/PonudeVozila/EditVehicleOffer';
 function App() {
   return (
     <div className="App">
@@ -28,12 +30,14 @@ function App() {
           <Route path='/' element={<Homepage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/podrska' element={<Podrska />} />
           <Route path='/profil' element={<ProtectedRoute roles={["Prevoznik", "Kontroler","Dispecer"]}><EditProfile /></ProtectedRoute>} />
           <Route path='/editprofil/:id' element={<ProtectedRoute roles={["Prevoznik", "Kontroler","Dispecer"]}><EditProfil /></ProtectedRoute>} />
           <Route path='/ponude/*' element={<ProtectedRoute roles={["Prevoznik", "Kontroler","Dispecer"]}><Ponude /></ProtectedRoute>} />
           <Route path='/ponudevozila/*' element={<ProtectedRoute roles={["Prevoznik", "Kontroler"]}><PonudeVozila /></ProtectedRoute>} />
           <Route path='/offer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler","Dispecer"]}><OfferCard /></ProtectedRoute>} />
           <Route path='/vehicleoffer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler",]}><VehicleOffer /></ProtectedRoute>} />
+          <Route path='/editvehicleoffer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler",]}><EditVehicleOffer /></ProtectedRoute>} />
           <Route path='/novikorisnik' element={<ProtectedRoute roles={["Kontroler"]}><NewKorisnik /></ProtectedRoute>} />
           <Route path='/izbrisikorisnika' element={<ProtectedRoute roles={["Kontroler"]}><RemoveKorisnik /></ProtectedRoute>} />
           <Route path='/pretragapreduzeca' element={<ProtectedRoute roles={["Prevoznik","Kontroler","Dispecer"]}><SearchPreduzece /></ProtectedRoute>} />

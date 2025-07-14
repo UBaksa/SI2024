@@ -92,7 +92,7 @@ export default function VehicleOffer() {
   const mineOffer = offer?.idPreduzeca?.toLowerCase() === companyId?.toLowerCase();
 
   const handleEdit = () => {
-    navigate(`/ponudevozila/editvehicleoffer/${offer.ponudaId}`);
+    navigate(`/ponudevozila/editvehicleoffer/${offer.id}`);
   };
   
   const handleDelete = async () => {

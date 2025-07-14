@@ -29,7 +29,7 @@ export default function MyVehiclePonude() {
         setLoading(false);
       })
       .catch((err) => {
-        setError("Greška prilikom učitavanja ponuda vozila.");
+        setError("Nemate kreiranih ponuda.");
         setLoading(false);
         console.error(err);
       });

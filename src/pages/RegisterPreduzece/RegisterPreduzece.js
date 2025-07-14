@@ -93,11 +93,10 @@ export default function RegisterPreduzece() {
             data.append("CompanyCity", companyCity);
             data.append("CompanyPIB", companyPIB);
             data.append("CompanyPhone", companyPhone);
-            data.append("KorisnikIds", [localStorage.getItem("id")]);
+            const korisnikId = localStorage.getItem("id");
+            data.append("KorisnikIds", korisnikId)
     
-            if (companyPhoto) {
-                data.append("companyPhoto", companyPhoto); 
-            }
+    
     
             axios
                 .post(Api_url + "/api/Preduzeces", data)
@@ -153,11 +152,6 @@ export default function RegisterPreduzece() {
                 <br />
                 <label>Odaberite sliku preduzeća</label>
                 <br />
-                <input 
-                    type="file" 
-                    accept="image/*" 
-                    onChange={(e) => setCompanyPhoto(e.target.files[0])}
-                />
                 <br />
                 <Button sx={{ marginTop: "1%" }} variant="contained" onClick={handleSubmit}>
                     Registrujte preduzece

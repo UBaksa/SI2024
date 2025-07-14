@@ -57,8 +57,11 @@ export default function Navbar() {
             CarGoo
           </Link>
         </li>
-        <li>Obaveštenja</li>
-        <li>Podrška</li>
+        <li>
+          Obaveštenja
+          </li>
+        <li><Link style={{ textDecoration: "none", color: "white" }} to={"podrska"}>Podrška
+        </Link></li>
         {isLoggedIn && (
           <div style={{display:"flex",gap:"10%",marginRight:"5%"}}>
           <li id="ponude">
