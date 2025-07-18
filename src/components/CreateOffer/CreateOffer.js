@@ -9,41 +9,40 @@ import { Api_url } from "../../apiurl";
 import { toast, Toaster } from "react-hot-toast";
 
 export default function CreateOffer() {
-  const [loadingCities, setLoadingCities] = useState([]); 
-  const [unloadingCities, setUnloadingCities] = useState([]); 
-  const [selectedLoadingCountry, setSelectedLoadingCountry] = useState(""); 
-  const [selectedUnloadingCountry, setSelectedUnloadingCountry] = useState(""); 
-  const [searchLoadingCity, setSearchLoadingCity] = useState(""); 
-  const [searchUnloadingCity, setSearchUnloadingCity] = useState(""); 
-  const [selectedLoadingCity, setSelectedLoadingCity] = useState(""); 
+  const [loadingCities, setLoadingCities] = useState([]);
+  const [unloadingCities, setUnloadingCities] = useState([]);
+  const [selectedLoadingCountry, setSelectedLoadingCountry] = useState("");
+  const [selectedUnloadingCountry, setSelectedUnloadingCountry] = useState("");
+  const [searchLoadingCity, setSearchLoadingCity] = useState("");
+  const [searchUnloadingCity, setSearchUnloadingCity] = useState("");
+  const [selectedLoadingCity, setSelectedLoadingCity] = useState("");
   const [selectedUnloadingCity, setSelectedUnloadingCity] = useState("");
-  const [loadingDate, setLoadingDate] = useState(null); 
-  const [unloadingDate, setUnloadingDate] = useState(null); 
+  const [loadingDate, setLoadingDate] = useState(null);
+  const [unloadingDate, setUnloadingDate] = useState(null);
 
   const navigate = useNavigate();
 
-  const [weight,setWeight] = useState("")
-  const [lenght,setLenght] = useState("")
-  const [cargoType,setCargoType] = useState("")
-  const [pallets,setPallets] = useState("")
-  const [selectedTruck,setSelectedTruck] = useState("")
-  const [selectedTruckType,setSelectedTruckType] = useState("")
-  const [price,setPrice] = useState("")
+  const [weight, setWeight] = useState("");
+  const [lenght, setLenght] = useState("");
+  const [cargoType, setCargoType] = useState("");
+  const [pallets, setPallets] = useState("");
+  const [selectedTruck, setSelectedTruck] = useState("");
+  const [selectedTruckType, setSelectedTruckType] = useState("");
+  const [price, setPrice] = useState("");
 
   const handleWeightChange = (event) => setWeight(event.target.value);
   const handleLengthChange = (event) => setLenght(event.target.value);
   const handleCargoTypeChange = (event) => setCargoType(event.target.value);
-  const handlePalletsChange = (event) => setPallets(event.target.value);
+  const handlePalletsChange = (event) => setPallets(event.target.value || "/"); 
   const handleSelectedTruckChange = (event) => setSelectedTruck(event.target.value);
   const handleSelectedTruckTypeChange = (event) => setSelectedTruckType(event.target.value);
   const handlePriceChange = (event) => setPrice(event.target.value);
 
-
-  const today = new Date();//tr vreme
+  const today = new Date();
 
   const config = {
-    apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X", 
-    url: "https://api.api-ninjas.com/v1/geocoding", 
+    apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X",
+    url: "https://api.api-ninjas.com/v1/geocoding",
   };
 
   const europeanCountries = [
@@ -108,7 +107,6 @@ export default function CreateOffer() {
     }
   };
 
-  // f-ja za pretragu gradova
   const handleSearchCity = async (e, type) => {
     const value = e.target.value.toLowerCase();
     if (type === "loading") {
@@ -141,7 +139,66 @@ export default function CreateOffer() {
     }
   };
 
+  const validateForm = () => {
+    let isValid = true;
+
+    if (!selectedLoadingCountry) {
+      toast.error("Izaberite državu utovara");
+      isValid = false;
+    }
+    if (!selectedUnloadingCountry) {
+      toast.error("Izaberite državu istovara");
+      isValid = false;
+    }
+    if (!selectedLoadingCity) {
+      toast.error("Izaberite grad utovara");
+      isValid = false;
+    }
+    if (!selectedUnloadingCity) {
+      toast.error("Izaberite grad istovara");
+      isValid = false;
+    }
+    if (!loadingDate) {
+      toast.error("Izaberite datum utovara");
+      isValid = false;
+    }
+    if (!unloadingDate) {
+      toast.error("Izaberite datum istovara");
+      isValid = false;
+    }
+    if (!weight) {
+      toast.error("Unesite težinu tereta");
+      isValid = false;
+    }
+    if (!lenght) {
+      toast.error("Unesite dužinu tereta");
+      isValid = false;
+    }
+    if (!cargoType) {
+      toast.error("Unesite vrstu tereta");
+      isValid = false;
+    }
+    if (!selectedTruckType) {
+      toast.error("Izaberite tip nadogradnje");
+      isValid = false;
+    }
+    if (!selectedTruck) {
+      toast.error("Izaberite tip vozila");
+      isValid = false;
+    }
+    if (price === "") {
+      toast.error("Unesite cenu (0 ako je cena na upit)");
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
   const handleSubmit = () => {
+    if (!validateForm()) {
+      return;
+    }
+
     const data = {
       DrzavaU: selectedLoadingCountry,
       DrzavaI: selectedUnloadingCountry,
@@ -156,156 +213,197 @@ export default function CreateOffer() {
       VrstaTereta: cargoType,
       IdPreduzeca: [localStorage.getItem("companyID")][0],
       IdKorisnika: [localStorage.getItem("id")][0],
-      ZamenaPaleta: pallets,
-      Cena: price,
+      ZamenaPaleta: pallets || "/", 
+      Cena: price === "" ? 0 : price, 
     };
-  
+
     axios
       .post(Api_url + "/api/Ponudas", data)
       .then((result) => {
         console.log("Uspesno kreirana ponuda:", result.data);
         toast.success("Ponuda uspešno kreirana!");
-        navigate("/ponude");
+        setTimeout(() => {
+          navigate("/ponude");
+        }, 2000);
       })
       .catch((error) => {
         console.error("Greška pri kreiranju ponude:", error);
         toast.error("Došlo je do greške. Pokušajte ponovo.");
       });
   };
-  
-  
+
   return (
-    
     <div className="createoffer">
-        <Toaster position="top-right" reverseOrder={false} />
-        <h3 className="title">Mesto, datum utovara i istovara</h3>
-      <div className="createoffer-loading-info">
-        <h3>Izaberite državu utovara</h3>
-        <select
-          className="country-select"
-          value={selectedLoadingCountry}
-          onChange={(e) => setSelectedLoadingCountry(e.target.value)}
-        >
-          <option value="">Država utovara</option>
-          {europeanCountries.map((country) => (
-            <option key={country.code} value={country.code}>
-              {`${country.code} - ${country.name}`}
-            </option>
-          ))}
-        </select>
-        <br/>
+      <Toaster position="top-right" reverseOrder={false} />
+      <h2 className="section-title">Mesto utovara i istovara</h2>
+      <div className="location-section">
+        <div className="country-selector">
+          <h3>Država utovara</h3>
+          <select
+            className="country-select"
+            value={selectedLoadingCountry}
+            onChange={(e) => setSelectedLoadingCountry(e.target.value)}
+            style={{textAlign:"center",color:"rgb(25,118,210)"}}
+          >
+            <option value="">Izaberite državu</option>
+            {europeanCountries.map((country) => (
+              <option key={country.code} value={country.code}>
+                {`${country.code} - ${country.name}`}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {selectedLoadingCountry && (
           <>
-            <input
-              type="text"
-              value={searchLoadingCity}
-              onChange={(e) => handleSearchCity(e, "loading")}
-              placeholder="Utovarno mesto"
-              style={{ padding: "10px", margin: "10px 0", }}
-            />
-            {searchLoadingCity && (
-              <ul className="city-list">
-                {loadingCities.map((city) => (
-                  <li
-                    key={city.name}
-                    onClick={() => handleCitySelect(city.name, "loading")}
-                    style={{listStyleType:"none", cursor:"pointer",fontSize:"1.1rem",backgroundColor:"white",width:"80%",margin:"auto"}}
-                  >
-                    {city.name}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {selectedLoadingCity && (
-              <p style={{fontSize:"1rem", color:"rgb(25,118,210)"}}>Utovar: {selectedLoadingCity}</p>
-            )}
+            <div className="country-selector">
+              <h3>Grad utovara</h3>
+              <input
+                type="text"
+                className="city-search"
+                value={searchLoadingCity}
+                onChange={(e) => handleSearchCity(e, "loading")}
+                placeholder="Unesite grad"
+              />
+              {searchLoadingCity && loadingCities.length > 0 && (
+                <ul className="city-list">
+                  {loadingCities.map((city) => (
+                    <li
+                      key={city.name}
+                      onClick={() => handleCitySelect(city.name, "loading")}
+                      style={{textAlign:"center",color:"rgb(25,118,210)"}}
+                    >
+                      {city.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {selectedLoadingCity && (
+                <p className="selected-city">Utovar: {selectedLoadingCity}</p>
+              )}
+            </div>
           </>
         )}
-        <br/>
-        <h3>Izaberite državu utovara</h3>
-        <select
-          className="country-select"
-          value={selectedUnloadingCountry}
-          onChange={(e) => setSelectedUnloadingCountry(e.target.value)}
-        >
-          <option value="">Država istovara</option>
-          {europeanCountries.map((country) => (
-            <option key={country.code} value={country.code}>
-              {`${country.code} - ${country.name}`}
-            </option>
-          ))}
-        </select>
-        <br/>
+
+        <div className="country-selector">
+          <h3>Država istovara</h3>
+          <select
+            className="country-select"
+            value={selectedUnloadingCountry}
+            onChange={(e) => setSelectedUnloadingCountry(e.target.value)}
+            style={{textAlign:"center",color:"rgb(25,118,210)"}}
+          >
+            <option value="">Izaberite državu</option>
+            {europeanCountries.map((country) => (
+              <option key={country.code} value={country.code}>
+                {`${country.code} - ${country.name}`}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {selectedUnloadingCountry && (
           <>
-            <input
-              type="text"
-              value={searchUnloadingCity}
-              onChange={(e) => handleSearchCity(e, "unloading")}
-              placeholder="Istovarno mesto"
-              style={{ padding: "10px", margin: "10px 0" }}
-            />
-            {searchUnloadingCity && (
-              <ul className="city-list">
-                {unloadingCities.map((city) => (
-                  <li
-                    key={city.name}
-                    onClick={() => handleCitySelect(city.name, "unloading")}
-                    style={{listStyleType:"none", cursor:"pointer",fontSize:"1.1rem",backgroundColor:"white",width:"80%",margin:"auto"}}
-                  >
-                    {city.name}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {selectedUnloadingCity && (
-              <p style={{fontSize:"1.1rem", color:"rgb(25,118,210)"}}>Istovar: {selectedUnloadingCity}</p>
-            )}
+            <div className="country-selector">
+              <h3>Grad istovara</h3>
+              <input
+                type="text"
+                className="city-search"
+                value={searchUnloadingCity}
+                onChange={(e) => handleSearchCity(e, "unloading")}
+                placeholder="Unesite grad"
+              />
+              {searchUnloadingCity && unloadingCities.length > 0 && (
+                <ul className="city-list">
+                  {unloadingCities.map((city) => (
+                    <li
+                      key={city.name}
+                      onClick={() => handleCitySelect(city.name, "unloading")}
+                      style={{textAlign:"center",color:"rgb(25,118,210)"}}
+                    >
+                      {city.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {selectedUnloadingCity && (
+                <p className="selected-city">Istovar: {selectedUnloadingCity}</p>
+              )}
+            </div>
           </>
         )}
       </div>
-      <div className="createoffer-loading-date">
-        <label>
-          Datum utovara:
-        </label>
-        <DatePicker
-          selected={loadingDate}
-          onChange={(date) => setLoadingDate(date)}
-          dateFormat="dd/MM/yyyy"
-          placeholderText="Datum utovara"
-          minDate={today}
-          className="datepicker"
-        />
-        <label>
-          Datum istovara:
-        </label>
-        <DatePicker
-          selected={unloadingDate}
-          onChange={(date) => setUnloadingDate(date)}
-          dateFormat="dd/MM/yyyy"
-          placeholderText="Datum utovara"
-          minDate={today}
-          className="datepicker"
-        />
-      </div>
-      <h3 className="title" style={{display:"inline-block",marginTop:"1%"}}>Podaci o teretu i vrsti vozila</h3>
-      <div className="createoffer-cargo-info">
-        <div className="createoffer-cargo-info-load">
-          <h3>Tezina tereta(t)</h3>
-          <input placeholder="pr. 24.5" onChange={handleWeightChange} type="text"></input>
-          <h3>Duzina tereta(m)</h3>
-          <input placeholder="pr. 13m" onChange={handleLengthChange} type="text"></input>
-          <h3>Vrsta tereta</h3>
-          <input placeholder="iverica" onChange={handleCargoTypeChange} type="text"></input>
-          <h3>Razmena paleta</h3>
-            <input placeholder="pr. da/ 33palete" onChange={handlePalletsChange} type="text"></input>
+      <h2 className="section-title">Datumi utovara i istovara</h2>
+      <div className="date-section">
+        <div className="date-picker-group">
+          <div className="date-picker-container">
+            <label>Datum utovara</label>
+            <DatePicker
+              selected={loadingDate}
+              onChange={(date) => setLoadingDate(date)}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Izaberite datum"
+              minDate={today}
+              className="datepicker"
+            />
           </div>
-          <div className="createoffer-cargo-info-truck">
+          <div className="date-picker-container">
+            <label>Datum istovara</label>
+            <DatePicker
+              selected={unloadingDate}
+              onChange={(date) => setUnloadingDate(date)}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Izaberite datum"
+              minDate={today}
+              className="datepicker"
+            />
+          </div>
+        </div>
+      </div>
+      <h2 className="section-title">Podaci o teretu i vozilu</h2>
+      <div className="cargo-section">
+        <div className="cargo-fields">
+          <div className="cargo-column">
+            <h3>Težina tereta (t)</h3>
+            <input 
+              type="text" 
+              placeholder="npr. 24.5" 
+              onChange={handleWeightChange} 
+              value={weight}
+            />
+            
+            <h3>Dužina tereta (m)</h3>
+            <input 
+              type="text" 
+              placeholder="npr. 13" 
+              onChange={handleLengthChange} 
+              value={lenght}
+            />
+            
+            <h3>Vrsta tereta</h3>
+            <input 
+              type="text" 
+              placeholder="npr. iverica" 
+              onChange={handleCargoTypeChange} 
+              value={cargoType}
+            />
+            
+            <h3>Razmena paleta</h3>
+            <input 
+              type="text" 
+              placeholder="npr. da / 33 palete" 
+              onChange={handlePalletsChange} 
+              value={pallets}
+            />
+          </div>
+          
+          <div className="cargo-column">
             <h3>Tip nadogradnje</h3>
-            <select value={selectedTruckType} onChange={handleSelectedTruckTypeChange}>
-              <option value="">---</option>
+            <select 
+              value={selectedTruckType} 
+              onChange={handleSelectedTruckTypeChange}
+            >
+              <option value="">Izaberite tip</option>
               <option value="Cerada">Cerada</option>
               <option value="Mega">Mega</option>
               <option value="Cisterna">Cisterna</option>
@@ -313,22 +411,38 @@ export default function CreateOffer() {
               <option value="Schuboden">Schuboden</option>
               <option value="Kiper">Kipper</option>
               <option value="Autovoz">Autovoz</option>
-              <option value="Hladnjaca">Hladnjaca</option>
-            </select>
+              <option value="Hladnjaca">Hladnjača</option>
+            </select>           
             <h3>Tip vozila</h3>
-            <select value={selectedTruck} onChange={handleSelectedTruckChange}>
-              <option value="">---</option>
+            <select 
+              value={selectedTruck} 
+              onChange={handleSelectedTruckChange}
+            >
+              <option value="">Izaberite tip</option>
               <option value="Kombi">Kombi do 3.5t</option>
               <option value="Truk7-5">Vozilo do 7.5t</option>
               <option value="Truk12-5">Vozilo do 12.5t</option>
               <option value="Sleper">Sleper</option>
               <option value="Prikolicar">Prikolicar</option>
             </select>
-            <h3>Cena prevoza(€)</h3>
-            <input placeholder="pr. 2300€" type="number" onChange={handlePriceChange}></input>
+            <h3>Cena prevoza (€)</h3>
+            <input 
+              type="number" 
+              placeholder="npr. 2300 (0 za cenu na upit)" 
+              onChange={handlePriceChange} 
+              value={price}
+            />
           </div>
+        </div>
       </div>
-        <Button variant="contained" onClick={handleSubmit} style={{marginTop:"0.5%"}}>Postavite ponudu</Button>
+
+      <Button 
+        variant="contained" 
+        onClick={handleSubmit} 
+        className="submit-button"
+      >
+        Postavite ponudu
+      </Button>
     </div>
   );
 }

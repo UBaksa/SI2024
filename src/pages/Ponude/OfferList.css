@@ -17,7 +17,8 @@
   width: 95%;
   margin: 2% auto 20rem;
   font-family: 'Roboto', sans-serif;
-  padding: 0.5%;
+  padding: 1%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .offer-list h2 {
@@ -29,6 +30,7 @@
   background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124, 189, 255, 1) 95%);
   color: white;
   font-size: 1.8rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .offer-list span {
@@ -40,6 +42,7 @@ table {
   width: 99%;
   margin: auto;
   border-collapse: collapse;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 table th, table td {
@@ -63,6 +66,7 @@ table th {
   justify-content: space-between;
   padding: 1%;
   background-color: gainsboro;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .filters label {

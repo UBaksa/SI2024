@@ -133,7 +133,7 @@ export default function OfferCard() {
         <h3>Kontakt osoba</h3>
         <div className="offer-card-route-user-info">
           <div className="offer-card-route-user-info-img">
-            <img alt="User" src={!offer.korisnik.userPicture ? "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" : offer.korisnik.userPicture} />
+            <img alt="User" src={!offer.korisnik?.profileImagePath ? "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" : offer.korisnik?.profileImagePath} />
           </div>
           <div className="offer-card-route-user-info-text">
             <h2>{offer.korisnik?.firstName} {offer.korisnik?.lastName}</h2>

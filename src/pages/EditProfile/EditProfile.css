@@ -4,12 +4,14 @@
   }
   
   .edit-profile {
-    padding: 0.5rem;
-    width: 70%;
+    padding: 1rem;
+    width: 60%;
     height: 30rem;
     margin: 2rem auto 5rem auto;
     background-color: white;
     font-family: roboto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 5%;
   }
   
   .edit-profile h2 {
@@ -20,6 +22,7 @@
     color: white;
     text-align: left;
     font-size: 1.5rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
   
   .edit-profile-info {
@@ -33,6 +36,9 @@
     font-size: 1.2rem;
     justify-content: space-between;
     gap: 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-bottom-left-radius: 3%;
+    border-bottom-right-radius: 3%;
   }
   
   .edit-profile-info h3 {

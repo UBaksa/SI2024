@@ -124,7 +124,7 @@ export default function OfferList() {
     <Link to={"/ponude/createoffer"}><Button variant="contained"color="success">Kreiraj ponudu</Button></Link>
     </div>
     <div className="offer-list">
-  <h2>Filtriranje ponuda tereta </h2>
+  <h2 style={{boxShadow:"rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;"}}>Filtriranje ponuda tereta </h2>
   <div className="filters">
     <label>
       Država Utovara:

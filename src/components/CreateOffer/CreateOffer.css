@@ -1,120 +1,199 @@
 @font-face {
     font-family: dosis;
     src: url(../../../public/fonts/Dosis-Bold.ttf);
-  }
-  @font-face {
+}
+@font-face {
     font-family: roboto;
     src: url(../../../public/fonts/Roboto-Medium.ttf);
-  }
-.createoffer{
-    width: 60%;
-    margin: auto;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    background-color: white;
-    padding: 0.5%;
-    font-family: roboto;
 }
-.createoffer input{
+
+.createoffer {
+    width: 50%;
+    max-width: 1000px;
+    margin: 2% auto;
+    padding: 2%;
+    background-color: white;
+    font-family: roboto;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.createoffer input {
+    text-align: center;
     color: rgb(25,118,210);
     font-family: roboto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-.createoffer-loading-info{
-    width: 45%;
-    height: 22rem;
-    padding-top: 2%;
-    background-color: gainsboro;
-    float: left;
-}
-.createoffer .title{
+
+.section-title {
     background: rgb(25,118,210);
     background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
-    width: 100%;
-    height: 2.5rem;
-    padding: 1%;
     color: white;
+    padding: 12px 15px;
+    border-radius: 5px;
     margin-bottom: 1%;
+    font-size: 1.2rem;
     text-align: left;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-.createoffer-loading-info select{
-    margin-top: 2%; 
-    padding: 1%; 
-    border: 1px solid #ccc; 
-    border-radius: 0.5rem;
-    background-color: white; 
-    cursor: pointer; 
-}
-.createoffer-loading-info select:focus{
-    outline: none; 
-    border-color: #1976d2; 
-    box-shadow: 0 0 4px rgba(25, 118, 210, 0.5); 
-}
-.createoffer-loading-date{
-    width: 45%;
-    height: 22rem;
-    padding-top: 2%;
+
+.location-section {
     background-color: gainsboro;
-    float: right;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
 }
-.createoffer-loading-date label{
-    color: rgb(25,118,210);
-    display: block;
-    margin-bottom: 1%;
-    font-size: 1.3rem;
-}
-.datepicker{
-    font-family: roboto;
-    margin-bottom: 50%;
-    height: 2rem;
-    width: 10rem;
-    font-size: 1rem;
-    padding: 5%;
-}
-.createoffer-cargo-info{
-    width: 100%;
-    background-color: gainsboro;
-    height: 25rem;
+
+.country-selector {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
-.createoffer-cargo-info-load{
-    width: 50%;
-    padding-top: 3%;
-}
-.createoffer-cargo-info-load h3{
+
+.country-selector h3 {
     color: rgb(25,118,210);
-    margin-bottom: 1%;
-    margin-top: 1%;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
 }
-.createoffer-cargo-info-load input{
-    height: 2rem;
-    padding: 1%;
+
+.country-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.city-search {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.city-list {
+    max-height: 150px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+}
+
+.city-list li {
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.city-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.selected-city {
+    font-size: 1rem;
     color: rgb(25,118,210);
-    font-family: roboto;
+    margin-top: 10px;
+    padding: 8px;
+    background: white;
+    border-radius: 5px;
+    display: inline-block;
 }
-.createoffer-cargo-info-truck{
-    width: 50%;
-    padding-top: 5%;
+
+.date-section {
+    background-color: gainsboro;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
 }
-.createoffer-cargo-info-truck h3{
+
+.date-picker-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.date-picker-container {
+    flex: 1;
+    min-width: 200px;
+}
+
+.date-picker-container label {
+    display: block;
     color: rgb(25,118,210);
-    margin-bottom: 1%;
-    margin-top: 1%;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
 }
-.createoffer-cargo-info-truck select{
-    height: 2rem;
-    padding: 1%;
+
+.datepicker {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.cargo-section {
+    background-color: gainsboro;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.cargo-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cargo-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+.cargo-column h3 {
     color: rgb(25,118,210);
-    font-family: roboto;
+    margin: 15px 0 8px 0;
+    font-size: 1.1rem;
 }
-.createoffer-cargo-info-truck input{
-    height: 2rem;
-    padding: 1%;
+
+.cargo-column input,
+.cargo-column select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
     color: rgb(25,118,210);
-    font-family: roboto;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    cursor: pointer;
 }
-.languageCheckboxes {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
+
+.submit-button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .createoffer {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .date-picker-group,
+    .cargo-fields {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .cargo-column {
+        min-width: 100%;
+    }
 }

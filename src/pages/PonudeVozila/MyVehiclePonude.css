@@ -12,9 +12,11 @@
   width: 95%;
   margin: auto;
   font-family: roboto;
-  padding: 0.5%;
+  padding: 1%;
   margin-top: 2%;
   margin-bottom: 20%;
+  padding: 1%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 .my-ponudaVozila h2{
     width: 99%;
@@ -25,4 +27,5 @@
     background: rgb(25,118,210);
     background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
     color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }

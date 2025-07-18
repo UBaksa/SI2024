@@ -3,11 +3,12 @@
     src: url('../../../public/fonts/Roboto-Medium.ttf');
   }
 .vehicle-offer-list{
-    background-color: white;
+  background-color: white;
   width: 95%;
   margin: 2% auto 20rem;
   font-family: 'Roboto', sans-serif;
-  padding: 0.5%;
+  padding: 1%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 .vehicle-offer-list h3{
     width: 99%;
@@ -16,6 +17,7 @@
   padding-left: 1%;
   margin-bottom: 0.5%;
   background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124, 189, 255, 1) 95%);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   color: white;
   font-size: 1.8rem;
 }

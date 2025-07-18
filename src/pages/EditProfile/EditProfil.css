@@ -3,13 +3,15 @@
     src: url(../../../public/fonts/Roboto-Medium.ttf);
 }
 .edit-profil{
-    padding: 0.5%;
+    padding: 1%;
     width: 50%;
     margin: auto;
     margin-top: 2%;
     margin-bottom: 5%;
     background-color: white;
     font-family: roboto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 2%;
 }
 .edit-profil h2{
     background: rgb(25,118,210);
@@ -19,11 +21,14 @@
     color: white;
     text-align: left;
     font-family: roboto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
 }
 .edit-profil-into h3{
     margin: auto;
     margin-top: 2%;
     color: rgb(25,118,210);
+    
 }
 .edit-profil-into input{
     width: 30%;
@@ -34,6 +39,7 @@
     cursor: pointer;
     font-family: roboto;
     background-color: gainsboro;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 
@@ -43,6 +49,10 @@
     margin: auto;
     background-color: gainsboro;
     margin-top: 3%;
+    border-radius: 2%;
+    border: none;
+    color: rgb(25,118,210);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .dropdown button {
@@ -53,6 +63,7 @@
     cursor: pointer;
     background-color: gainsboro;
     font-family: roboto;
+    color: rgb(25,118,210);
     transition: background-color 0.3s;
 }
 
@@ -68,6 +79,8 @@
     border: none;
     border-radius: 0.5rem;
     z-index: 1;
+    border: none;
+    
 }
 
 
@@ -79,6 +92,7 @@
     color: rgb(50, 50, 50);
     font-family: roboto;
     cursor: pointer;
+    border: none;
 }
 .dropdown-menu input{
     width: 1.2rem;
