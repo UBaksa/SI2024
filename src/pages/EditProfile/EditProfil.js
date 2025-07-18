@@ -19,7 +19,7 @@ export default function EditProfil() {
     password: "",
     number: "",
     languages: [],
-    
+    profileImagePath:""
   });
 
   const languages = [
@@ -63,12 +63,47 @@ const handleCheckboxChange = (e) => {
         number: data.phoneNumber || "",
         languages: data.languages || [],
         password: "",
+        profileImagePath:data.profileImagePath,
       });
       setSelectedLanguages(data.languages || []);
-      setPreview(data.userPicture || "");
+      setPreview(data.profileImagePath || "");
     })
     .catch((error) => console.error("Error fetching user data:", error));
   }, [id]);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setSelectedFile(file);
+    setPreview(URL.createObjectURL(file));
+  }
+};
+
+const handleImageUpload = async () => {
+  if (!selectedFile) return;
+
+  const formData = new FormData();
+  formData.append("profileImage", selectedFile);
+
+  try {
+    const response = await axios.put(
+      `${Api_url}/api/Auth/user/upload-image/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    alert("Profilna slika uspešno uploadovana.");
+  } catch (error) {
+    console.error("Greška pri slanju slike:", error);
+    alert("Greška pri slanju slike.");
+  }
+};
 
   const handleUpdate = async () => {
     try {
@@ -78,7 +113,8 @@ const handleCheckboxChange = (e) => {
         Email: userData.email,
         PhoneNumber: userData.number,
         Languages: selectedLanguages.join(","), 
-        Password: userData.password || null     
+        Password: userData.password || null,
+        ProfileImagePath:userData.profileImagePath,    
       };
   
       const response = await axios.put(`${Api_url}/api/Auth/user/${id}`, payload, {
@@ -105,9 +141,6 @@ const handleCheckboxChange = (e) => {
     <div className="edit-profil">
       <h2>Unesite izmene Vašeg profila</h2>
       <div className="edit-profil-into">
-        {/* <h3>Profilna slika</h3>
-        {preview && <img src={preview} alt="Profilna slika" className="profile-preview" style={{ width: "10rem", height: "10rem" }} />}<br />
-        <input type="file" accept="image/*" onChange={handleFileChange} /> */}
         <h3>Ime</h3>
         <input type="text" name="firstname" value={userData.firstname} onChange={handleChange} />
         <h3>Prezime</h3>
@@ -147,6 +180,23 @@ const handleCheckboxChange = (e) => {
           </div>
         </div>
       </div>
+      <br/>
+      <h3 style={{color:"rgb(25,118,210)"}}>Profilna slika</h3>
+      {preview && (
+        <img
+          src={preview}
+          alt="Profilna slika"
+          className="profile-preview"
+          style={{ width: "10rem", height: "10rem", objectFit: "cover", borderRadius: "50%" }}
+        />
+      )}
+      <br/>
+      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <br/>
+      <Button variant="contained" color="success" onClick={handleImageUpload} sx={{ mt: 1 }}>
+        Upload Slike
+      </Button>
+      <br/>
       <Button endIcon={<HowToRegTwoToneIcon />} sx={{ marginTop: "2%" }} variant="contained" color="primary" onClick={handleUpdate}>
         Izmenite
       </Button>

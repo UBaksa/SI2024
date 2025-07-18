@@ -49,7 +49,7 @@ export default function EditProfile() {
                 </div>
                 <div style={{textAlign:"center"}} className="edit-profile-info-mid">
                     <h3>Slika profila</h3>
-                    <img style={{width:"100%",height:"50%"}} src={userData?.userPicture || "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"} alt="User Profile" />
+                    <img src={userData?.profileImagePath || "https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png"} alt="User Profile" />
                 </div>
                 <div className="edit-profile-info-right">
                     <h3>Preduzece</h3>

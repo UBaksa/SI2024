@@ -1,0 +1,57 @@
+@font-face {
+    font-family: roboto;
+    src: url(../../../public/fonts/Roboto-Medium.ttf);
+}
+.podrska{
+    width: 60%;
+    margin: auto;
+    padding: 0.5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background-color: white;
+    font-family: roboto;
+}
+.podrska p{
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-size: 1.8rem;
+    color: rgb(25,118,210);
+}
+.podrska input {
+    width: 30%;
+    height: 2rem;
+    padding: 1%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: roboto;
+    background-color: gainsboro;
+    margin-top: 1%;
+}
+.podrska textarea{
+    width: 50%;
+    height: 5rem;
+    padding: 1%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: roboto;
+    background-color: gainsboro;
+    margin-top: 1%;
+}
+.podrska label{
+    margin: auto;
+    margin-top: 5%;
+    font-size: 1.2rem;
+    color: rgb(25,118,210);
+}
+.podrska h3{
+    background: rgb(25,118,210);
+    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124,189,255,1) 95%);
+    width: 100%;
+    padding: 0.5%;
+    color: white;
+    text-align: left;
+    font-family: roboto;
+}

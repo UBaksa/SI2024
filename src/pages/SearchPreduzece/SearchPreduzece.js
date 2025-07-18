@@ -69,18 +69,23 @@ export default function SearchPreduzece() {
     navigate(`/pretragapreduzeca/${id}`);
   };
 
-  const handleDeletePreduzece = async (id) => {
-    const confirmDelete = window.confirm("Da li ste sigurni da želite obrisati ovo preduzeće?");
-    if (confirmDelete) {
-      try {
-        await axios.delete(`${Api_url}/api/Preduzeces/${id}`);
-        setPreduzeca(preduzeca.filter((preduzece) => preduzece.id !== id));
-        setFilteredPreduzeca(filteredPreduzeca.filter((preduzece) => preduzece.id !== id));
-      } catch (error) {
-        console.error("Greška prilikom brisanja preduzeća:", error);
+ 
+const handleDeletePreduzece = async (id) => {
+  try {
+    const token = localStorage.getItem('token'); 
+    const response = await axios.delete(
+      `https://localhost:7083/api/Preduzeces/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
       }
-    }
-  };
+    );
+  } catch (error) {
+    console.error('Greška prilikom brisanja preduzeća:', error);
+  }
+};
 
   return (
     <div className="search-preduzece">

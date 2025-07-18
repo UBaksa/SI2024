@@ -16,7 +16,6 @@ export default function RegisterPreduzece() {
     const [companyPhoto, setCompanyPhoto] = useState(null);
 
     const navigate = useNavigate();
-    const { userId } = useAppContext();
 
     const europeanCountries = [
         { code: "AL", name: "Albanija" },
@@ -52,6 +51,7 @@ export default function RegisterPreduzece() {
         { code: "GB", name: "Velika Britanija" },
     ];
 
+    
     const validateInputs = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
@@ -94,7 +94,7 @@ export default function RegisterPreduzece() {
             data.append("CompanyPIB", companyPIB);
             data.append("CompanyPhone", companyPhone);
             const korisnikId = localStorage.getItem("id");
-            data.append("KorisnikIds", korisnikId)
+            data.append("KorisnikIds[0]", korisnikId);
     
     
     
@@ -152,6 +152,7 @@ export default function RegisterPreduzece() {
                 <br />
                 <label>Odaberite sliku preduzeća</label>
                 <br />
+                <input type="file" accept="image/*" onChange={(e) => setCompanyPhoto(e.target.files[0])} />
                 <br />
                 <Button sx={{ marginTop: "1%" }} variant="contained" onClick={handleSubmit}>
                     Registrujte preduzece
