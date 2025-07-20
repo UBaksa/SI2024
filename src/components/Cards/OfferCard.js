@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { useAppContext } from "../../context/AppContext";
 import { Blocks } from 'react-loader-spinner'
+import toast, { Toaster } from "react-hot-toast";
 
 const config = {
   apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X",
@@ -98,7 +99,10 @@ export default function OfferCard() {
   const handleDelete = async () => {
     try {
       await axios.delete(`${Api_url}/api/Ponudas/${offer.ponudaId}`);
-      navigate('/ponude'); 
+      toast.success("Ponuda obrisana !");
+      setTimeout(() => {
+        navigate('/ponude'); 
+      }, 2000);
     } catch (err) {
       console.error("Error deleting offer:", err);
     }
@@ -107,6 +111,8 @@ export default function OfferCard() {
   const isController = userRoles.includes("Kontroler"); 
 
   return (
+    <>
+    <Toaster position="top-right" reverseOrder={false} />
     <div style={{marginBottom:"2%"}}>
      {(mineOffer || isController) && (
       <div className="edit-button">
@@ -204,5 +210,6 @@ export default function OfferCard() {
       </div>
     </div>
     </div>
+    </>
   );
 }

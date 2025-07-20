@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Button } from "@mui/material";
 import axios from "axios";
 import { Api_url } from "../../apiurl";
-
+import { toast, Toaster } from "react-hot-toast";
 
 export default function EditVehicleOffer() {
   const { id } = useParams();
@@ -22,19 +22,16 @@ export default function EditVehicleOffer() {
   const [loadingDate, setLoadingDate] = useState(null); 
   const [unloadingDate, setUnloadingDate] = useState(null); 
   const [weight, setWeight] = useState("");
-  const [lenght, setLenght] = useState("");
+  const [length, setLength] = useState("");
   const [selectedTruck, setSelectedTruck] = useState("");
   const [selectedTruckType, setSelectedTruckType] = useState("");
-  const [selectedRadius, setSelectedRadius] = useState("");
-
+  const [radius, setRadius] = useState("");
 
   const handleWeightChange = (event) => setWeight(event.target.value);
-  const handleLengthChange = (event) => setLenght(event.target.value);
+  const handleLengthChange = (event) => setLength(event.target.value);
   const handleSelectedTruckChange = (event) => setSelectedTruck(event.target.value);
   const handleSelectedTruckTypeChange = (event) => setSelectedTruckType(event.target.value);
-  const handleRadiusChange = (event) => setSelectedRadius(event.target.value);
-
-
+  const handleRadiusChange = (event) => setRadius(event.target.value);
 
   useEffect(() => {
     const fetchOffer = async () => {
@@ -49,48 +46,128 @@ export default function EditVehicleOffer() {
         setLoadingDate(offer.utovar ? new Date(offer.utovar) : null);
         setUnloadingDate(offer.istovar ? new Date(offer.istovar) : null);
         setWeight(offer.tezina !== null ? offer.tezina.toString() : "");
-        setLenght(offer.duzina !== null ? offer.duzina.toString() : "");
+        setLength(offer.duzina !== null ? offer.duzina.toString() : "");
         setSelectedTruck(offer.tipKamiona || "");
         setSelectedTruckType(offer.tipNadogradnje || "");
-        setSelectedRadius(offer.radiusI || "");
+        setRadius(offer.radiusI || "");
       } catch (error) {
         console.error("Greška pri učitavanju ponude:", error);
+        toast.error("Došlo je do greške pri učitavanju ponude");
       }
     };
   
     fetchOffer();
   }, [id]);
-  
-  
 
-  const handleSubmit = () => {
-    const data = {
-      drzavaU: selectedLoadingCountry,
-      drzavaI: selectedUnloadingCountry,
-      mestoU: selectedLoadingCity,
-      mestoI: selectedUnloadingCity,
-      utovar: loadingDate,
-      istovar: unloadingDate,
-      duzina: parseFloat(lenght),
-      tezina: parseFloat(weight),
-      tipNadogradnje: selectedTruckType,
-      tipKamiona: selectedTruck,
-      radiusI:selectedRadius
-    };
+  const validateForm = () => {
+    let isValid = true;
 
-    axios.put(`${Api_url}/api/PonudaVozilas/${id}`, data)
-      .then(() => {
-        console.log("Offer updated successfully");
-        navigate(`/ponudevozila`);
-      })
-      .catch((error) => console.error("Error updating offer:", error));
+    if (!selectedLoadingCountry) {
+      toast.error("Izaberite državu utovara");
+      isValid = false;
+    }
+    if (!selectedUnloadingCountry) {
+      toast.error("Izaberite državu istovara");
+      isValid = false;
+    }
+    if (!selectedLoadingCity) {
+      toast.error("Izaberite grad utovara");
+      isValid = false;
+    }
+    if (!selectedUnloadingCity) {
+      toast.error("Izaberite grad istovara");
+      isValid = false;
+    }
+    if (!loadingDate) {
+      toast.error("Izaberite datum utovara");
+      isValid = false;
+    }
+    if (!unloadingDate) {
+      toast.error("Izaberite datum istovara");
+      isValid = false;
+    }
+    if (!weight) {
+      toast.error("Unesite težinu tereta");
+      isValid = false;
+    }
+    if (!length) {
+      toast.error("Unesite dužinu tereta");
+      isValid = false;
+    }
+    if (!selectedTruckType) {
+      toast.error("Izaberite tip nadogradnje");
+      isValid = false;
+    }
+    if (!selectedTruck) {
+      toast.error("Izaberite tip vozila");
+      isValid = false;
+    }
+    if (!radius) {
+      toast.error("Unesite radius isporuke");
+      isValid = false;
+    }
+
+    return isValid;
   };
 
-  const today = new Date();//tr vreme
+  const handleSubmit = () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    const formatDateForBackend = (date) => {
+      return date ? date.toISOString() : null;
+    };
+
+    const data = {
+      DrzavaU: selectedLoadingCountry,
+      DrzavaI: selectedUnloadingCountry,
+      MestoU: selectedLoadingCity,
+      MestoI: selectedUnloadingCity,
+      RadiusI: radius,
+      Utovar: formatDateForBackend(loadingDate),
+      Istovar: formatDateForBackend(unloadingDate),
+      Duzina: parseFloat(length),
+      Tezina: parseFloat(weight),
+      TipNadogradnje: selectedTruckType,
+      TipKamiona: selectedTruck
+    };
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Niste prijavljeni!");
+      navigate("/login");
+      return;
+    }
+
+    axios.put(`${Api_url}/api/PonudaVozilas/${id}`, data, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(() => {
+        toast.success("Ponuda uspešno izmenjena!");
+        setTimeout(() => {
+          navigate("/ponudevozila");
+        }, 1500);
+      })
+      .catch((error) => {
+        if (error.response?.status === 401) {
+          toast.error("Niste autorizovani za ovu akciju ili je vaša sesija istekla!");
+          navigate("/login");
+        } else {
+          console.error("Greška pri izmeni ponude:", error);
+          toast.error(error.response?.data?.message || "Došlo je do greške. Pokušajte ponovo.");
+        }
+      });
+  };
+
+  const today = new Date();
 
   const config = {
-    apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X", 
-    url: "https://api.api-ninjas.com/v1/geocoding", 
+    apiKey: "vnKDiOTm02HEdCGVxNizow==oDxWmEko8XXQko6X",
+    url: "https://api.api-ninjas.com/v1/geocoding",
   };
 
   const europeanCountries = [
@@ -155,7 +232,6 @@ export default function EditVehicleOffer() {
     }
   };
 
-  // f-ja za pretragu gradova
   const handleSearchCity = async (e, type) => {
     const value = e.target.value.toLowerCase();
     if (type === "loading") {
@@ -182,164 +258,216 @@ export default function EditVehicleOffer() {
     if (type === "loading") {
       setSelectedLoadingCity(cityName);
       setSearchLoadingCity("");
+      setLoadingCities([]);
     } else {
       setSelectedUnloadingCity(cityName);
       setSearchUnloadingCity("");
+      setUnloadingCities([]);
     }
   };
-  
-
-
 
   return (
     <div className="createoffer">
-        <h3 className="title">Mesto, datum utovara i istovara</h3>
-            <div className="createoffer-loading-info">
-              <h3 style={{color:"rgb(25,118,210)"}}>Izaberite državu utovara</h3>
-              <select
-                className="country-select"
-                value={selectedLoadingCountry}
-                onChange={(e) => setSelectedLoadingCountry(e.target.value)}
-              >
-                <option value="">Država utovara</option>
-                {europeanCountries.map((country) => (
-                  <option key={country.code} value={country.code}>
-                    {`${country.code} - ${country.name}`}
-                  </option>
-                ))}
-              </select>
-              <br/>
-      
-              {selectedLoadingCountry && (
-                <>
-                  <input
-                    type="text"
-                    value={searchLoadingCity}
-                    onChange={(e) => handleSearchCity(e, "loading")}
-                    placeholder="Utovarno mesto"
-                    style={{ padding: "10px", margin: "10px 0", }}
-                  />
-                  {searchLoadingCity && (
-                    <ul className="city-list">
-                      {loadingCities.map((city) => (
-                        <li
-                          key={city.name}
-                          onClick={() => handleCitySelect(city.name, "loading")}
-                          style={{listStyleType:"none", cursor:"pointer",fontSize:"1.1rem",backgroundColor:"white",width:"80%",margin:"auto"}}
-                        >
-                          {city.name}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {selectedLoadingCity && (
-                    <p style={{fontSize:"1rem", color:"rgb(25,118,210)"}}>Utovar: {selectedLoadingCity}</p>
-                  )}
-                </>
+      <Toaster position="top-right" reverseOrder={false} />
+      <h2 className="section-title">Mesto utovara i istovara</h2>
+      <div className="location-section">
+        <div className="country-selector">
+          <h3>Država utovara</h3>
+          <select
+            className="country-select"
+            value={selectedLoadingCountry}
+            onChange={(e) => setSelectedLoadingCountry(e.target.value)}
+          >
+            <option value="">Izaberite državu</option>
+            {europeanCountries.map((country) => (
+              <option key={country.code} value={country.code}>
+                {`${country.code} - ${country.name}`}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {selectedLoadingCountry && (
+          <>
+            <div className="country-selector">
+              <h3>Grad utovara</h3>
+              <input
+                type="text"
+                className="city-search"
+                value={searchLoadingCity}
+                onChange={(e) => handleSearchCity(e, "loading")}
+                placeholder="Unesite grad"
+              />
+              {searchLoadingCity && loadingCities.length > 0 && (
+                <ul className="city-list">
+                  {loadingCities.map((city) => (
+                    <li
+                      key={city.name}
+                      onClick={() => handleCitySelect(city.name, "loading")}
+                    >
+                      {city.name}
+                    </li>
+                  ))}
+                </ul>
               )}
-              <br/>
-              <h3 style={{color:"rgb(25,118,210)"}}>Izaberite državu utovara</h3>
-              <select
-                className="country-select"
-                value={selectedUnloadingCountry}
-                onChange={(e) => setSelectedUnloadingCountry(e.target.value)}
-              >
-                <option value="">Država istovara</option>
-                {europeanCountries.map((country) => (
-                  <option key={country.code} value={country.code}>
-                    {`${country.code} - ${country.name}`}
-                  </option>
-                ))}
-              </select>
-              <br/>
-      
-              {selectedUnloadingCountry && (
-                <>
-                  <input
-                    type="text"
-                    value={searchUnloadingCity}
-                    onChange={(e) => handleSearchCity(e, "unloading")}
-                    placeholder="Istovarno mesto"
-                    style={{ padding: "10px", margin: "10px 0" }}
-                  />
-                  {searchUnloadingCity && (
-                    <ul className="city-list">
-                      {unloadingCities.map((city) => (
-                        <li
-                          key={city.name}
-                          onClick={() => handleCitySelect(city.name, "unloading")}
-                          style={{listStyleType:"none", cursor:"pointer",fontSize:"1.1rem",backgroundColor:"white",width:"80%",margin:"auto"}}
-                        >
-                          {city.name}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {selectedUnloadingCity && (
-                    <p style={{fontSize:"1.1rem", color:"rgb(25,118,210)"}}>Istovar: {selectedUnloadingCity}</p>
-                  )}
-                </>
+              {selectedLoadingCity && (
+                <p className="selected-city">Utovar: {selectedLoadingCity}</p>
               )}
             </div>
-            <div className="createoffer-loading-date">
-              <h3 style={{color:"rgb(25,118,210)",marginBottom:"0.5rem"}}>
-                Datum utovara:
-              </h3>
-              <DatePicker
-                selected={loadingDate}
-                onChange={(date) => setLoadingDate(date)}
-                dateFormat="dd/MM/yyyy"
-                placeholderText="Datum utovara"
-                minDate={today}
-                className="datepicker"
+          </>
+        )}
+
+        <div className="country-selector">
+          <h3>Država istovara</h3>
+          <select
+            className="country-select"
+            value={selectedUnloadingCountry}
+            onChange={(e) => setSelectedUnloadingCountry(e.target.value)}
+          >
+            <option value="">Izaberite državu</option>
+            {europeanCountries.map((country) => (
+              <option key={country.code} value={country.code}>
+                {`${country.code} - ${country.name}`}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {selectedUnloadingCountry && (
+          <>
+            <div className="country-selector">
+              <h3>Grad istovara</h3>
+              <input
+                type="text"
+                className="city-search"
+                value={searchUnloadingCity}
+                onChange={(e) => handleSearchCity(e, "unloading")}
+                placeholder="Unesite grad"
               />
-              <h3 style={{color:"rgb(25,118,210)",marginBottom:"0.5rem"}}>
-                Datum istovara:
-              </h3>
-              <DatePicker
-                selected={unloadingDate}
-                onChange={(date) => setUnloadingDate(date)}
-                dateFormat="dd/MM/yyyy"
-                placeholderText="Datum utovara"
-                minDate={today}
-                className="datepicker"
-              />
+              {searchUnloadingCity && unloadingCities.length > 0 && (
+                <ul className="city-list">
+                  {unloadingCities.map((city) => (
+                    <li
+                      key={city.name}
+                      onClick={() => handleCitySelect(city.name, "unloading")}
+                    >
+                      {city.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {selectedUnloadingCity && (
+                <p className="selected-city">Istovar: {selectedUnloadingCity}</p>
+              )}
             </div>
-            <h3 className="title" style={{display:"inline-block",marginTop:"1%"}}>Podaci o teretu i vrsti vozila</h3>
-            <div className="createoffer-cargo-info">
-              <div className="createoffer-cargo-info-load">
-                <h3>Tezina tereta:</h3>
-                <input onChange={handleWeightChange} value={weight} type="text"></input>
-                <h3>Duzina tereta:</h3>
-                <input onChange={handleLengthChange} value={lenght} type="text"></input>
-                <h3>Radius istovara</h3>
-                  <input onChange={handleRadiusChange} value={selectedRadius} type="text"></input>
-                </div>
-                <div className="createoffer-cargo-info-truck">
-                  <h3>Tip nadogradnje</h3>
-                  <select value={selectedTruckType} onChange={handleSelectedTruckTypeChange}>
-                    <option value="">---</option>
-                    <option value="Cerada">Cerada</option>
-                    <option value="Mega">Mega</option>
-                    <option value="Cisterna">Cisterna</option>
-                    <option value="Platforma">Platforma</option>
-                    <option value="Schuboden">Schuboden</option>
-                    <option value="Kiper">Kipper</option>
-                    <option value="Autovoz">Autovoz</option>
-                    <option value="Hladnjaca">Hladnjaca</option>
-                  </select>
-                  <h3>Tip vozila</h3>
-                  <select value={selectedTruck} onChange={handleSelectedTruckChange}>
-                    <option value="">---</option>
-                    <option value="Kombi">Kombi do 3.5t</option>
-                    <option value="Truk7-5">Vozilo do 7.5t</option>
-                    <option value="Truk12-5">Vozilo do 12.5t</option>
-                    <option value="Sleper">Sleper</option>
-                    <option value="Prikolicar">Prikolicar</option>
-                  </select>
-                </div>
-            </div>
-            <Button variant="contained"  onClick={handleSubmit} style={{marginTop:"0.5%"}}>Izmenite ponudu</Button>
+          </>
+        )}
+
+        <div className="country-selector">
+          <h3>Radius istovara (km)</h3>
+          <input
+            type="number"
+            className="city-search"
+            value={radius}
+            onChange={handleRadiusChange}
+            placeholder="npr. 50"
+            min="0"
+          />
+        </div>
+      </div>
+
+      <h2 className="section-title">Datumi utovara i istovara</h2>
+      <div className="date-section">
+        <div className="date-picker-group">
+          <div className="date-picker-container">
+            <label>Datum utovara</label>
+            <DatePicker
+              selected={loadingDate}
+              onChange={(date) => setLoadingDate(date)}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Izaberite datum"
+              minDate={today}
+              className="datepicker"
+            />
+          </div>
+          <div className="date-picker-container">
+            <label>Datum istovara</label>
+            <DatePicker
+              selected={unloadingDate}
+              onChange={(date) => setUnloadingDate(date)}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="Izaberite datum"
+              minDate={loadingDate || today}
+              className="datepicker"
+            />
+          </div>
+        </div>
+      </div>
+
+      <h2 className="section-title">Podaci o teretu i vozilu</h2>
+      <div className="cargo-section">
+        <div className="cargo-fields">
+          <div className="cargo-column">
+            <h3>Težina tereta (t)</h3>
+            <input 
+              type="number" 
+              placeholder="npr. 24.5" 
+              onChange={handleWeightChange}
+              min="0"
+              step="0.1"
+              value={weight}
+            />
+            <h3>Dužina tereta (m)</h3>
+            <input 
+              type="number" 
+              placeholder="npr. 13.6" 
+              onChange={handleLengthChange}
+              min="0"
+              step="0.1"
+              value={length}
+            />
+          </div>
+          
+          <div className="cargo-column">
+            <h3>Tip nadogradnje</h3>
+            <select 
+              value={selectedTruckType} 
+              onChange={handleSelectedTruckTypeChange}
+            >
+              <option value="">Izaberite tip</option>
+              <option value="Cerada">Cerada</option>
+              <option value="Mega">Mega</option>
+              <option value="Cisterna">Cisterna</option>
+              <option value="Platforma">Platforma</option>
+              <option value="Schuboden">Schuboden</option>
+              <option value="Kiper">Kipper</option>
+              <option value="Autovoz">Autovoz</option>
+              <option value="Hladnjaca">Hladnjača</option>
+            </select>
+            
+            <h3>Tip vozila</h3>
+            <select 
+              value={selectedTruck} 
+              onChange={handleSelectedTruckChange}
+            >
+              <option value="">Izaberite tip</option>
+              <option value="Kombi">Kombi do 3.5t</option>
+              <option value="Truk7-5">Vozilo do 7.5t</option>
+              <option value="Truk12-5">Vozilo do 12.5t</option>
+              <option value="Sleper">Sleper</option>
+              <option value="Prikolicar">Prikolicar</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <Button 
+        variant="contained" 
+        onClick={handleSubmit} 
+        className="submit-button"
+      >
+        Sačuvaj izmene
+      </Button>
     </div>
   );
 }

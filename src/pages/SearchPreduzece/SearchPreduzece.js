@@ -69,119 +69,133 @@ export default function SearchPreduzece() {
     navigate(`/pretragapreduzeca/${id}`);
   };
 
- 
-const handleDeletePreduzece = async (id) => {
-  try {
-    const token = localStorage.getItem('token'); 
-    const response = await axios.delete(
-      `https://localhost:7083/api/Preduzeces/${id}`,
-      {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+  const handleDeletePreduzece = async (id) => {
+    try {
+      const token = localStorage.getItem('token'); 
+      const response = await axios.delete(
+        `https://localhost:7083/api/Preduzeces/${id}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
         }
-      }
-    );
-  } catch (error) {
-    console.error('Greška prilikom brisanja preduzeća:', error);
-  }
-};
+      );
+    } catch (error) {
+      console.error('Greška prilikom brisanja preduzeća:', error);
+    }
+  };
 
   return (
     <div className="search-preduzece">
       <h2>Pretraga Preduzeća</h2>
-      <div className="search-preduzece-inputs">
-        <div className="search-preduzece-left">
-        <input
-          type="text"
-          placeholder="Država"
-          name="companyState"
-          value={filter.companyState}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          placeholder="Grad"
-          name="companyCity"
-          value={filter.companyCity}
-          onChange={handleInputChange}
-        />
+      <div className="search-filters">
+        <div className="filter-group">
+          <input
+            type="text"
+            placeholder="Naziv Preduzeća"
+            name="companyName"
+            value={filter.companyName}
+            onChange={handleInputChange}
+            style={{marginBottom:"2%"}}
+          />
         </div>
-        <br />
-        <input
-          type="text"
-          placeholder="Naziv Preduzeća"
-          name="companyName"
-          value={filter.companyName}
-          onChange={handleInputChange}
-        />
-        <br />
-        <br />
-        <div className="search-preduzece-right">
-        <input
-          type="text"
-          placeholder="ID Preduzeća"
-          name="companyId"
-          value={filter.companyId}
-          onChange={handleInputChange}
-        />
-        <br />
-        <input
-          type="text"
-          placeholder="PIB"
-          name="companyPIB"
-          value={filter.companyPIB}
-          onChange={handleInputChange}
-        />
+        <div className="filter-row">
+          <div className="filter-group">
+            <input
+              type="text"
+              placeholder="Država"
+              name="companyState"
+              value={filter.companyState}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="filter-group">
+            <input
+              type="text"
+              placeholder="Grad"
+              name="companyCity"
+              value={filter.companyCity}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
+        <div className="filter-row">
+          <div className="filter-group">
+            <input
+              type="text"
+              placeholder="ID Preduzeća(samo za Kontrolere)"
+              name="companyId"
+              value={filter.companyId}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="filter-group">
+            <input
+              type="text"
+              placeholder="PIB"
+              name="companyPIB"
+              value={filter.companyPIB}
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th style={{ backgroundColor: "green" }}>Ime preduzeća </th>
-            <th style={{ backgroundColor: "rgb(25,118,210)" }}>Država</th>
-            <th style={{ backgroundColor: "rgb(25,118,210)" }}>Grad</th>
-            <th>PIB</th>
-            <th>Detalji</th>
-            {isKontroler && <th>Brisanje</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredPreduzeca.length === 0 ? (
+      <div className="table-container">
+        <table>
+          <thead>
             <tr>
-              <td colSpan="6"><div>
-                <DomainDisabledTwoToneIcon style={{fontSize:"5rem",color:"red"}}/>
-                <h3>Nema preduzeca po Vasoj pretrazi</h3>
-              </div></td>
+              <th style={{ backgroundColor: "green" }}>Ime preduzeća</th>
+              <th style={{ backgroundColor: "rgb(25,118,210)" }}>Država</th>
+              <th style={{ backgroundColor: "rgb(25,118,210)" }}>Grad</th>
+              <th>PIB</th>
+              <th></th>
+              {isKontroler && <th>Brisanje</th>}
             </tr>
-          ) : (
-            filteredPreduzeca.map((preduzece) => (
-              <tr key={preduzece.id}>
-                <td>{preduzece.companyName}</td>
-                <td>{preduzece.companyState}</td>
-                <td>{preduzece.companyCity}</td>
-                <td>{preduzece.companyPIB}</td>
-                <td>
-                  <Button variant="contained" onClick={() => handlePreduzeceClick(preduzece.id)}>
-                    Detalji
-                  </Button>
+          </thead>
+          <tbody>
+            {filteredPreduzeca.length === 0 ? (
+              <tr>
+                <td colSpan={isKontroler ? 6 : 5}>
+                  <div className="no-results">
+                    <DomainDisabledTwoToneIcon style={{ fontSize: "5rem", color: "red" }} />
+                    <h3>Nema preduzeća po Vašoj pretrazi</h3>
+                  </div>
                 </td>
-                {isKontroler && (
+              </tr>
+            ) : (
+              filteredPreduzeca.map((preduzece) => (
+                <tr key={preduzece.id}>
+                  <td>{preduzece.companyName}</td>
+                  <td>{preduzece.companyState}</td>
+                  <td>{preduzece.companyCity}</td>
+                  <td>{preduzece.companyPIB}</td>
                   <td>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => handleDeletePreduzece(preduzece.id)}
+                    <Button 
+                      variant="contained" 
+                      onClick={() => handlePreduzeceClick(preduzece.id)}
+                      style={{ backgroundColor: "rgb(25,118,210)", color: "white" }}
                     >
-                      Obriši
+                      Detalji
                     </Button>
                   </td>
-                )}
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+                  {isKontroler && (
+                    <td>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => handleDeletePreduzece(preduzece.id)}
+                      >
+                        Obriši
+                      </Button>
+                    </td>
+                  )}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

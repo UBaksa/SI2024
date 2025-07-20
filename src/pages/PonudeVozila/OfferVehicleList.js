@@ -135,10 +135,10 @@ export default function OfferVehicleList() {
     <div>
       <div className="offer-buttons">
         <Link to={"/ponudevozila/preduzeceponudevozila"}>
-          <Button variant="contained">Moje ponude</Button>
+          <Button size="large"  variant="contained">Moje ponude</Button>
         </Link>
         <Link to={"/ponudevozila/create-ponuda-vozila"}>
-          <Button variant="contained" color="success">
+          <Button size="large"  variant="contained" color="success">
             Kreiraj ponudu
           </Button>
         </Link>

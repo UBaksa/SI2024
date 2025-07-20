@@ -1,53 +1,122 @@
 @font-face {
-    font-family: roboto;
-    src: url(../../../public/fonts/Roboto-Medium.ttf);
+  font-family: roboto;
+  src: url(../../../public/fonts/Roboto-Medium.ttf);
 }
-.preduzece-details{
-    background-color: white;
-    margin: auto;
-    margin-top: 2%;
-    margin-bottom: 15%;
-    padding: 0.5%;
-    width: 80%;
-    font-family: roboto;
+
+.preduzece-details-container {
+  display: flex;
+  justify-content: center;
+  min-height: 80%;
+  padding: 1%;
+  margin-bottom: 5%;
+  margin-top: 1%;
 }
-.preduzece-details h2{
-    width: 99%;
-    margin: auto;
-    text-align: left;
-    padding-left: 1%;
-    margin-bottom: 0.5%;
-    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124, 189, 255, 1) 95%);
-    color: white;
-    font-size: 1.8rem;
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-.preduzece-details h3{
-    width: 99%;
-    margin: auto;
-    margin-top: 1%;
-    text-align: left;
-    padding-left: 1%;
-    margin-bottom: 0.5%;
-    background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124, 189, 255, 1) 95%);
-    color: white;
-    font-size: 1.8rem;
+
+.preduzece-details {
+  background-color: white;
+  width: 100%;
+  max-width: 1200px;
+  padding: 1%;
+  border-radius: 8px;
+  font-family: roboto;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-table {
-    width: 99%;
-    margin: auto;
-    border-collapse: collapse;
+
+.preduzece-details h2,
+.preduzece-details h3 {
+  width: 100%;
+  text-align: left;
+  padding: 1%;
+  background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124, 189, 255, 1) 95%);
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.details-section,
+.users-section {
+  margin-bottom: 30px;
+}
+
+.preduzece-table,
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.preduzece-table th,
+.preduzece-table td,
+.users-table th,
+.users-table td {
+  padding: 1rem 1.1rem;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+}
+
+.preduzece-table th,
+.users-table th {
+  color: white;
+  font-weight: 500;
+  width: 30%;
+}
+
+.preduzece-table td,
+.users-table td {
+  background-color: #f9f9f9;
+}
+
+.preduzece-table tr:hover td,
+.users-table tr:hover td {
+  background-color: #f0f0f0;
+}
+
+.no-users {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  border: 1px dashed #e0e0e0;
+}
+
+.no-users-icon {
+  font-size: 5rem;
+  color: red;
+  margin-bottom: 15px;
+}
+
+.no-users-text {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #555;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .preduzece-details {
+      padding: 15px;
   }
   
-  table th, table td {
-    border: 1px solid rgb(158, 158, 158);
-    padding: 8px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 1.2rem;
+  .preduzece-table th,
+  .users-table th {
+      width: 40%;
   }
   
-  table th {
-    background-color: rgb(0, 70, 141);
-    color: white;
-    font-size: 1rem;
+  .preduzece-table th,
+  .preduzece-table td,
+  .users-table th,
+  .users-table td {
+      padding: 8px 10px;
+      font-size: 0.9rem;
   }
+}

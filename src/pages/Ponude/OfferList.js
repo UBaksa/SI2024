@@ -120,8 +120,8 @@ export default function OfferList() {
   return (
     <div>
     <div className="offer-buttons">
-    <Link to={"/ponude/preduzeceponude"}><Button variant="contained">Moje ponude</Button></Link>
-    <Link to={"/ponude/createoffer"}><Button variant="contained"color="success">Kreiraj ponudu</Button></Link>
+    <Link to={"/ponude/preduzeceponude"}><Button size="large" variant="contained">Moje ponude</Button></Link>
+    <Link to={"/ponude/createoffer"}><Button size="large"  variant="contained"color="success">Kreiraj ponudu</Button></Link>
     </div>
     <div className="offer-list">
   <h2 style={{boxShadow:"rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;"}}>Filtriranje ponuda tereta </h2>

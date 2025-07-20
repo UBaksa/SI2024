@@ -1,44 +1,113 @@
-.search-preduzece{
+.search-preduzece {
     background-color: white;
-    margin: auto;
-    margin-top: 2%;
-    margin-bottom: 15%;
-    padding: 0.5%;
-    width: 80%;
-    font-family: roboto;
-    min-height: 50vh;
+    margin: 2% auto;
+    padding: 1%;
+    width: 70%;
+    margin-bottom: 10%;
+    max-width: 1200px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-.search-preduzece h2{
-    width: 99%;
-    margin: auto;
+
+.search-preduzece h2 {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
     text-align: left;
-    padding-left: 1%;
-    margin-bottom: 0.5%;
     background: linear-gradient(90deg, rgb(0, 70, 141) 51%, rgba(124, 189, 255, 1) 95%);
     color: white;
     font-size: 1.8rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-.search-preduzece-inputs{
+
+.search-filters {
+    margin-bottom: 25px;
+}
+
+.filter-row {
     display: flex;
-    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.filter-group {
+    flex: 1;
+}
+
+.search-filters input {
     width: 100%;
-    margin-bottom: 1%;
-}
-.search-preduzece-right{
-    width: 30%;
-}
-.search-preduzece-left{
-    width: 30%;
-}
-.search-preduzece-inputs input{
-    width: 15rem;
-    height: 2rem;
-    padding: 1%;
-    border: none;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     font-size: 1rem;
-    cursor: pointer;
-    font-family: roboto;
-    background-color: gainsboro;
-    margin-bottom: 1%;
-    margin-top: 1%;
+    font-family: 'Roboto', sans-serif;
+    transition: border-color 0.3s;
+    color: rgb(25, 118, 210);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.search-filters input:focus {
+    outline: none;
+    border-color: rgb(25, 118, 210);
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+th {
+    padding: 12px 15px;
+    text-align: left;
+    color: white;
+    font-weight: 500;
+}
+
+
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover td {
+    background-color: #f5f5f5;
+}
+
+.no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+}
+
+.no-results h3 {
+    margin-top: 15px;
+    color: #555;
+}
+
+button {
+    text-transform: none !important;
+}
+
+@media (max-width: 768px) {
+    .filter-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .search-preduzece {
+        width: 95%;
+        padding: 15px;
+    }
 }

@@ -57,8 +57,8 @@ export default function Navbar() {
             CarGoo
           </Link>
         </li>
-        <li>
-          Obaveštenja
+        <li><Link style={{ textDecoration: "none", color: "white" }} to={"obavestenja"}>Obaveštenja
+        </Link>
           </li>
         <li><Link style={{ textDecoration: "none", color: "white" }} to={"podrska"}>Podrška
         </Link></li>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./Podrska.css"
 import { Button } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 
 export default function Podrska() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ export default function Podrska() {
     nazivPitanja: '',
     poruka: ''
   });
-
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
   const validateForm = () => {
@@ -82,118 +83,117 @@ export default function Podrska() {
           nazivPitanja: '',
           poruka: ''
         });
+        toast.success("Pitanje podrsci uspesno poslato!")
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       } else {
         throw new Error('Greška pri slanju poruke');
       }
     } catch (error) {
       console.error('Greška:', error);
       toast.error("Doslo je do greske.");
-      
     } 
   };
 
   return (
     <>
-    <Toaster position="top-right" reverseOrder={false} />
-    <div className='podrska'>
-      <h3>Podrška</h3>
-      <p>Imate pitanje ili potrebnu podršku? Kontaktirajte nas.</p> 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="ime">Ime </label>
-          <br />
-          <input
-            type="text"
-            id="ime"
-            name="ime"
-            value={formData.ime}
-            onChange={handleInputChange}
-            placeholder="Unesite vaše ime"
-          />
-          {errors.ime && (
-            <div style={{color: 'red', fontSize: '14px'}}>{errors.ime}</div>
-          )}
+      <Toaster position="top-right" reverseOrder={false} />
+      <div className='podrska-container'>
+        <div className='podrska-card'>
+          <h3 className='podrska-title'>Podrška</h3>
+          <p className='podrska-subtitle'>Imate pitanje ili potrebnu podršku? Kontaktirajte nas.</p> 
+          
+          <form onSubmit={handleSubmit} className='podrska-form'>
+            <div className='form-group'>
+              <label htmlFor="ime" className='form-label'>Ime</label>
+              <input
+                type="text"
+                id="ime"
+                name="ime"
+                value={formData.ime}
+                onChange={handleInputChange}
+                placeholder="Unesite vaše ime"
+                className={`form-input ${errors.ime ? 'input-error' : ''}`}
+              />
+              {errors.ime && <div className='error-message'>{errors.ime}</div>}
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor="prezime" className='form-label'>Prezime</label>
+              <input
+                type="text"
+                id="prezime"
+                name="prezime"
+                value={formData.prezime}
+                onChange={handleInputChange}
+                placeholder="Unesite vaše prezime"
+                className={`form-input ${errors.prezime ? 'input-error' : ''}`}
+              />
+              {errors.prezime && <div className='error-message'>{errors.prezime}</div>}
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor="email" className='form-label'>Email adresa</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="petar.petrovic@gmail.com"
+                className={`form-input ${errors.email ? 'input-error' : ''}`}
+              />
+              {errors.email && <div className='error-message'>{errors.email}</div>}
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor="nazivPitanja" className='form-label'>Naziv pitanja</label>
+              <input
+                type="text"
+                id="nazivPitanja"
+                name="nazivPitanja"
+                value={formData.nazivPitanja}
+                onChange={handleInputChange}
+                placeholder="Kratko opišite vaše pitanje"
+                className={`form-input ${errors.nazivPitanja ? 'input-error' : ''}`}
+              />
+              {errors.nazivPitanja && <div className='error-message'>{errors.nazivPitanja}</div>}
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor="poruka" className='form-label'>Poruka</label>
+              <textarea
+                id="poruka"
+                name="poruka"
+                rows={6}
+                value={formData.poruka}
+                onChange={handleInputChange}
+                placeholder="Detaljno opišite vaše pitanje ili problem..."
+                className={`form-textarea ${errors.poruka ? 'input-error' : ''}`}
+              />
+              {errors.poruka && <div className='error-message'>{errors.poruka}</div>}
+            </div>
+
+            <div className='form-actions'>
+              <Button 
+                type='submit' 
+                variant="contained"
+                className='submit-button'
+              >
+                Pošaljite poruku
+              </Button>
+            </div>
+          </form>
+
+          <div className='contact-alternative'>
+            <p>
+              Ili nas kontaktirajte direktno na:{' '}
+              <a href="mailto:ujknaovicbakir@gmail.com" className='email-link'>ujkanovicbakir@gmail.com</a>
+            </p>
+          </div>
         </div>
-        <br />
-
-        <div>
-          <label htmlFor="prezime">Prezime </label>
-          <br />
-          <input
-            type="text"
-            id="prezime"
-            name="prezime"
-            value={formData.prezime}
-            onChange={handleInputChange}
-            placeholder="Unesite vaše prezime"
-          />
-          {errors.prezime && (
-            <div style={{color: 'red', fontSize: '14px'}}>{errors.prezime}</div>
-          )}
-        </div>
-        <br />
-
-        <div>
-          <label htmlFor="email">Email adresa </label>
-          <br />
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            placeholder="petar.petrovic@gmail.com"
-          />
-          {errors.email && (
-            <div style={{color: 'red', fontSize: '14px'}}>{errors.email}</div>
-          )}
-        </div>
-        <br />
-
-        <div>
-          <label htmlFor="nazivPitanja">Naziv pitanja </label>
-          <br />
-          <input
-            type="text"
-            id="nazivPitanja"
-            name="nazivPitanja"
-            value={formData.nazivPitanja}
-            onChange={handleInputChange}
-            placeholder="Kratko opišite vaše pitanje"
-          />
-          {errors.nazivPitanja && (
-            <div style={{color: 'red', fontSize: '14px'}}>{errors.nazivPitanja}</div>
-          )}
-        </div>
-        <br />
-
-        <div>
-          <label htmlFor="poruka">Poruka </label>
-          <br />
-          <textarea
-            id="poruka"
-            name="poruka"
-            rows={6}
-            value={formData.poruka}
-            onChange={handleInputChange}
-            placeholder="Detaljno opišite vaše pitanje ili problem..."
-          />
-          {errors.poruka && (
-            <div style={{color: 'red', fontSize: '14px'}}>{errors.poruka}</div>
-          )}
-        </div>
-        <br />
-
-        <Button type='submit' sx={{marginTop:"1%"}} variant="contained">Posaljite poruku</Button>
-      </form>
-
-      <div style={{marginTop: '20px'}}>
-        <p style={{fontSize:"1rem"}}>
-          Ili nas kontaktirajte direktno na:{' '}
-          <a href="mailto:ujknaovicbakir@gmail.com">ujkanovicbakir@gmail.com</a>
-        </p>
       </div>
-    </div>
     </>
   );
 }
