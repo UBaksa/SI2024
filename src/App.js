@@ -38,6 +38,7 @@ function App() {
           <Route path='/editprofil/:id' element={<ProtectedRoute roles={["Prevoznik", "Kontroler","Dispecer"]}><EditProfil /></ProtectedRoute>} />
           <Route path='/ponude/*' element={<ProtectedRoute roles={["Prevoznik", "Kontroler","Dispecer"]}><Ponude /></ProtectedRoute>} />
           <Route path='/ponudevozila/*' element={<ProtectedRoute roles={["Prevoznik", "Kontroler"]}><PonudeVozila /></ProtectedRoute>} />
+          <Route path='/obavestenja/*' element={<Obavestenje />} />
           <Route path='/offer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler","Dispecer"]}><OfferCard /></ProtectedRoute>} />
           <Route path='/vehicleoffer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler",]}><VehicleOffer /></ProtectedRoute>} />
           <Route path='/editvehicleoffer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler",]}><EditVehicleOffer /></ProtectedRoute>} />
