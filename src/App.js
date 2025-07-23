@@ -22,7 +22,7 @@ import VehicleOffer from './pages/PonudeVozila/VehicleOffer';
 import Podrska from './pages/Podrska/Podrska';
 import EditVehicleOffer from './pages/PonudeVozila/EditVehicleOffer';
 import Obavestenje from './pages/Obavestenja/Obavestenje';
-
+import ObavestenjeId from "./pages/Obavestenja/ObavestenjeId"
 function App() {
   return (
     <div className="App">
@@ -39,6 +39,7 @@ function App() {
           <Route path='/ponude/*' element={<ProtectedRoute roles={["Prevoznik", "Kontroler","Dispecer"]}><Ponude /></ProtectedRoute>} />
           <Route path='/ponudevozila/*' element={<ProtectedRoute roles={["Prevoznik", "Kontroler"]}><PonudeVozila /></ProtectedRoute>} />
           <Route path='/obavestenja/*' element={<Obavestenje />} />
+          <Route path='/obavestenje/:id' element={<ObavestenjeId />} />
           <Route path='/offer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler","Dispecer"]}><OfferCard /></ProtectedRoute>} />
           <Route path='/vehicleoffer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler",]}><VehicleOffer /></ProtectedRoute>} />
           <Route path='/editvehicleoffer/:id' element={<ProtectedRoute roles={["Prevoznik","Kontroler",]}><EditVehicleOffer /></ProtectedRoute>} />
