@@ -123,13 +123,16 @@ export default function OfferVehicleList() {
     return null;
   };
 
-  if (loading) {
-    return <Blocks visible={true} height="80" width="80" />;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+    height="300"
+    width="300"
+    color="#4fa94d"
+    ariaLabel="blocks-loading"
+    wrapperStyle={{}}
+    wrapperClass="blocks-wrapper"
+    visible={true}
+    /></div>;
+  if (error) return <p>Greska: {error}</p>;
 
   return (
     <div>

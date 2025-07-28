@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, Button, Spinner } from 'react-bootstrap';
+import { Card, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { Blocks } from 'react-loader-spinner'
+import { Button } from "@mui/material";
 import './ObavestenjeList.css';
 
 const ObavestenjeList = () => {
@@ -43,19 +45,16 @@ const ObavestenjeList = () => {
     setCurrentIndex(index);
   };
 
-  if (loading) {
-    return (
-      <div className="d-flex justify-content-center my-5">
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </div>
-    );
-  }
-
-  if (error) {
-    return <div className="alert alert-danger mx-3">Error: {error}</div>;
-  }
+  if (loading) return <div style={{margin:"auto",marginBottom:"18%"}}><Blocks
+      height="300"
+      width="300"
+      color="#4fa94d"
+      ariaLabel="blocks-loading"
+      wrapperStyle={{}}
+      wrapperClass="blocks-wrapper"
+      visible={true}
+      /></div>;
+    if (error) return <p>Greska: {error}</p>;
 
   if (notifications.length === 0) {
     return <div className="alert alert-info mx-3">No notifications available</div>;
@@ -87,15 +86,15 @@ const ObavestenjeList = () => {
                     />
                   )}
                   <Card.Body>
-                    <Card.Title>{notification.naziv}</Card.Title>
-                    <Card.Text>
+                    <Card.Title style={{color:"rgb(25,118,210)",fontSize:"1.2rem"}}>{notification.naziv}</Card.Title>
+                    <Card.Text style={{fontSize:"1rem"}}>
                       {notification.sadrzaj.length > 100 
                         ? `${notification.sadrzaj.substring(0, 100)}...` 
                         : notification.sadrzaj}
                     </Card.Text>
                     <Button 
-                      variant="primary" 
                       onClick={() => navigate(`/obavestenje/${notification.id}`)}
+                      variant="contained"
                     >
                       Pročitaj više
                     </Button>
